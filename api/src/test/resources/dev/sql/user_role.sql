@@ -41,6 +41,7 @@ LOCK TABLES `user_role` WRITE;
 INSERT INTO `user_role` VALUES (1,1);
 INSERT INTO `user_role` VALUES (2,2);
 INSERT INTO `user_role` VALUES (3,3);
+INSERT INTO `user_role` VALUES (4,4);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

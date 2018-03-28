@@ -9,9 +9,6 @@ export function isValidateURL(url) {
 }
 
 /**
-      if (this.hasPermission('role:update')) {
-        this.getAllRole()
-      }
  * 小写字母
  * @param str
  * @returns {boolean}
@@ -49,4 +46,14 @@ export function isValidateAlphabets(str) {
 export function isValidateEmail(email) {
   const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return reg.test(email)
+}
+
+/**
+ * 角色名
+ * @param roleName
+ * @returns {boolean}
+ */
+export function isValidateRoleName(roleName) {
+  const reg = /^ROLE_[A-Z]+$/
+  return reg.test(roleName)
 }

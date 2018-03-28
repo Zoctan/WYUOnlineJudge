@@ -16,31 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `role`
+-- Table structure for table `admin_problem`
 --
 
-DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `user_code`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `role` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色Id',
-  `name` varchar(64) DEFAULT NULL COMMENT '角色名称',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+CREATE TABLE `user_code` (
+  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户Id',
+  `code_id` bigint(20) unsigned NOT NULL COMMENT '代码Id',
+  PRIMARY KEY (`user_id`,`code_id`),
+  KEY `code_id` (`code_id`),
+  CONSTRAINT `user_code_fk_1` FOREIGN KEY (`code_id`) REFERENCES `code` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_code_fk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户代码表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `role`
+-- Dumping data for table `admin_problem`
 --
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'ROLE_ADMIN');
-INSERT INTO `role` VALUES (2,'ROLE_USER');
-INSERT INTO `role` VALUES (3,'ROLE_TEST');
-INSERT INTO `role` VALUES (4,'ROLE_SPONSOR');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+LOCK TABLES `user_code` WRITE;
+/*!40000 ALTER TABLE `user_code` DISABLE KEYS */;
+INSERT INTO `user_code` VALUES (1,1);
+INSERT INTO `user_code` VALUES (2,2);
+INSERT INTO `user_code` VALUES (3,3);
+INSERT INTO `user_code` VALUES (4,4);
+/*!40000 ALTER TABLE `user_code` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-16 20:28:17
+-- Dump completed on 2018-02-16 19:26:13

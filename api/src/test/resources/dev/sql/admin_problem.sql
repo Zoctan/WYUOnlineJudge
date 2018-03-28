@@ -16,31 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `role`
+-- Table structure for table `admin_problem`
 --
 
-DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `admin_problem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `role` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色Id',
-  `name` varchar(64) DEFAULT NULL COMMENT '角色名称',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+CREATE TABLE `admin_problem` (
+  `user_id` bigint(20) unsigned NOT NULL COMMENT '出题者Id',
+  `problem_id` bigint(20) unsigned NOT NULL COMMENT '题目Id',
+  PRIMARY KEY (`user_id`,`problem_id`),
+  KEY `problem_id` (`problem_id`),
+  CONSTRAINT `admin_problem_fk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `admin_problem_fk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='出题者题目表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `role`
+-- Dumping data for table `admin_problem`
 --
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'ROLE_ADMIN');
-INSERT INTO `role` VALUES (2,'ROLE_USER');
-INSERT INTO `role` VALUES (3,'ROLE_TEST');
-INSERT INTO `role` VALUES (4,'ROLE_SPONSOR');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+LOCK TABLES `admin_problem` WRITE;
+/*!40000 ALTER TABLE `admin_problem` DISABLE KEYS */;
+INSERT INTO `admin_problem` VALUES (1,1);
+INSERT INTO `admin_problem` VALUES (1,2);
+INSERT INTO `admin_problem` VALUES (4,3);
+INSERT INTO `admin_problem` VALUES (4,4);
+/*!40000 ALTER TABLE `admin_problem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-16 20:28:17
+-- Dump completed on 2018-02-16 19:26:13

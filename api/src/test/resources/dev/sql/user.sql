@@ -34,7 +34,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ix_user_username` (`username`),
   UNIQUE KEY `ix_user_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'user@qq.com','user','$2a$10$WbjpHk2CQTgKhmuyWUhfVuwI.s1cdECCTsfen8KHIyFbYDnZy2DUm','https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif','A normal user','2018-02-02 00:00:00','2018-02-02 00:00:00');
 INSERT INTO `user` VALUES (2,'admin@qq.com','admin','$2a$10$ItmuMLR4wUb5jjkBzg/CwuQADK7d9qbU725e.KyT/lLJEZeykDL62','https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif','IT','2018-02-01 00:00:00','2018-02-01 00:00:00');
 INSERT INTO `user` VALUES (3,'test@qq.com','test','$2a$10$.0gBYBHAtdkxUUQNg3kII.fqGOngF4BLe8JavthZFalt2QIXHlrhm','https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif','To Test','2018-02-03 00:00:00','2018-02-03 00:00:00');
+INSERT INTO `user` VALUES (4,'sponsor@qq.com','sponsor','$2a$10$wGcb2PPhZhkS5wshXbkSA.p4zoWQ3/VlZfQeTZdnEBi4dB3uEsCee','https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif','To Sponsor a contest','2018-02-04 00:00:00','2018-02-04 00:00:00');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

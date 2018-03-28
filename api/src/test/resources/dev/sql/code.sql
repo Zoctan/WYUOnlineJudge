@@ -16,31 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `role`
+-- Table structure for table `code`
 --
 
-DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `code`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `role` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色Id',
-  `name` varchar(64) DEFAULT NULL COMMENT '角色名称',
+CREATE TABLE `code` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '代码Id',
+  `problem_id` bigint(20) unsigned NOT NULL COMMENT '题目Id',
+  `code` text NOT NULL COMMENT 'Base64压缩代码',
+  `status`tinyint(1) DEFAULT NULL COMMENT '通过状态',
+  `language` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '语言',
+  `time_used` float NOT NULL COMMENT '消耗时间',
+  `memory_used` float NOT NULL COMMENT '消耗内存',
+  `submit_time` datetime DEFAULT NULL COMMENT '提交时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+  CONSTRAINT `code_fk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户代码提交表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `role`
+-- Dumping data for table `code`
 --
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'ROLE_ADMIN');
-INSERT INTO `role` VALUES (2,'ROLE_USER');
-INSERT INTO `role` VALUES (3,'ROLE_TEST');
-INSERT INTO `role` VALUES (4,'ROLE_SPONSOR');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+LOCK TABLES `code` WRITE;
+/*!40000 ALTER TABLE `code` DISABLE KEYS */;
+INSERT INTO `code` VALUES (1, 1,'dGVzdDE=', 1, 'Java', 130, 22640, '2018-01-02 12:33:54');
+INSERT INTO `code` VALUES (2, 2,'dGVzdDI=', 2, 'Python', 45, 172856, '2018-02-01 10:54:11');
+INSERT INTO `code` VALUES (3, 3,'dGVzdDM=', 3, 'C++', 3, 1725, '2018-03-06 01:28:42');
+INSERT INTO `code` VALUES (4, 4,'dGVzdDQ=', 4, 'C', 2, 1992, '2018-04-08 13:14:21');
+/*!40000 ALTER TABLE `code` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

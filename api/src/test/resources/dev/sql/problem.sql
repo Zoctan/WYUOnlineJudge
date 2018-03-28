@@ -16,31 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `role`
+-- Table structure for table `problem`
 --
 
-DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `problem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `role` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色Id',
-  `name` varchar(64) DEFAULT NULL COMMENT '角色名称',
+CREATE TABLE `problem` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '题目Id',
+  `title` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '标题',
+  `description` text NOT NULL COMMENT '描述',
+  `level` smallint(6) NOT NULL COMMENT '难易度',
+  `tags` varchar(256) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '标签',
+  `accepted` bigint(20) unsigned DEFAULT 0 COMMENT '通过数',
+  `submitted` bigint(20) unsigned DEFAULT 0 COMMENT '提交数',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+  UNIQUE KEY `ix_problem_title` (`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='题目表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `role`
+-- Dumping data for table `problem`
 --
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'ROLE_ADMIN');
-INSERT INTO `role` VALUES (2,'ROLE_USER');
-INSERT INTO `role` VALUES (3,'ROLE_TEST');
-INSERT INTO `role` VALUES (4,'ROLE_SPONSOR');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+LOCK TABLES `problem` WRITE;
+/*!40000 ALTER TABLE `problem` DISABLE KEYS */;
+INSERT INTO `problem` VALUES (1,'a', 'aaa', 1, 'a b c c', 12, 15);
+INSERT INTO `problem` VALUES (2,'b', 'bbb', 2, 'd e f', 40, 99);
+INSERT INTO `problem` VALUES (3,'c', 'ccc', 3, 'k l p', 1000, 12948);
+/*!40000 ALTER TABLE `problem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

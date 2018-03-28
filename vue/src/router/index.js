@@ -41,5 +41,45 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+  {
+    path: '/role',
+    component: Layout,
+    redirect: '/role/index',
+    icon: 'permission',
+    noDropDown: true,
+    children: [{
+      path: 'index',
+      name: 'Role',
+      component: _import('role/index'),
+      meta: { permission: ['role:list'] }
+    }]
+  },
+
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/index',
+    icon: 'username',
+    noDropDown: true,
+    children: [{
+      path: 'index',
+      name: 'User',
+      component: _import('user/index'),
+      meta: { permission: ['user:list'] }
+    }]
+  },
+
+  {
+    path: '/user/center',
+    component: Layout,
+    redirect: '/user/center/index',
+    hidden: true,
+    children: [{
+      path: 'index',
+      name: 'UserCenter',
+      component: _import('userCenter/index')
+    }]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]

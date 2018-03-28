@@ -50,7 +50,12 @@ class CodeGenerator {
         if (scanner.next().equals("y")) {
             overwrite = true;
         }
-        genCode("表名");
+        genCode("admin_contest");
+        genCode("admin_problem");
+        genCode("code");
+        genCode("contest");
+        genCode("problem");
+        genCode("user_code");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

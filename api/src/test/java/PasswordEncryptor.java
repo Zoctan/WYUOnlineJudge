@@ -18,5 +18,7 @@ public class PasswordEncryptor {
         System.err.println("admin123 password = " + this.passwordEncoder.encode("admin123"));
         System.err.println("user123 password = " + this.passwordEncoder.encode("user123"));
         System.err.println("test123 password = " + this.passwordEncoder.encode("test123"));
+        System.err.println("123456 password = " + this.passwordEncoder.encode("123456"));
+        System.err.println("sponsor123 password = " + this.passwordEncoder.encode("sponsor123"));
     }
 }
