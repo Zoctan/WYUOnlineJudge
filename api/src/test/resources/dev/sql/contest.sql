@@ -28,9 +28,9 @@ CREATE TABLE `contest` (
   `description` text NOT NULL COMMENT '描述',
   `start_time` datetime NOT NULL COMMENT '开始时间',
   `end_time` datetime NOT NULL COMMENT '结束时间',
-  `join` tinyint(1) DEFAULT 1 COMMENT '是否允许加入：0否 | 1是',
-  `status` tinyint(1) DEFAULT 0 COMMENT '状态：0未开始 | 1已开始 | 2已结束',
-  `password` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '密码',
+  `permitted` tinyint(1) DEFAULT 1 COMMENT '是否允许加入：0否 | 1是',
+  `status` smallint(1) DEFAULT 0 COMMENT '状态：0未开始 | 1已开始 | 2已结束',
+  `password` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '密码',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ix_contest_title` (`title`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='比赛表';

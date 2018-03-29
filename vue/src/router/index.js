@@ -27,9 +27,33 @@ export const constantRouterMap = [
     noDropDown: true,
     children: [{
       path: 'dashboard',
-      name: 'Dashboard',
+      name: '主页',
       component: _import('dashboard/index'),
       meta: { title: 'dashboard', noCache: true }
+    }]
+  },
+  {
+    path: '/problem',
+    component: Layout,
+    redirect: '/problem/index',
+    icon: 'permission',
+    name: '题目',
+    children: [{
+      path: 'index',
+      name: '题目列表',
+      component: _import('problem/index')
+    }]
+  },
+  {
+    path: '/contest',
+    component: Layout,
+    redirect: '/contest/index',
+    icon: 'permission',
+    name: '比赛',
+    children: [{
+      path: 'index',
+      name: '比赛列表',
+      component: _import('contest/index')
     }]
   }
 ]
@@ -41,45 +65,5 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path: '/role',
-    component: Layout,
-    redirect: '/role/index',
-    icon: 'permission',
-    noDropDown: true,
-    children: [{
-      path: 'index',
-      name: 'Role',
-      component: _import('role/index'),
-      meta: { permission: ['role:list'] }
-    }]
-  },
-
-  {
-    path: '/user',
-    component: Layout,
-    redirect: '/user/index',
-    icon: 'username',
-    noDropDown: true,
-    children: [{
-      path: 'index',
-      name: 'User',
-      component: _import('user/index'),
-      meta: { permission: ['user:list'] }
-    }]
-  },
-
-  {
-    path: '/user/center',
-    component: Layout,
-    redirect: '/user/center/index',
-    hidden: true,
-    children: [{
-      path: 'index',
-      name: 'UserCenter',
-      component: _import('userCenter/index')
-    }]
-  },
-
   { path: '*', redirect: '/404', hidden: true }
 ]

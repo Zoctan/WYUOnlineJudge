@@ -8,8 +8,8 @@ const user = {
     email: null,
     username: null,
     avatar: null,
-    lastLoginTime: -1,
-    registerTime: -1,
+    lastLoginTime: 0,
+    registerTime: 0,
     resume: null,
     roleName: null,
     permissionCodeList: []
@@ -45,6 +45,26 @@ const user = {
   },
 
   actions: {
+    // 设置匿名用户
+    Anonymous({ commit }) {
+      return new Promise((resolve) => {
+        const user = {
+          token: getToken(),
+          userId: -1,
+          email: null,
+          username: 'Anonymous',
+          avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+          lastLoginTime: 0,
+          registerTime: 0,
+          resume: 'Null',
+          roleName: 'ROLE_ANONYMOUS',
+          permissionCodeList: []
+        }
+        commit('SET_TOKEN', null)
+        commit('SET_USER', user)
+        resolve(user)
+      })
+    },
     // 登录
     Login({ commit }, loginForm) {
       return new Promise((resolve, reject) => {

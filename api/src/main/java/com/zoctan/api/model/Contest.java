@@ -31,12 +31,12 @@ public class Contest {
     /**
      * 是否允许加入：0否 | 1是
      */
-    private Boolean join;
+    private Boolean permitted;
 
     /**
      * 状态：0未开始 | 1已开始 | 2已结束
      */
-    private Boolean status;
+    private Short status;
 
     /**
      * 密码
@@ -123,19 +123,19 @@ public class Contest {
     /**
      * 获取是否允许加入：0否 | 1是
      *
-     * @return join - 是否允许加入：0否 | 1是
+     * @return permitted - 是否允许加入：0否 | 1是
      */
-    public Boolean getJoin() {
-        return join;
+    public Boolean getPermitted() {
+        return permitted;
     }
 
     /**
      * 设置是否允许加入：0否 | 1是
      *
-     * @param join 是否允许加入：0否 | 1是
+     * @param permitted 是否允许加入：0否 | 1是
      */
-    public void setJoin(Boolean join) {
-        this.join = join;
+    public void setPermitted(Boolean permitted) {
+        this.permitted = permitted;
     }
 
     /**
@@ -143,7 +143,7 @@ public class Contest {
      *
      * @return status - 状态：0未开始 | 1已开始 | 2已结束
      */
-    public Boolean getStatus() {
+    public Short getStatus() {
         return status;
     }
 
@@ -152,7 +152,7 @@ public class Contest {
      *
      * @param status 状态：0未开始 | 1已开始 | 2已结束
      */
-    public void setStatus(Boolean status) {
+    public void setStatus(Short status) {
         this.status = status;
     }
 

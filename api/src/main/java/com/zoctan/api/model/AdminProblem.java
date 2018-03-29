@@ -1,13 +1,14 @@
 package com.zoctan.api.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "admin_problem")
 public class AdminProblem {
     /**
      * 出题者Id
      */
-    @Id
     @Column(name = "user_id")
     private Long userId;
 
@@ -24,7 +25,7 @@ public class AdminProblem {
      * @return user_id - 出题者Id
      */
     public Long getUserId() {
-        return userId;
+        return this.userId;
     }
 
     /**
@@ -32,7 +33,7 @@ public class AdminProblem {
      *
      * @param userId 出题者Id
      */
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 
@@ -42,7 +43,7 @@ public class AdminProblem {
      * @return problem_id - 题目Id
      */
     public Long getProblemId() {
-        return problemId;
+        return this.problemId;
     }
 
     /**
@@ -50,7 +51,7 @@ public class AdminProblem {
      *
      * @param problemId 题目Id
      */
-    public void setProblemId(Long problemId) {
+    public void setProblemId(final Long problemId) {
         this.problemId = problemId;
     }
 }

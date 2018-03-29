@@ -8,7 +8,7 @@ import '@/icons' // icon
 import '@/permission' // 权限
 import { default as request } from './utils/request'
 import { hasPermission } from './utils/hasPermission'
-import lang from 'element-ui/lib/locale/lang/en'
+import lang from 'element-ui/lib/locale/lang/zh-CN'
 import locale from 'element-ui/lib/locale'
 
 // 设置语言

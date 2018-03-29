@@ -1,6 +1,8 @@
 package com.zoctan.api.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "user_code")
 public class UserCode {
@@ -14,7 +16,6 @@ public class UserCode {
     /**
      * 代码Id
      */
-    @Id
     @Column(name = "code_id")
     private Long codeId;
 
@@ -24,7 +25,7 @@ public class UserCode {
      * @return user_id - 用户Id
      */
     public Long getUserId() {
-        return userId;
+        return this.userId;
     }
 
     /**
@@ -32,7 +33,7 @@ public class UserCode {
      *
      * @param userId 用户Id
      */
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 
@@ -42,7 +43,7 @@ public class UserCode {
      * @return code_id - 代码Id
      */
     public Long getCodeId() {
-        return codeId;
+        return this.codeId;
     }
 
     /**
@@ -50,7 +51,7 @@ public class UserCode {
      *
      * @param codeId 代码Id
      */
-    public void setCodeId(Long codeId) {
+    public void setCodeId(final Long codeId) {
         this.codeId = codeId;
     }
 }
