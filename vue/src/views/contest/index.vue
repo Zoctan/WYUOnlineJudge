@@ -63,7 +63,7 @@
     },
     data() {
       return {
-        contestList: [], // 角色列表
+        contestList: [], // 比赛列表
         listLoading: false, // 数据加载等待动画
         total: 0, // 数据总数
         listQuery: {
@@ -81,7 +81,7 @@
         // 查询列表
         this.listLoading = true
         getContestList(this.listQuery).then(response => {
-          this.problemList = response.data.list
+          this.contestList = response.data.list
           this.total = response.data.total
           this.listLoading = false
         })
@@ -94,12 +94,12 @@
       handleCurrentChange(page) {
         // 改变页码
         this.listQuery.page = page
-        this.getProblemList()
+        this.getContestList()
       },
       handleFilter() {
         // 查询事件
         this.listQuery.page = 1
-        this.getProblemList()
+        this.getContestList()
       },
       getIndex(index) {
         // 表格序号

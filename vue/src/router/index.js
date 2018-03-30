@@ -65,5 +65,15 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/index',
+    hidden: true,
+    children: [{
+      path: 'index',
+      name: '用户信息',
+      component: _import('user/index')
+    }]
+  }
 ]

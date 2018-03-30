@@ -11,7 +11,7 @@
           <span v-text="getIndex(scope.$index)"></span>
         </template>
       </el-table-column>
-      <el-table-column label="标题"
+      <el-table-column label="题目"
                        align="center"
                        prop="title" />
       <el-table-column label="标签"
@@ -55,7 +55,7 @@
     },
     data() {
       return {
-        problemList: [], // 角色列表
+        problemList: [], // 题目列表
         listLoading: false, // 数据加载等待动画
         total: 0, // 数据总数
         listQuery: {

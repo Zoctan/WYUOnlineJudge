@@ -49,14 +49,13 @@ const user = {
     Anonymous({ commit }) {
       return new Promise((resolve) => {
         const user = {
-          token: getToken(),
-          userId: -1,
+          id: -1,
           email: null,
-          username: 'Anonymous',
-          avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+          username: '游客',
+          avatar: 'static/img/default.gif',
           lastLoginTime: 0,
           registerTime: 0,
-          resume: 'Null',
+          resume: null,
           roleName: 'ROLE_ANONYMOUS',
           permissionCodeList: []
         }

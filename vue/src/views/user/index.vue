@@ -8,63 +8,68 @@
       <div style="text-align: center; width: 65vw; margin-bottom: 12px">
         <img :width="size" :height="size" :src="user.avatar" style="border-radius: 10px; margin: 0 auto;" />
       </div>
-      <el-row :gutter="18">
-        <el-col :span="9">
-          <el-form-item label="Username"
-                        prop="username">
-            <el-input v-model="tmpUser.username" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="9">
-          <el-form-item label="Email"
-                        prop="email">
-            <el-input v-model="tmpUser.email" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row :gutter="18">
-        <el-col :span="9">
-          <el-form-item label="Register Time">
-            <el-input :value="unix2CurrentTime(user.registerTime)" readonly="readonly" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="9">
-          <el-form-item label="Last Login Time">
-            <el-input :value="unix2CurrentTime(user.lastLoginTime)" readonly="readonly" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row :gutter="18">
-        <el-col :span="18">
-          <el-form-item label="Resume"
-                        prop="resume">
-            <el-input type="textarea"
-                      :autosize="{ minRows: 3, maxRows: 6}"
-                      v-model="tmpUser.resume" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-form-item>
+      <div v-if="token === null" style="text-align: center; width: 65vw; margin-bottom: 12px">
+        <span>{{ user.username }}</span>
+      </div>
+      <div v-else>
         <el-row :gutter="18">
-          <el-col :span="6">
-            <el-button type="success"
-                       :loading="btnLoading"
-                       @click="regainUserInfo">regain info</el-button>
+          <el-col :span="9">
+            <el-form-item label="用户名"
+                          prop="username">
+              <el-input v-model="tmpUser.username" />
+            </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-button type="primary"
-                       :loading="btnLoading"
-                       @click="updateInfo">update</el-button>
-          </el-col>
-          <el-col :span="6">
-            <el-button type="danger"
-                       @click="showUpdatePassword">update password</el-button>
+          <el-col :span="9">
+            <el-form-item label="邮箱"
+                          prop="email">
+              <el-input v-model="tmpUser.email" />
+            </el-form-item>
           </el-col>
         </el-row>
-      </el-form-item>
+        <el-row :gutter="18">
+          <el-col :span="9">
+            <el-form-item label="注册时间">
+              <el-input :value="unix2CurrentTime(user.registerTime)" readonly="readonly" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="9">
+            <el-form-item label="最后登陆时间">
+              <el-input :value="unix2CurrentTime(user.lastLoginTime)" readonly="readonly" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="18">
+          <el-col :span="18">
+            <el-form-item label="简介"
+                          prop="resume">
+              <el-input type="textarea"
+                        :autosize="{ minRows: 3, maxRows: 6}"
+                        v-model="tmpUser.resume" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item>
+          <el-row :gutter="18">
+            <el-col :span="6">
+              <el-button type="success"
+                         :loading="btnLoading"
+                         @click="regainUserInfo">重新获取信息</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button type="primary"
+                         :loading="btnLoading"
+                         @click="updateInfo">修改信息</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button type="danger"
+                         @click="showUpdatePassword">修改密码</el-button>
+            </el-col>
+          </el-row>
+        </el-form-item>
+      </div>
     </el-form>
 
-    <el-dialog title="Update Password"
+    <el-dialog title="修改密码"
                :visible.sync="dialogFormVisible">
       <el-form class="small-space"
                :model="tmpPassword"
@@ -74,38 +79,38 @@
                label-position="left"
                label-width="115px"
                style='width: 400px; margin-left:50px;'>
-        <el-form-item label="Old Password"
+        <el-form-item label="旧密码"
                       prop="oldPassword" required>
           <el-input type="password"
                     prefix-icon="el-icon-edit"
                     auto-complete="off"
-                    placeholder="please input old password"
+                    placeholder="请输入旧密码"
                     v-model="tmpPassword.oldPassword" />
         </el-form-item>
-        <el-form-item label="New Password"
+        <el-form-item label="新密码"
                       prop="newPassword" required>
           <el-input type="password"
                     prefix-icon="el-icon-edit"
                     auto-complete="off"
-                    placeholder="please input new password"
+                    placeholder="请输入新密码"
                     v-model="tmpPassword.newPassword" />
         </el-form-item>
-        <el-form-item label="New Password"
+        <el-form-item label="新密码"
                       prop="newPassword2" required>
           <el-input type="password"
                     prefix-icon="el-icon-edit"
                     auto-complete="off"
-                    placeholder="please input new password again"
+                    placeholder="请再次输入新密码"
                     v-model="tmpPassword.newPassword2" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">cancel</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
         <el-button type="danger"
-                   @click="resetForm('tmpPassword')">reset</el-button>
+                   @click="resetForm('tmpPassword')">重置</el-button>
         <el-button type="primary"
                    :loading="btnLoading"
-                   @click.native.prevent="updatePassword">update</el-button>
+                   @click.native.prevent="updatePassword">修改</el-button>
       </div>
     </el-dialog>
   </div>
@@ -117,7 +122,7 @@
   import { unix2CurrentTime } from '@/utils/date'
   import { isValidateEmail } from '@/utils/validate'
   import { setToken } from '@/utils/token'
-  import { mapState } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
 
   export default {
     created() {
@@ -126,12 +131,12 @@
     data() {
       const validateOldPassword = (rule, value, callback) => {
         if (value.length < 6) {
-          callback(new Error('password must be 6 or more characters'))
+          callback(new Error('旧密码长度必须大于等于6'))
         }
         // promise异步查询后端密码
         this.validateOldPassword(value).then(isValidate => {
           if (!isValidate) {
-            callback(new Error('old password not right'))
+            callback(new Error('旧密码错误'))
           } else {
             callback()
           }
@@ -139,32 +144,32 @@
       }
       const validateNewPassword = (rule, value, callback) => {
         if (value.length < 6) {
-          callback(new Error('password must be 6 or more characters'))
+          callback(new Error('新密码长度必须大于等于6'))
         } else if (this.isOldNewPasswordSame()) {
-          callback(new Error('old and new password must be different'))
+          callback(new Error('新旧密码不能相同'))
         } else {
           callback()
         }
       }
       const validateNewPassword2 = (rule, value, callback) => {
         if (value.length < 6) {
-          callback(new Error('password must be 6 or more characters'))
+          callback(new Error('新密码长度必须大于等于6'))
         } else if (!this.isNewPasswordSame()) {
-          callback(new Error('two password are different'))
+          callback(new Error('两次密码不相同'))
         } else {
           callback()
         }
       }
       const validateUsername = (rule, value, callback) => {
         if (value.length < 3) {
-          callback(new Error('username must be 3 or more characters'))
+          callback(new Error('用户名长度必须大于等于3'))
         } else {
           callback()
         }
       }
       const validateEmail = (rule, value, callback) => {
         if (!isValidateEmail(value)) {
-          callback(new Error('email format error'))
+          callback(new Error('邮箱格式不正确'))
         } else {
           callback()
         }
@@ -197,6 +202,9 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'token'
+      ]),
       ...mapState({
         user: state => state.user
       })
@@ -241,7 +249,7 @@
       update(user) {
         this.btnLoading = true
         updateUser(user).then(response => {
-          this.$message.success('update success')
+          this.$message.success('修改成功')
           this.resetToken(response.data)
           this.regainUserInfo()
           this.btnLoading = false
