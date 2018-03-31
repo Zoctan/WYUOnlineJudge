@@ -3,10 +3,10 @@
     <el-table :data="contestList"
               v-loading.body="listLoading"
               element-loading-text="loading"
-              border fit highlight-current-row>
+              fit>
       <el-table-column label="#"
                        align="center"
-                       width="80">
+                       width="50">
         <template slot-scope="scope">
           <span v-text="getIndex(scope.$index)"></span>
         </template>
@@ -15,19 +15,28 @@
                        align="center"
                        prop="title" />
       <el-table-column label="开始时间"
+                       prop="startTime"
+                       sortable
                        align="center">
         <template slot-scope="scope">
+          <i class="el-icon-time"></i>
           {{ unix2CurrentTime(scope.row.startTime) }}
         </template>
       </el-table-column>
       <el-table-column label="结束时间"
+                       prop="endTime"
+                       sortable
                        align="center">
         <template slot-scope="scope">
+          <i class="el-icon-time"></i>
           {{ unix2CurrentTime(scope.row.endTime) }}
         </template>
       </el-table-column>
       <el-table-column label="状态"
-                       align="center">
+                       prop="status"
+                       align="center"
+                       :filters="[{text: '未开始', value: 0}, {text: '已开始', value: 1}, {text: '已结束', value: 2}]"
+                       :filter-method="filterStatus">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.status === 0" type="primary">未开始</el-tag>
           <el-tag v-else-if="scope.row.status === 1" type="success">已开始</el-tag>
@@ -35,7 +44,10 @@
         </template>
       </el-table-column>
       <el-table-column label="是否允许加入"
-                       align="center">
+                       prop="permitted"
+                       align="center"
+                       :filters="[{text: '是', value: true}, {text: '否', value: false}]"
+                       :filter-method="filterPermitted">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.permitted" type="success">是</el-tag>
           <el-tag v-else type="danger">否</el-tag>
@@ -55,7 +67,7 @@
 </template>
 <script>
   import { list as getContestList } from '@/api/contest'
-  import { unix2CurrentTime } from '@/utils/date'
+  import { unix2CurrentTime } from '@/utils'
 
   export default {
     created() {
@@ -74,8 +86,12 @@
       }
     },
     methods: {
-      unix2CurrentTime(timestamp) {
-        return unix2CurrentTime(timestamp)
+      unix2CurrentTime,
+      filterPermitted(value, row) {
+        return row.permitted === value
+      },
+      filterStatus(value, row) {
+        return row.status === value
       },
       getContestList() {
         // 查询列表

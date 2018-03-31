@@ -119,7 +119,7 @@
 <script>
   import store from '@/store'
   import { update as updateUser, validatePassword } from '@/api/user'
-  import { unix2CurrentTime } from '@/utils/date'
+  import { unix2CurrentTime } from '@/utils'
   import { isValidateEmail } from '@/utils/validate'
   import { setToken } from '@/utils/token'
   import { mapGetters, mapState } from 'vuex'

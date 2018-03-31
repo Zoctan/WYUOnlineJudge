@@ -24,20 +24,19 @@ export const constantRouterMap = [
     component: Layout,
     redirect: 'dashboard',
     icon: 'dashboard',
-    noDropDown: true,
     children: [{
+      component: _import('dashboard/index'),
       path: 'dashboard',
       name: '主页',
-      component: _import('dashboard/index'),
-      meta: { title: 'dashboard', noCache: true }
+      meta: { noCache: true }
     }]
   },
   {
     path: '/problem',
     component: Layout,
-    redirect: '/problem/index',
-    icon: 'permission',
+    redirect: 'noRedirect',
     name: '题目',
+    icon: 'component',
     children: [{
       path: 'index',
       name: '题目列表',
@@ -47,9 +46,9 @@ export const constantRouterMap = [
   {
     path: '/contest',
     component: Layout,
-    redirect: '/contest/index',
-    icon: 'permission',
+    redirect: 'noRedirect',
     name: '比赛',
+    icon: 'component',
     children: [{
       path: 'index',
       name: '比赛列表',

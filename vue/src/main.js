@@ -1,13 +1,20 @@
 import Vue from 'vue'
+
+import 'normalize.css/normalize.css'// A modern alternative to CSS resets
+
 import ElementUI from 'element-ui'
 import './styles/element-variables.scss'
+import './styles/index.scss' // global css
+
 import App from './App'
 import router from './router'
 import store from './store'
-import '@/icons' // icon
-import '@/permission' // 权限
+
+import './icons' // icon
+import './permission' // 权限
 import { default as request } from './utils/request'
 import { hasPermission } from './utils/hasPermission'
+
 import lang from 'element-ui/lib/locale/lang/zh-CN'
 import locale from 'element-ui/lib/locale'
 

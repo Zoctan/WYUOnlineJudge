@@ -51,9 +51,8 @@ service.interceptors.response.use(
         cancelButtonText: 'cancel',
         type: 'warning'
       }).then(() => {
-        store.dispatch('FedLogout').then(() => {
-          location.reload()// 为了重新实例化vue-router对象 避免bug
-        })
+        // 为了重新实例化vue-router对象 避免bug
+        store.dispatch('FedLogout').then(() => location.reload())
       })
     } else {
       Message({

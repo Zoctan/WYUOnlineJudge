@@ -41,9 +41,9 @@ CREATE TABLE `problem` (
 
 LOCK TABLES `problem` WRITE;
 /*!40000 ALTER TABLE `problem` DISABLE KEYS */;
-INSERT INTO `problem` VALUES (1,'a', 'aaa', 1, 'a b c c', 12, 15);
-INSERT INTO `problem` VALUES (2,'b', 'bbb', 2, 'd e f', 40, 99);
-INSERT INTO `problem` VALUES (3,'c', 'ccc', 3, 'k l p', 1000, 12948);
+INSERT INTO `problem` VALUES (1,'整数转罗马数字', 'aaa', 1, '数组 动态规划 字符串', 12, 15);
+INSERT INTO `problem` VALUES (2,'三数之和', 'bbb', 2, '哈希表 树', 40, 99);
+INSERT INTO `problem` VALUES (3,'删除链表的倒数第N个节点', 'ccc', 3, '栈 字符串 队列', 1000, 12948);
 /*!40000 ALTER TABLE `problem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
