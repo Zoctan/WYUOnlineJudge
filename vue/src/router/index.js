@@ -16,7 +16,6 @@ Vue.use(Router)
   * meta : `{ permission: ['a:xx'] }`  will control the page permission
   **/
 export const constantRouterMap = [
-  { path: '/login', component: _import('login/index'), hidden: true },
   { path: '/404', component: _import('errorPage/404'), hidden: true },
   { path: '/401', component: _import('errorPage/401'), hidden: true },
   {
@@ -29,6 +28,28 @@ export const constantRouterMap = [
       path: 'dashboard',
       name: '主页',
       meta: { noCache: true }
+    }]
+  },
+  {
+    path: '/login',
+    component: Layout,
+    redirect: 'noRedirect',
+    hidden: true,
+    children: [{
+      path: 'index',
+      name: '登录',
+      component: _import('login/index')
+    }]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    redirect: 'noRedirect',
+    hidden: true,
+    children: [{
+      path: 'index',
+      name: '用户信息',
+      component: _import('user/index')
     }]
   },
   {
@@ -64,15 +85,4 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path: '/user',
-    component: Layout,
-    redirect: '/user/index',
-    hidden: true,
-    children: [{
-      path: 'index',
-      name: '用户信息',
-      component: _import('user/index')
-    }]
-  }
 ]

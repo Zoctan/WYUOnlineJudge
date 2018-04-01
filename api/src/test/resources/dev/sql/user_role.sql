@@ -38,8 +38,8 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,1);
-INSERT INTO `user_role` VALUES (2,2);
+INSERT INTO `user_role` VALUES (1,2);
+INSERT INTO `user_role` VALUES (2,1);
 INSERT INTO `user_role` VALUES (3,3);
 INSERT INTO `user_role` VALUES (4,4);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;

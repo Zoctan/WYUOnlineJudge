@@ -5,13 +5,13 @@
              :rules="updateInfoRules"
              ref="tmpUser"
              label-width="115px">
-      <div style="text-align: center; width: 65vw; margin-bottom: 12px">
+      <div style="text-align: center; width: 75vw; margin-bottom: 16px">
         <img :width="size" :height="size" :src="user.avatar" style="border-radius: 10px; margin: 0 auto;" />
       </div>
-      <div v-if="token === null" style="text-align: center; width: 65vw; margin-bottom: 12px">
+      <div v-if="token === null" style="text-align: center; width: 75vw; margin-bottom: 16px">
         <span>{{ user.username }}</span>
       </div>
-      <div v-else>
+      <div v-else style="text-align: center; width: 65vw; margin-bottom: 16px">
         <el-row :gutter="18">
           <el-col :span="9">
             <el-form-item label="用户名"
@@ -210,6 +210,7 @@
       })
     },
     methods: {
+      unix2CurrentTime,
       setInfo() {
         this.tmpUser.username = this.user.username
         this.tmpUser.email = this.user.email
@@ -239,9 +240,6 @@
           this.loading = false
           this.btnLoading = false
         })
-      },
-      unix2CurrentTime(timestamp) {
-        return unix2CurrentTime(timestamp)
       },
       resetForm(formName) {
         this.$refs[formName].resetFields()

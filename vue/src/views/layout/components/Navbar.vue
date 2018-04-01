@@ -16,9 +16,16 @@
         <router-link class="inlineBlock" to="/user/index">
           <el-dropdown-item>{{ username }}</el-dropdown-item>
         </router-link>
+
         <el-dropdown-item divided v-if="token">
           <span @click="logout" style="display:block;">登出</span>
         </el-dropdown-item>
+
+        <router-link class="inlineBlock" v-else to="/login/index">
+          <el-dropdown-item divided >
+            <span style="display:block;">登录</span>
+          </el-dropdown-item>
+        </router-link>
       </el-dropdown-menu>
     </el-dropdown>
     </div>
@@ -51,7 +58,9 @@
       },
       logout() {
         this.$store.dispatch('Logout').then(() => {
-          location.reload() // 为了重新实例化vue-router对象 避免bug
+          this.$store.dispatch('FedLogout').then(() => {
+            location.reload() // 为了重新实例化vue-router对象 避免bug
+          })
         })
       }
     }

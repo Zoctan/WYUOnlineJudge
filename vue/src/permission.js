@@ -4,7 +4,15 @@ import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import { getToken } from '@/utils/token'
 
-const whiteList = ['/dashboard', '/problem/index', '/contest/index', '/user/index'] // 白名单,不需要登录的路由
+const whiteList = [
+  '/401',
+  '/404',
+  '/dashboard',
+  '/problem/index',
+  '/contest/index',
+  '/user/index',
+  '/login/index'
+] // 白名单,不需要登录的路由
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // 开始Progress
@@ -33,9 +41,10 @@ router.beforeEach((to, from, next) => {
         })
       })
     } else {
-      // 如果路径不是白名单内的,而且又没有登录
-      next('/errorPage/401')
-      NProgress.done() // 结束Progress
+      // 如果没有登录,而且路径又不是白名单内的
+      next()
+      next({ path: '/401', replace: true, query: { noGoBack: true }})
+      NProgress.done()
     }
   }
 })
