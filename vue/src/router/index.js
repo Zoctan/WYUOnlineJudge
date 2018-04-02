@@ -51,30 +51,6 @@ export const constantRouterMap = [
       name: '用户信息',
       component: _import('user/index')
     }]
-  },
-  {
-    path: '/problem',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: '题目',
-    icon: 'component',
-    children: [{
-      path: 'index',
-      name: '题目列表',
-      component: _import('problem/index')
-    }]
-  },
-  {
-    path: '/contest',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: '比赛',
-    icon: 'component',
-    children: [{
-      path: 'index',
-      name: '比赛列表',
-      component: _import('contest/index')
-    }]
   }
 ]
 
@@ -85,4 +61,32 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+  {
+    path: '/problem',
+    component: Layout,
+    redirect: 'noRedirect',
+    icon: 'component',
+    children: [{
+      path: 'index',
+      name: '题目',
+      component: _import('problem/index')
+    }, {
+      path: ':id',
+      name: '题目详情',
+      hidden: true,
+      component: _import('problem/detail'),
+      meta: { permission: ['problem:detail'] }
+    }]
+  },
+  {
+    path: '/contest',
+    component: Layout,
+    redirect: 'noRedirect',
+    icon: 'component',
+    children: [{
+      path: 'index',
+      name: '比赛',
+      component: _import('contest/index')
+    }]
+  }
 ]

@@ -14,15 +14,20 @@
         </template>
       </el-table-column>
       <el-table-column label="题目"
-                       align="center"
-                       prop="title" />
+                       align="center">
+        <template slot-scope="scope">
+          <router-link :to="{name: '题目详情', params: {id: scope.row.id}}">
+            <span v-text="scope.row.title"></span>
+          </router-link>
+        </template>
+      </el-table-column>
       <el-table-column label="标签"
                        prop="tag"
                        align="center"
                        :filters="tags"
                        :filter-method="filterTag">
         <template slot-scope="scope">
-          {{ scope.row.tags.split(' ').join(' / ') }}
+          <span v-text="scope.row.tags.split(' ').join(' / ')"></span>
         </template>
       </el-table-column>
       <el-table-column label="通过率"
@@ -30,7 +35,7 @@
                        sortable
                        align="center">
         <template slot-scope="scope">
-          {{ (scope.row.accepted/scope.row.submitted).toFixed(2) * 100 + '%' }}
+          <span v-text="(scope.row.accepted/scope.row.submitted).toFixed(2) * 100 + '%'"></span>
         </template>
       </el-table-column>
       <el-table-column label="难度"
@@ -96,6 +101,7 @@
         })
       },
       getTagsFromProblemList() {
+        // 从题目列表获得过滤标签
         const set = new Set()
         this.problemList.forEach((problem) => {
           const tagList = problem.tags.split(' ')

@@ -7,3 +7,10 @@ export function list(params) {
     params
   })
 }
+
+export function detail(id) {
+  return request({
+    url: '/problem/' + id,
+    method: 'get'
+  })
+}

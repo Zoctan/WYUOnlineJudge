@@ -7,7 +7,7 @@ import { asyncRouterMap, constantRouterMap } from '@/router/index'
  */
 function hasPermission(permissionCodeList, route) {
   if (route.meta && route.meta.permission) {
-    return permissionCodeList.some(permission => route.meta.permission.indexOf(permission) >= 0)
+    return permissionCodeList.some(permission => route.meta.permission.indexOf(permission) !== -1)
   } else {
     return true
   }
@@ -22,7 +22,7 @@ function filterAsyncRouter(asyncRouterMap, permissionCodeList) {
   return asyncRouterMap.filter(route => {
     // filter,js语法里数组的过滤筛选方法
     if (hasPermission(permissionCodeList, route)) {
-      if (route.children && route.children.length) {
+      if (route.children && route.children.length > 0) {
         // 如果这个路由下面还有下一级的话,就递归调用
         route.children = filterAsyncRouter(route.children, permissionCodeList)
         // 如果过滤一圈后,没有子元素了,这个父级菜单就也不显示了
@@ -54,7 +54,7 @@ const permission = {
         let accessedRouters
         if (role === 'ROLE_ADMIN') {
           // 如果角色里包含'ROLE_ADMIN',那么所有的路由都可以用
-          // 其实管理员也拥有全部菜单,这里主要是利用角色判断,节省加载时间
+          // 利用角色判断,节省加载时间
           accessedRouters = asyncRouterMap
         } else {
           // 否则需要通过以下方法来筛选出本角色可用的路由
