@@ -9,16 +9,11 @@
           {{ problem.description }}
 
           <hr/>
-          <button @click="setCodeEditorTheme">xx</button>
           <div class="editor-container">
-            <el-dropdown split-button type="primary">
-              默认尺寸
-              <el-dropdown-menu slot="dropdown" >
-                <el-dropdown-item>黄金糕</el-dropdown-item>
-                <el-dropdown-item>狮子头</el-dropdown-item>
-                <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                <el-dropdown-item>双皮奶</el-dropdown-item>
-                <el-dropdown-item>蚵仔煎</el-dropdown-item>
+            <el-dropdown split-button type="primary" @command="setCodeEditorTheme">
+              主题
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-for="theme in codeMirrorTheme" v-text="theme" :command="theme" :key="theme" />
               </el-dropdown-menu>
             </el-dropdown>
             <code-editor ref="codeEditor" v-model="code" />
@@ -52,6 +47,7 @@
       return {
         loading: false,
         btnLoading: false,
+        codeMirrorTheme: ['eclipse', 'material', 'ambiance'],
         problem: {
           id: this.$route.params.id,
           title: null,
@@ -73,8 +69,8 @@
           this.loading = false
         })
       },
-      setCodeEditorTheme() {
-        this.$refs.codeEditor.setTheme('material')
+      setCodeEditorTheme(theme) {
+        this.$refs.codeEditor.setTheme(theme)
       }
     }
   }

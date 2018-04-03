@@ -23,6 +23,7 @@ import 'codemirror/addon/hint/anyword-hint'
 
 import 'codemirror/theme/eclipse.css'
 import 'codemirror/theme/material.css'
+import 'codemirror/theme/ambiance.css'
 
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/python/python'
