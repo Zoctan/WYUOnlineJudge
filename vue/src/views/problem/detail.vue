@@ -6,17 +6,36 @@
                element-loading-text="loading">
         <el-tab-pane>
           <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
-          {{ problem.description }}
 
-          <hr/>
-          <div class="editor-container">
-            <el-dropdown split-button type="primary" @command="setCodeEditorTheme">
-              主题
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="theme in codeMirrorTheme" v-text="theme" :command="theme" :key="theme" />
-              </el-dropdown-menu>
-            </el-dropdown>
-            <code-editor ref="codeEditor" v-model="code" />
+          <el-container>
+            <el-main>{{ problem.description }}</el-main>
+            <el-aside width="250px">
+              <ul class="list">
+                <li class="list-item"><span>题目难度：</span>
+                  <span class="right">
+                    <el-tag v-if="problem.level === 1" type="success">简单</el-tag>
+                    <el-tag v-else-if="problem.level === 2" type="warning">中等</el-tag>
+                    <el-tag v-else type="danger">困难</el-tag>
+                  </span>
+                </li>
+
+                <li class="list-item"><span>通过次数：</span>
+                  <span class="right">
+                  {{ problem.submitted }}
+                  </span>
+                </li>
+
+                <li class="list-item"><span>通过次数：</span>
+                  <span class="right">
+                    {{ problem.accepted }}
+                  </span>
+                </li>
+              </ul>
+            </el-aside>
+          </el-container>
+
+          <div class="code-editor">
+            <code-editor class="editor" ref="codeEditor" v-model="code" />
           </div>
         </el-tab-pane>
 
@@ -47,7 +66,6 @@
       return {
         loading: false,
         btnLoading: false,
-        codeMirrorTheme: ['eclipse', 'material', 'ambiance'],
         problem: {
           id: this.$route.params.id,
           title: null,
@@ -68,17 +86,34 @@
           this.problem = response.data
           this.loading = false
         })
-      },
-      setCodeEditorTheme(theme) {
-        this.$refs.codeEditor.setTheme(theme)
       }
     }
   }
 </script>
 
-<style scoped>
-  .editor-container{
-    position: relative;
-    height: 100%;
+<style lang="scss" scoped>
+  .list {
+    border-left-style: solid;
+    border-left-color: #F5F5F5;
+    border-left-width: 2px;
+    border-right-style: solid;
+    border-right-color: #F5F5F5;
+    border-right-width: 2px;
+    box-sizing: border-box;
+  }
+  .list-item {
+    padding: 10px 0;
+    list-style-type: none;
+    font-size: 14px;
+    .right {
+      float: right;
+      padding-right: 30px;
+    }
+  }
+  .code-editor {
+    border-top-style: solid;
+    border-top-color: #F5F5F5;
+    border-top-width: 1px;
+    box-sizing: border-box;
   }
 </style>

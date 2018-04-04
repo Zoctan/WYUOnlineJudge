@@ -16,9 +16,10 @@
       <el-table-column label="题目"
                        align="center">
         <template slot-scope="scope">
-          <router-link :to="{name: '题目详情', params: {id: scope.row.id}}">
+          <router-link v-if="hasPermission('problem:detail')" :to="{name: '题目详情', params: {id: scope.row.id}}">
             <span v-text="scope.row.title"></span>
           </router-link>
+          <span v-else v-text="scope.row.title"></span>
         </template>
       </el-table-column>
       <el-table-column label="标签"

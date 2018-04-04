@@ -12,6 +12,9 @@ const getters = {
   roleName: state => state.user.roleName,
   permissionCodeList: state => state.user.permissionCodeList,
 
+  codeMirrorLanguage: state => state.codeMirror.language,
+  codeMirrorTheme: state => state.codeMirror.theme,
+
   permissionRouters: state => state.permission.routers,
   addRouters: state => state.permission.addRouters
 }
