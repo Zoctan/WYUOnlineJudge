@@ -117,11 +117,10 @@
 </template>
 
 <script>
-  import store from '@/store'
   import { update as updateUser, validatePassword } from '@/api/user'
   import { unix2CurrentTime } from '@/utils'
   import { isValidateEmail } from '@/utils/validate'
-  import { setToken } from '@/utils/token'
+  import { setToken } from '@/store/modules/token'
   import { mapGetters, mapState } from 'vuex'
 
   export default {
@@ -236,7 +235,7 @@
         // 重新获取用户信息
         this.loading = true
         this.btnLoading = true
-        store.dispatch('Info').then(() => {
+        this.$store.dispatch('Info').then(() => {
           this.loading = false
           this.btnLoading = false
         })

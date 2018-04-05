@@ -8,9 +8,8 @@ import { asyncRouterMap, constantRouterMap } from '@/router/index'
 function hasPermission(permissionCodeList, route) {
   if (route.meta && route.meta.permission) {
     return permissionCodeList.some(permission => route.meta.permission.indexOf(permission) !== -1)
-  } else {
-    return true
   }
+  return true
 }
 
 /**
@@ -20,7 +19,6 @@ function hasPermission(permissionCodeList, route) {
  */
 function filterAsyncRouter(asyncRouterMap, permissionCodeList) {
   return asyncRouterMap.filter(route => {
-    // filter,js语法里数组的过滤筛选方法
     if (hasPermission(permissionCodeList, route)) {
       if (route.children && route.children.length > 0) {
         // 如果这个路由下面还有下一级的话,就递归调用
@@ -51,15 +49,10 @@ const permission = {
         const role = user.roleName
         const permissionCodeList = user.permissionCodeList
         // 声明 该角色可用的路由
-        let accessedRouters
-        if (role === 'ROLE_ADMIN') {
-          // 如果角色里包含'ROLE_ADMIN',那么所有的路由都可以用
-          // 利用角色判断,节省加载时间
-          accessedRouters = asyncRouterMap
-        } else {
-          // 否则需要通过以下方法来筛选出本角色可用的路由
-          accessedRouters = filterAsyncRouter(asyncRouterMap, permissionCodeList)
-        }
+        // 如果角色里包含'ROLE_ADMIN',那么所有的路由都可以用
+        // 利用角色判断,节省加载时间
+        // 否则需要通过以下方法来筛选出本角色可用的路由
+        const accessedRouters = role === 'ROLE_ADMIN' ? asyncRouterMap : filterAsyncRouter(asyncRouterMap, permissionCodeList)
         // 执行设置路由的方法
         commit('SET_ROUTERS', accessedRouters)
         resolve()

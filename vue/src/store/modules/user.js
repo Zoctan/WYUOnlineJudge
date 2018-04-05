@@ -1,5 +1,5 @@
 import { login, logout, info } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/token'
+import { getToken, setToken, removeToken } from './token'
 
 const user = {
   state: {

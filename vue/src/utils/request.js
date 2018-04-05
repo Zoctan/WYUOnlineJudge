@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '../store'
-import { getToken } from '@/utils/token'
+import { getToken } from '@/store/modules/token'
 
 // 创建axios实例
 // https://www.kancloud.cn/yunye/axios/234845
@@ -46,9 +46,9 @@ service.interceptors.response.use(
   error => {
     // 401:需要认证
     if (error.response.status === 401) {
-      MessageBox.confirm('need login', 'logout', {
-        confirmButtonText: 'login',
-        cancelButtonText: 'cancel',
+      MessageBox.confirm('需要登录', 'logout', {
+        confirmButtonText: '好的',
+        cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         // 为了重新实例化vue-router对象 避免bug

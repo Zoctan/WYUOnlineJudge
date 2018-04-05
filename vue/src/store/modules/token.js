@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'User-Token'
+const TokenKey = 'userToken'
 // 有效期 1 天
 const expires = 1
 

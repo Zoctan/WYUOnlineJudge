@@ -5,30 +5,26 @@
 </template>
 
 <script>
-export default {
-  name: 'svg-icon',
-  props: {
-    iconClass: {
-      type: String,
-      required: true
+  export default {
+    name: 'svg-icon',
+    props: {
+      iconClass: {
+        type: String,
+        required: true
+      },
+      className: {
+        type: String
+      }
     },
-    className: {
-      type: String
-    }
-  },
-  computed: {
-    iconName() {
-      return `#icon-${this.iconClass}`
-    },
-    svgClass() {
-      if (this.className) {
-        return 'svg-icon ' + this.className
-      } else {
-        return 'svg-icon'
+    computed: {
+      iconName() {
+        return `#icon-${this.iconClass}`
+      },
+      svgClass() {
+        return this.className ? 'svg-icon ' + this.className : 'svg-icon'
       }
     }
   }
-}
 </script>
 
 <style scoped>

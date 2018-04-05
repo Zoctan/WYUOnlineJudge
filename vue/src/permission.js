@@ -2,7 +2,7 @@ import router from './router'
 import store from './store'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
-import { getToken } from '@/utils/token'
+import { getToken } from '@/store/modules/token'
 
 const whiteList = [
   '/401',

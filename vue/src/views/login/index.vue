@@ -75,11 +75,7 @@
     },
     methods: {
       showPwd() {
-        if (this.passwordType === 'password') {
-          this.passwordType = ''
-        } else {
-          this.passwordType = 'password'
-        }
+        this.passwordType = this.passwordType === 'password' ? '' : 'password'
       },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
@@ -93,13 +89,14 @@
             user.password = this.loginForm.password
             this.loading = true
             this.$store.dispatch('Login', user).then(() => {
-              this.loading = false
               // 获取用户信息
               this.$store.dispatch('Info').then(response => {
                 // 生成路由
                 this.$store.dispatch('GenerateRoutes', response.data).then(() => {
+                  this.loading = false
                   this.$router.addRoutes(this.$store.getters.addRouters)
                   this.$router.push({ path: '/' })
+                  location.reload()
                 })
               })
             }).catch(() => {

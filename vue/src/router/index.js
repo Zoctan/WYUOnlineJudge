@@ -86,7 +86,6 @@ export const asyncRouterMap = [
   {
     path: '/problem',
     component: Layout,
-    icon: 'component',
     hidden: true,
     children: [{
       path: ':id',
