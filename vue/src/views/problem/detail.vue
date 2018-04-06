@@ -36,6 +36,18 @@
 
           <div class="code-editor">
             <code-editor class="editor" ref="codeEditor" v-model="code" />
+            <div class="code-button">
+              <el-row :gutter="20">
+                <el-col :span="2" :offset="16">
+                  <el-button round
+                             :loading="btnLoading"
+                             @click.native.prevent="handleRunOrSubmit(false)">执行代码</el-button></el-col>
+                <el-col :span="2" :offset="2">
+                  <el-button type="primary" round
+                             :loading="btnLoading"
+                             @click.native.prevent="handleRunOrSubmit(true)">提交解答</el-button></el-col>
+              </el-row>
+            </div>
           </div>
         </el-tab-pane>
 
@@ -54,7 +66,10 @@
 </template>
 
 <script>
+  import { Base64 } from 'js-base64'
+  import { run as runCode, submit as submitCode } from '@/api/code'
   import { detail as getProblemDetail } from '@/api/problem'
+  import { mapGetters } from 'vuex'
   import CodeEditor from '@/components/CodeEditor'
 
   export default {
@@ -75,8 +90,14 @@
           submitted: null,
           description: null
         },
-        code: 'String a = null;'
+        code: ''
       }
+    },
+    computed: {
+      ...mapGetters([
+        'userId',
+        'codeMirrorLanguage'
+      ])
     },
     methods: {
       getProblemDetail() {
@@ -86,6 +107,26 @@
           this.problem = response.data
           this.loading = false
         })
+      },
+      handleRunOrSubmit(status) {
+        this.btnLoading = true
+        const codeForm = {
+          problemId: this.problem.id,
+          userId: this.userId,
+          code: Base64.encode(this.code),
+          language: this.codeMirrorLanguage.name
+        }
+        if (!status) {
+          runCode(codeForm).then(() => {
+            this.$message.success('run成功')
+            this.btnLoading = false
+          })
+        } else {
+          submitCode(codeForm).then(() => {
+            this.$message.success('submit成功')
+            this.btnLoading = false
+          })
+        }
       }
     }
   }
@@ -115,5 +156,8 @@
     border-top-color: #F5F5F5;
     border-top-width: 1px;
     box-sizing: border-box;
+    .code-button {
+      padding: 10px 0;
+    }
   }
 </style>

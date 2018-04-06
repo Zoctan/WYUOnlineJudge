@@ -1,7 +1,10 @@
 package com.zoctan.api.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
-import javax.persistence.*;
 
 public class Code {
     /**
@@ -50,13 +53,20 @@ public class Code {
      */
     private String code;
 
+    /*------request---------*/
+
+    /**
+     * userId
+     */
+    private Long userId;
+
     /**
      * 获取代码Id
      *
      * @return id - 代码Id
      */
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -64,7 +74,7 @@ public class Code {
      *
      * @param id 代码Id
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -74,7 +84,7 @@ public class Code {
      * @return problem_id - 题目Id
      */
     public Long getProblemId() {
-        return problemId;
+        return this.problemId;
     }
 
     /**
@@ -82,7 +92,7 @@ public class Code {
      *
      * @param problemId 题目Id
      */
-    public void setProblemId(Long problemId) {
+    public void setProblemId(final Long problemId) {
         this.problemId = problemId;
     }
 
@@ -92,7 +102,7 @@ public class Code {
      * @return status - 通过状态
      */
     public Boolean getStatus() {
-        return status;
+        return this.status;
     }
 
     /**
@@ -100,7 +110,7 @@ public class Code {
      *
      * @param status 通过状态
      */
-    public void setStatus(Boolean status) {
+    public void setStatus(final Boolean status) {
         this.status = status;
     }
 
@@ -110,7 +120,7 @@ public class Code {
      * @return language - 语言
      */
     public String getLanguage() {
-        return language;
+        return this.language;
     }
 
     /**
@@ -118,7 +128,7 @@ public class Code {
      *
      * @param language 语言
      */
-    public void setLanguage(String language) {
+    public void setLanguage(final String language) {
         this.language = language;
     }
 
@@ -128,7 +138,7 @@ public class Code {
      * @return time_used - 消耗时间
      */
     public Float getTimeUsed() {
-        return timeUsed;
+        return this.timeUsed;
     }
 
     /**
@@ -136,7 +146,7 @@ public class Code {
      *
      * @param timeUsed 消耗时间
      */
-    public void setTimeUsed(Float timeUsed) {
+    public void setTimeUsed(final Float timeUsed) {
         this.timeUsed = timeUsed;
     }
 
@@ -146,7 +156,7 @@ public class Code {
      * @return memory_used - 消耗内存
      */
     public Float getMemoryUsed() {
-        return memoryUsed;
+        return this.memoryUsed;
     }
 
     /**
@@ -154,7 +164,7 @@ public class Code {
      *
      * @param memoryUsed 消耗内存
      */
-    public void setMemoryUsed(Float memoryUsed) {
+    public void setMemoryUsed(final Float memoryUsed) {
         this.memoryUsed = memoryUsed;
     }
 
@@ -164,7 +174,7 @@ public class Code {
      * @return submit_time - 提交时间
      */
     public Date getSubmitTime() {
-        return submitTime;
+        return this.submitTime;
     }
 
     /**
@@ -172,7 +182,7 @@ public class Code {
      *
      * @param submitTime 提交时间
      */
-    public void setSubmitTime(Date submitTime) {
+    public void setSubmitTime(final Date submitTime) {
         this.submitTime = submitTime;
     }
 
@@ -182,7 +192,7 @@ public class Code {
      * @return code - Base64压缩代码
      */
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     /**
@@ -190,7 +200,15 @@ public class Code {
      *
      * @param code Base64压缩代码
      */
-    public void setCode(String code) {
+    public void setCode(final String code) {
         this.code = code;
+    }
+
+    public Long getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(final Long userId) {
+        this.userId = userId;
     }
 }

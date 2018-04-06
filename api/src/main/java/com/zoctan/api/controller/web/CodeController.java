@@ -18,8 +18,13 @@ public class CodeController {
     private CodeService codeService;
 
     @PostMapping
-    public Result add(@RequestBody final Code code) {
-        this.codeService.save(code);
+    public Result runOrSubmit(@RequestParam("status") final boolean status, @RequestBody final Code code) {
+        System.out.println(status);
+        System.out.println(code.getCode());
+        System.out.println(code.getLanguage());
+        System.out.println(code.getProblemId());
+        System.out.println(code.getUserId());
+        //this.codeService.save(code);
         return ResultGenerator.genOkResult();
     }
 
