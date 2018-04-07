@@ -6,6 +6,8 @@ import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
 import com.zoctan.api.model.Code;
 import com.zoctan.api.service.CodeService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,10 +42,15 @@ public class CodeController {
         return ResultGenerator.genOkResult();
     }
 
-    @GetMapping("/{id}")
-    public Result detail(@PathVariable final Long id) {
-        final Code code = this.codeService.findById(id);
-        return ResultGenerator.genOkResult(code);
+    @GetMapping("/{problemId}")
+    public Result listSubmitCode(@PathVariable final Long problemId,
+                                 @RequestParam(defaultValue = "0") final Integer page,
+                                 @RequestParam(defaultValue = "0") final Integer size,
+                                 @AuthenticationPrincipal final UserDetails userDetails) {
+        PageHelper.startPage(page, size);
+        final List<Code> list = this.codeService.findAllUserProblemSubmitCode(problemId, userDetails.getUsername());
+        final PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genOkResult(pageInfo);
     }
 
     @GetMapping

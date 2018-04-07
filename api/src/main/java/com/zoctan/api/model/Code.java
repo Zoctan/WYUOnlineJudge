@@ -1,9 +1,6 @@
 package com.zoctan.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 public class Code {
@@ -53,11 +50,11 @@ public class Code {
      */
     private String code;
 
-    /*------request---------*/
-
+    /* ---------- 以下字段来自联表查询 ------------*/
     /**
      * userId
      */
+    @Transient
     private Long userId;
 
     /**

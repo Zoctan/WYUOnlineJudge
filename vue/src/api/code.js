@@ -15,3 +15,11 @@ export function submit(code) {
     data: code
   })
 }
+
+export function listSubmitCode(problemId, params) {
+  return request({
+    url: '/code/' + problemId,
+    method: 'get',
+    params
+  })
+}

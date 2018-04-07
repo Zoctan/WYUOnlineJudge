@@ -26,14 +26,14 @@ CREATE TABLE `code` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '代码Id',
   `problem_id` bigint(20) unsigned NOT NULL COMMENT '题目Id',
   `code` text NOT NULL COMMENT 'Base64压缩代码',
-  `status`tinyint(1) DEFAULT NULL COMMENT '通过状态',
+  `status` tinyint(1) DEFAULT NULL COMMENT '通过状态',
   `language` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '语言',
   `time_used` float NOT NULL COMMENT '消耗时间',
   `memory_used` float NOT NULL COMMENT '消耗内存',
   `submit_time` datetime DEFAULT NULL COMMENT '提交时间',
   PRIMARY KEY (`id`),
   CONSTRAINT `code_fk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户代码提交表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='用户代码提交表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,8 @@ LOCK TABLES `code` WRITE;
 INSERT INTO `code` VALUES (1, 1,'dGVzdDE=', 1, 'Java', 130, 22640, '2018-01-02 12:33:54');
 INSERT INTO `code` VALUES (2, 2,'dGVzdDI=', 2, 'Python', 45, 172856, '2018-02-01 10:54:11');
 INSERT INTO `code` VALUES (3, 3,'dGVzdDM=', 3, 'C++', 3, 1725, '2018-03-06 01:28:42');
-INSERT INTO `code` VALUES (4, 4,'dGVzdDQ=', 4, 'C', 2, 1992, '2018-04-08 13:14:21');
+INSERT INTO `code` VALUES (4, 3,'dGVzdDQ=', 4, 'C', 2, 1992, '2018-04-08 13:14:21');
+INSERT INTO `code` VALUES (5, 3,'dGVzdDQ=', 4, 'Java', 2, 1992, '2018-05-08 13:14:21');
 /*!40000 ALTER TABLE `code` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

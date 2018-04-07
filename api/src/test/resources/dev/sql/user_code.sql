@@ -29,7 +29,7 @@ CREATE TABLE `user_code` (
   KEY `code_id` (`code_id`),
   CONSTRAINT `user_code_fk_1` FOREIGN KEY (`code_id`) REFERENCES `code` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_code_fk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户代码表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='用户代码表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,8 +40,9 @@ LOCK TABLES `user_code` WRITE;
 /*!40000 ALTER TABLE `user_code` DISABLE KEYS */;
 INSERT INTO `user_code` VALUES (1,1);
 INSERT INTO `user_code` VALUES (2,2);
-INSERT INTO `user_code` VALUES (3,3);
-INSERT INTO `user_code` VALUES (4,4);
+INSERT INTO `user_code` VALUES (2,3);
+INSERT INTO `user_code` VALUES (2,4);
+INSERT INTO `user_code` VALUES (1,5);
 /*!40000 ALTER TABLE `user_code` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
