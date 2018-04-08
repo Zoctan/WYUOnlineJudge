@@ -16,33 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `admin_problem`
+-- Table structure for table `favorite_problem`
 --
 
-DROP TABLE IF EXISTS `admin_problem`;
+DROP TABLE IF EXISTS `favorite_problem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admin_problem` (
-  `user_id` bigint(20) unsigned NOT NULL COMMENT '出题者Id',
+CREATE TABLE `favorite_problem` (
+  `favorite_id` bigint(20) unsigned NOT NULL COMMENT '收藏夹Id',
   `problem_id` bigint(20) unsigned NOT NULL COMMENT '题目Id',
-  PRIMARY KEY (`user_id`,`problem_id`),
-  KEY `problem_id` (`problem_id`),
-  CONSTRAINT `admin_problem_fk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `admin_problem_fk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='出题者题目表';
+  PRIMARY KEY (`favorite_id`,`problem_id`),
+  KEY `favorite_id` (`favorite_id`),
+  CONSTRAINT `favorite_problem_fk_1` FOREIGN KEY (`favorite_id`) REFERENCES `favorite` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `favorite_problem_fk_2` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户收藏夹表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admin_problem`
+-- Dumping data for table `favorite_problem`
 --
 
-LOCK TABLES `admin_problem` WRITE;
-/*!40000 ALTER TABLE `admin_problem` DISABLE KEYS */;
-INSERT INTO `admin_problem` VALUES (1, 1);
-INSERT INTO `admin_problem` VALUES (1, 2);
-INSERT INTO `admin_problem` VALUES (4, 3);
-INSERT INTO `admin_problem` VALUES (4, 4);
-/*!40000 ALTER TABLE `admin_problem` ENABLE KEYS */;
+LOCK TABLES `favorite_problem` WRITE;
+/*!40000 ALTER TABLE `favorite_problem` DISABLE KEYS */;
+INSERT INTO `favorite_problem` VALUES (1, 1);
+INSERT INTO `favorite_problem` VALUES (2, 2);
+INSERT INTO `favorite_problem` VALUES (2, 3);
+/*!40000 ALTER TABLE `favorite_problem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

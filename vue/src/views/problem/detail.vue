@@ -2,10 +2,60 @@
   <div class="app-container">
     <div :data="problem">
       <h3 v-text="problem.id + '.' + problem.title"></h3>
-      <el-tabs type="card" v-loading.body="loading"
+      <el-tabs type="card"
+               v-loading.body="loading"
                element-loading-text="loading">
         <el-tab-pane>
           <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
+
+          <!-- fixme -->
+          <el-dialog title="收藏题目" width="25%" :visible.sync="dialogFormVisible">
+            <div v-for="item in favoriteList">
+              <label>{{ item.title }}</label>
+              <el-switch
+                :model="item"
+                active-text="收藏"
+                inactive-text="取消">
+              </el-switch>
+            </div>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">取 消</el-button>
+            </div>
+          </el-dialog>
+
+          <el-dropdown trigger="click" size="medium" split-button
+                       :hide-on-click="false"
+                       @click="showFavoriteDialog"
+                       :loading="btnLoading">
+            <svg-icon icon-class="star" /> 收藏
+
+            <el-dropdown-menu slot="dropdown">
+              <el-popover ref="popoverFavorite" placement="right" width="200" trigger="click">
+                <el-form :model="newFavorite">
+                  <el-row :gutter="20" style="padding-bottom: 8px">
+                    <el-col :span="13">
+                      <el-select size="mini" v-model="newFavorite.isPrivate" placeholder="请选择">
+                        <el-option v-for="item in isPrivateOptions" :key="item.value" :label="item.label" :value="item.value" />
+                      </el-select>
+                    </el-col>
+                    <el-col :span="11">
+                      <el-button round size="mini" type="primary" @click="addFavorite" :loading="btnLoading">添加</el-button>
+                    </el-col>
+                  </el-row>
+                  <el-form-item>
+                    <el-input v-model="newFavorite.title" placeholder="收藏夹名称" />
+                  </el-form-item>
+                </el-form>
+              </el-popover>
+              <el-dropdown-item v-popover:popoverFavorite>添加收藏夹</el-dropdown-item>
+
+              <router-link class="inlineBlock" to="/login/index">
+                <el-dropdown-item divided >
+                  <span style="display:block;">我的收藏夹</span>
+                </el-dropdown-item>
+              </router-link>
+            </el-dropdown-menu>
+          </el-dropdown>
 
           <el-container>
             <el-main>{{ problem.description }}</el-main>
@@ -66,7 +116,7 @@
                   {{ unix2CurrentTime(scope.row.submitTime) }}
                 </template>
               </el-table-column>
-              <el-table-column label="通过状态"
+              <el-table-column label="状态"
                                prop="status"
                                align="center">
                 <template slot-scope="scope">
@@ -114,6 +164,7 @@
   import { mapGetters } from 'vuex'
   import { Base64 } from 'js-base64'
   import { run as runCode, submit as submitCode, listSubmitCode } from '@/api/code'
+  import { list as listUserFavorite, add as addFavorite, addProblem as addProblem2Favorite, removeProblem as removeProblemFromFavorite } from '@/api/favorite'
   import { detail as getProblemDetail } from '@/api/problem'
   import { unix2CurrentTime } from '@/utils'
   import CodeEditor from '@/components/CodeEditor'
@@ -143,7 +194,20 @@
         listQuery: {
           page: 1, // 页码
           size: 30 // 每页数量
-        }
+        },
+        dialogFormVisible: false,
+        favoriteList: null,
+        favoriteListQuery: {
+          page: 1,
+          size: 30
+        },
+        isPrivateOptions: [{ label: '私有', value: true }, { label: '公开', value: false }],
+        newFavorite: {
+          title: null,
+          userId: null,
+          isPrivate: true
+        },
+        a: true
       }
     },
     computed: {
@@ -154,6 +218,29 @@
     },
     methods: {
       unix2CurrentTime,
+      showFavoriteDialog() {
+        this.btnLoading = true
+        listUserFavorite(this.userId, this.favoriteListQuery).then(response => {
+          this.favoriteList = response.data.list
+          this.dialogFormVisible = true
+          this.btnLoading = false
+        })
+      },
+      addProblem2Favorite() {
+        this.btnLoading = true
+        addProblem2Favorite().then(() => {
+          this.$message.success('收藏成功')
+          this.btnLoading = false
+        })
+      },
+      addFavorite() {
+        this.btnLoading = true
+        this.newCollection.userId = this.userId
+        addFavorite(this.newCollection).then(() => {
+          this.$message.success('成功添加收藏夹')
+          this.btnLoading = false
+        })
+      },
       getProblemDetail() {
         this.loading = true
         getProblemDetail(this.problem.id).then(response => {

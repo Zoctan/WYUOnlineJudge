@@ -42,15 +42,14 @@ class CodeGenerator {
     // @date
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
     private static final boolean isRestful = true;
-    private static boolean overwrite = false;
 
     public static void main(final String[] args) {
         final Scanner scanner = new Scanner(System.in);
         System.out.print("可能已存在相关文件，是否覆盖？y/n:");
         if (scanner.next().equals("y")) {
-            overwrite = true;
+            genCode("favorite");
+            genCode("favorite_problem");
         }
-        genCode("contest");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -130,7 +129,7 @@ class CodeGenerator {
             config.addContext(context);
             config.validate();
 
-            final DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+            final DefaultShellCallback callback = new DefaultShellCallback(true);
             warnings = new ArrayList<>();
             generator = new MyBatisGenerator(config, callback, warnings);
             generator.generate(null);

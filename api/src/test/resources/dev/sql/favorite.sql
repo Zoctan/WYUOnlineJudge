@@ -16,33 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `admin_problem`
+-- Table structure for table `favorite`
 --
 
-DROP TABLE IF EXISTS `admin_problem`;
+DROP TABLE IF EXISTS `favorite`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admin_problem` (
-  `user_id` bigint(20) unsigned NOT NULL COMMENT '出题者Id',
-  `problem_id` bigint(20) unsigned NOT NULL COMMENT '题目Id',
-  PRIMARY KEY (`user_id`,`problem_id`),
-  KEY `problem_id` (`problem_id`),
-  CONSTRAINT `admin_problem_fk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `admin_problem_fk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='出题者题目表';
+CREATE TABLE `favorite` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '收藏夹Id',
+  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户Id',
+  `title` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '收藏夹名称',
+  `is_private` tinyint(1) DEFAULT 1 COMMENT '是否私有：0否 | 1是',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `favorite_fk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='收藏夹表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admin_problem`
+-- Dumping data for table `favorite`
 --
 
-LOCK TABLES `admin_problem` WRITE;
-/*!40000 ALTER TABLE `admin_problem` DISABLE KEYS */;
-INSERT INTO `admin_problem` VALUES (1, 1);
-INSERT INTO `admin_problem` VALUES (1, 2);
-INSERT INTO `admin_problem` VALUES (4, 3);
-INSERT INTO `admin_problem` VALUES (4, 4);
-/*!40000 ALTER TABLE `admin_problem` ENABLE KEYS */;
+LOCK TABLES `favorite` WRITE;
+/*!40000 ALTER TABLE `favorite` DISABLE KEYS */;
+INSERT INTO `favorite` VALUES (1, 2, '动态规划', 1);
+INSERT INTO `favorite` VALUES (2, 2, '树', 0);
+/*!40000 ALTER TABLE `favorite` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-16 19:26:13
+-- Dump completed on 2018-02-16 20:28:17

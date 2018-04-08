@@ -28,6 +28,9 @@ public interface Service<T> {
     // 根据条件刪除
     void deleteByCondition(Condition condition);
 
+    // 根据对象刪除
+    void delete(T model);
+
     // 更新
     void update(T model);
 

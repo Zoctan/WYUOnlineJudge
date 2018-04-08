@@ -3,7 +3,7 @@
     <div class="editor-option">
       <el-row :gutter="20">
         <el-col :span="6">
-          <el-dropdown trigger="click" size="medium" class="language-dropdown" split-button @command="setLanguage">
+          <el-dropdown trigger="click" size="medium" split-button @command="setLanguage">
             语言
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-for="item in language" :disabled="codeMirror.language !== null && item.name === codeMirror.language.name" v-text="item.name" :command="item" :key="item.name" />
@@ -11,7 +11,7 @@
           </el-dropdown>
         </el-col>
         <el-col :span="6" :offset="12">
-          <el-dropdown trigger="click" size="medium" class="theme-dropdown" split-button @command="setTheme">
+          <el-dropdown trigger="click" size="medium" split-button @command="setTheme">
             主题
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-for="item in theme" :disabled="codeMirror.theme !== undefined && item === codeMirror.theme" v-text="item" :command="item" :key="item" />

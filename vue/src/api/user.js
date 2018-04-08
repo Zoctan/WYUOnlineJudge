@@ -8,19 +8,19 @@ export function list(params) {
   })
 }
 
-export function validatePassword(userForm) {
+export function validatePassword(form) {
   return request({
     url: '/user/password',
     method: 'post',
-    data: userForm
+    data: form
   })
 }
 
-export function update(userForm) {
+export function update(form) {
   return request({
     url: '/user',
     method: 'put',
-    data: userForm
+    data: form
   })
 }
 
@@ -31,19 +31,19 @@ export function remove(userId) {
   })
 }
 
-export function register(userForm) {
+export function register(form) {
   return request({
     url: '/user',
     method: 'post',
-    data: userForm
+    data: form
   })
 }
 
-export function login(userForm) {
+export function login(form) {
   return request({
     url: '/user/login',
     method: 'post',
-    data: userForm
+    data: form
   })
 }
 

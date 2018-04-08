@@ -66,6 +66,11 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     @Override
+    public void delete(final T model) {
+        this.mapper.delete(model);
+    }
+
+    @Override
     public void update(final T model) {
         this.mapper.updateByPrimaryKeySelective(model);
     }
