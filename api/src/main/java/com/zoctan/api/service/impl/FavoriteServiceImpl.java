@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,4 +17,13 @@ public class FavoriteServiceImpl extends AbstractService<Favorite> implements Fa
     @Resource
     private FavoriteMapper favoriteMapper;
 
+    @Override
+    public List<Favorite> findUserFavoriteByUsername(final String username) {
+        return this.favoriteMapper.findUserFavoriteByUsername(username);
+    }
+
+    @Override
+    public List<Favorite> findUserDetailFavoriteByUsername(final String username) {
+        return this.favoriteMapper.findUserDetailFavoriteByUsername(username);
+    }
 }

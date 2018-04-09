@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zoctan.api.mapper.FavoriteMapper">
-  <resultMap id="BaseResultMap" type="com.zoctan.api.model.Favorite">
+  <resultMap id="FavoriteMap" type="com.zoctan.api.model.Favorite">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="is_private" jdbcType="BIT" property="isPrivate" />
   </resultMap>
+
+  <resultMap id="FavoriteProblemMap" type="com.zoctan.api.model.Favorite" extends="FavoriteMap">
+    <!-- 一收藏夹对应多题目 -->
+    <collection property="problemIdList" ofType="Long">
+      <result column="problem_id" jdbcType="BIGINT" property="problemId" />
+    </collection>
+  </resultMap>
+
+  <select id="findUserFavoriteByUsername" resultMap="FavoriteMap">
+    SELECT
+    f.*
+    FROM `user` u
+    LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
+    LEFT JOIN `favorite` f ON f.id = uf.favorite_id
+    WHERE u.username = #{username}
+  </select>
+
+  <select id="findUserDetailFavoriteByUsername" resultMap="FavoriteProblemMap">
+    SELECT
+    f.id,
+    f.title,
+    f.is_private,
+    ifnull(fp.problem_id, -1) as problem_id
+    FROM `user` u
+    LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
+    LEFT JOIN `favorite` f ON f.id = uf.favorite_id
+    LEFT JOIN `favorite_problem` fp ON uf.favorite_id = fp.favorite_id
+    WHERE u.username = #{username}
+  </select>
+
 </mapper>

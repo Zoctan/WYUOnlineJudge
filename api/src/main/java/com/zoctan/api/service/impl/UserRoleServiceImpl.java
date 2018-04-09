@@ -11,9 +11,6 @@ import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 
-/**
- * Created by Zoctan on 2018/02/17.
- */
 @Service
 @Transactional
 @SuppressWarnings("SpringJavaAutowiringInspection")

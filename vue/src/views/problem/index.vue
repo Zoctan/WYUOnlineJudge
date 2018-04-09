@@ -59,8 +59,7 @@
       :page-size="listQuery.size"
       :total="total"
       :page-sizes="[10, 30, 50, 100]"
-      layout="total, sizes, prev, pager, next, jumper">
-    </el-pagination>
+      layout="total, sizes, prev, pager, next, jumper" />
   </div>
 </template>
 <script>

@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function list(userId, params) {
+export function list(params) {
   return request({
-    url: '/favorite/' + userId,
+    url: '/favorite',
     method: 'get',
     params
   })

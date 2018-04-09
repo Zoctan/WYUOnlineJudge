@@ -28,7 +28,7 @@
     </select>
 
     <resultMap id="UserDetailMap" type="com.zoctan.api.model.User" extends="UserWithRoleMap">
-        <!-- 1角色对应多权限 -->
+        <!-- 一角色对应多权限 -->
         <collection property="permissionCodeList" ofType="String">
             <result column="permission_code" jdbcType="VARCHAR" property="code" />
         </collection>

@@ -7,18 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
-@Table(name = "admin_contest")
-public class AdminContest {
+@Table(name = "user_favorite")
+public class UserFavorite {
     /**
-     * 举办者Id
+     * 用户Id
      */
     @Column(name = "user_id")
     private Long userId;
 
     /**
-     * 比赛Id
+     * 收藏夹Id
      */
     @Id
-    @Column(name = "contest_id")
-    private Long contestId;
+    @Column(name = "favorite_id")
+    private Long favoriteId;
 }

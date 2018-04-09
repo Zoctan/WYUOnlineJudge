@@ -6,8 +6,9 @@ import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
 import com.zoctan.api.model.Favorite;
 import com.zoctan.api.service.FavoriteService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,14 +37,17 @@ public class FavoriteController {
         return ResultGenerator.genOkResult();
     }
 
-    @GetMapping("/{userId}")
-    public Result listUserFavorite(@PathVariable final Long userId,
+    @GetMapping
+    public Result listUserFavorite(@AuthenticationPrincipal final UserDetails userDetails,
                                    @RequestParam(defaultValue = "0") final Integer page,
                                    @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
-        final Condition condition = new Condition(Favorite.class);
-        condition.createCriteria().andCondition("user_id = ", userId);
-        final List<Favorite> list = this.favoriteService.findByCondition(condition);
+        // mybatis 一对多关联查询 + pagehelper 分页
+        // pagehelper分页对最先的查询语句 limit 导致查询的页数错误
+        // 暂时办法 先查询用户的收藏夹
+        //fixme
+        this.favoriteService.findUserFavoriteByUsername(userDetails.getUsername());
+        final List<Favorite> list = this.favoriteService.findUserDetailFavoriteByUsername(userDetails.getUsername());
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

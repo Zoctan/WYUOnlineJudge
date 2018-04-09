@@ -1,10 +1,14 @@
 package com.zoctan.api.model;
 
-import javax.persistence.Column;
+import lombok.Data;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.util.List;
 
+@Data
 public class Favorite {
     /**
      * 收藏夹Id
@@ -12,12 +16,6 @@ public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    /**
-     * 用户Id
-     */
-    @Column(name = "user_id")
-    private Long userId;
 
     /**
      * 收藏夹名称
@@ -29,65 +27,10 @@ public class Favorite {
      */
     private Boolean isPrivate;
 
+    /* ---------- 以下字段来自联表查询 ------------*/
     /**
-     * 获取收藏夹Id
-     *
-     * @return id - 收藏夹Id
+     * 收藏夹下的题目Id
      */
-    public Long getId() {
-        return this.id;
-    }
-
-    /**
-     * 设置收藏夹Id
-     *
-     * @param id 收藏夹Id
-     */
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    /**
-     * 获取用户Id
-     *
-     * @return user_id - 用户Id
-     */
-    public Long getUserId() {
-        return this.userId;
-    }
-
-    /**
-     * 设置用户Id
-     *
-     * @param userId 用户Id
-     */
-    public void setUserId(final Long userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * 获取收藏夹名称
-     *
-     * @return title - 收藏夹名称
-     */
-    public String getTitle() {
-        return this.title;
-    }
-
-    /**
-     * 设置收藏夹名称
-     *
-     * @param title 收藏夹名称
-     */
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    public Boolean getPrivate() {
-        return this.isPrivate;
-    }
-
-    public void setPrivate(final Boolean aPrivate) {
-        this.isPrivate = aPrivate;
-    }
+    @Transient
+    private List<Long> problemIdList;
 }

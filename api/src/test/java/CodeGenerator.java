@@ -47,7 +47,7 @@ class CodeGenerator {
         final Scanner scanner = new Scanner(System.in);
         System.out.print("可能已存在相关文件，是否覆盖？y/n:");
         if (scanner.next().equals("y")) {
-            genCode("favorite");
+            genCode("user_favorite");
             genCode("favorite_problem");
         }
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");

@@ -24,12 +24,10 @@ DROP TABLE IF EXISTS `favorite`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `favorite` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '收藏夹Id',
-  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户Id',
   `title` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '收藏夹名称',
   `is_private` tinyint(1) DEFAULT 1 COMMENT '是否私有：0否 | 1是',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `favorite_fk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='收藏夹表';
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='收藏夹表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,8 +36,9 @@ CREATE TABLE `favorite` (
 
 LOCK TABLES `favorite` WRITE;
 /*!40000 ALTER TABLE `favorite` DISABLE KEYS */;
-INSERT INTO `favorite` VALUES (1, 2, '动态规划', 1);
-INSERT INTO `favorite` VALUES (2, 2, '树', 0);
+INSERT INTO `favorite` VALUES (1, '动态规划', 1);
+INSERT INTO `favorite` VALUES (2, '树', 0);
+INSERT INTO `favorite` VALUES (3, '树型动态规划', 0);
 /*!40000 ALTER TABLE `favorite` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
