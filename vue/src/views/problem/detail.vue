@@ -238,7 +238,8 @@
     },
     methods: {
       unix2CurrentTime,
-      listUserFavorite() {
+      showFavoriteDialog() {
+        this.dialogLoading = true
         listUserFavorite(this.favoriteListQuery).then(response => {
           this.dialogFormVisible = true
           this.favoriteList = response.data.list
@@ -246,10 +247,6 @@
           this.setFavoriteSwitch()
           this.dialogLoading = false
         })
-      },
-      showFavoriteDialog() {
-        this.dialogLoading = true
-        this.listUserFavorite()
       },
       setFavoriteSwitch() {
         this.favoriteList.forEach((favorite, index) => {
@@ -278,8 +275,20 @@
       },
       addFavorite() {
         this.btnLoading = true
-        this.newCollection.userId = this.userId
-        addFavorite(this.newCollection).then(() => {
+        this.newFavorite.userId = this.userId
+        if (this.favoriteList === null) {
+          listUserFavorite(this.favoriteListQuery).then(response => {
+            this.favoriteList = response.data.list
+            this.totalFavorite = response.data.total
+          })
+        }
+        const isTitleExist = this.favoriteList.filter(favorite => favorite.title === this.newFavorite.title).length === 1
+        if (isTitleExist) {
+          this.$message.error('收藏夹名称重复')
+          this.btnLoading = false
+          return
+        }
+        addFavorite(this.newFavorite).then(() => {
           this.$message.success('成功添加收藏夹')
           this.btnLoading = false
         })

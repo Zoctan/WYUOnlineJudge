@@ -33,4 +33,10 @@ public class Favorite {
      */
     @Transient
     private List<Long> problemIdList;
+
+    /**
+     * 用户Id
+     */
+    @Transient
+    private Long userId;
 }

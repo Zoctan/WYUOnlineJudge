@@ -21,4 +21,14 @@ public class UserCode {
      */
     @Column(name = "code_id")
     private Long codeId;
+
+    public UserCode setUserId(final Long userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public UserCode setCodeId(final Long codeId) {
+        this.codeId = codeId;
+        return this;
+    }
 }

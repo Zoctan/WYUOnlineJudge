@@ -21,4 +21,14 @@ public class UserFavorite {
     @Id
     @Column(name = "favorite_id")
     private Long favoriteId;
+
+    public UserFavorite setUserId(final Long userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public UserFavorite setFavoriteId(final Long favoriteId) {
+        this.favoriteId = favoriteId;
+        return this;
+    }
 }
