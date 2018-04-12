@@ -57,3 +57,22 @@ export function isValidateRoleName(roleName) {
   const reg = /^ROLE_[A-Z]+$/
   return reg.test(roleName)
 }
+
+export function isValidateString(string) {
+  const reg = {
+    basic: / /, // vb中的简单空白字符过滤
+    classic: /\s/, // 传统的js空白字符过滤
+    ecmascript5: /[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/, // ECMAScript 5中对/s的补充定义
+    ex: /[\s\xA0\u2028\u2029]/, // 印象中是和js中的标识符或者字符串有关，忘了从哪来的了XD
+    control: /[\x00-\x1F\x7F-\x9F]/, // 补充了控制字符的简单过滤
+    dotNet: /[\s\xA0\u2000-\u200B\u3000\uFEFF]/, // .NET平台的默认实现
+    unicode: /[\s\x85\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/, // 过滤Unicode标准中定义的空白字符
+    complex: /[\x00-\x20\x7F-\xA0\u1680\u180E\u2000-\u200B\u2028\u2029\u202F\u205F\u3000\uFEFF]/ // 复合的过滤，是以上几种的并集
+  }
+  for (const i in reg) {
+    if (reg[i].test(string)) {
+      return false
+    }
+  }
+  return true
+}

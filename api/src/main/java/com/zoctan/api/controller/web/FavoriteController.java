@@ -27,7 +27,7 @@ public class FavoriteController {
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable final Long id) {
-        this.favoriteService.deleteById(id);
+        this.favoriteService.delete(id);
         return ResultGenerator.genOkResult();
     }
 

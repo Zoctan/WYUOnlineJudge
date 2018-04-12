@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div :data="problem">
-      <h3 v-text="problem.id + '.' + problem.title"></h3>
+      <h2>{{ problem.id + '.' + problem.title }}</h2>
       <el-tabs type="card"
                v-loading.body="loading"
                element-loading-text="loading">
@@ -9,41 +9,33 @@
           <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
 
           <el-dialog title="收藏题目" width="35%" center
-                     :visible.sync="dialogFormVisible"
-                     v-loading.body="dialogLoading"
-                     element-loading-text="loading">
-            <div v-for="(item, index) in favoriteList">
-              <el-row :gutter="20">
-                <el-col :span="10"><label>{{ item.title }}</label></el-col>
-                <el-col :span="8" :offset="6">
+                     :visible.sync="dialogFormVisible">
+            <el-table :data="favoriteList" height="250">
+              <el-table-column prop="title" label="收藏夹" align="center" />
+              <el-table-column prop="id" label="操作" align="center">
+                <template slot-scope="scope">
                   <el-switch
-                    :disabled="switchDisabled"
-                    @change="handleFavoriteSwitch(item.id, favoriteSwitch[index])"
-                    v-model="favoriteSwitch[index]"
                     active-text="收藏"
                     active-color="#13ce66"
                     inactive-text="移除"
-                    inactive-color="#ff4949">
-                  </el-switch>
-                </el-col>
-              </el-row>
-            </div>
+                    inactive-color="#ff4949"
+                    :disabled="switchDisabled"
+                    @change="handleFavoriteSwitch(scope.row.id, favoriteSwitch[scope.row.id])"
+                    v-model="favoriteSwitch[scope.row.id]" />
+                </template>
+              </el-table-column>
+            </el-table>
             <div slot="footer" class="dialog-footer">
-              <el-pagination
-                small
-                layout="prev, pager, next"
-                :total="totalFavorite"
-                @current-change="handleFavoriteCurrentChange"
-                :current-page="favoriteListQuery.page"
-                :page-size="favoriteListQuery.size" />
+              <el-button @click="dialogFormVisible = false">完成</el-button>
             </div>
           </el-dialog>
 
           <el-dropdown trigger="click" size="medium" split-button
                        :hide-on-click="false"
-                       @click="showFavoriteDialog"
+                       @click="dialogFormVisible = true"
                        :loading="btnLoading">
-            <svg-icon icon-class="star" /> 收藏
+            <svg-icon icon-class="star" v-if="favoriteSwitch.indexOf(true) !== -1" style="color: #C03639" />
+            <svg-icon icon-class="star" v-else /> 收藏
 
             <el-dropdown-menu slot="dropdown">
               <el-popover ref="popoverFavorite" placement="right" width="200" trigger="click">
@@ -190,12 +182,13 @@
     components: { CodeEditor },
     created() {
       this.getProblemDetail()
+      this.listUserFavorite()
     },
     data() {
       return {
         loading: false,
         btnLoading: false,
-        problem: {
+        problem: { // 题目
           id: this.$route.params.id,
           title: null,
           level: null,
@@ -204,26 +197,21 @@
           submitted: null,
           description: null
         },
-        code: '',
+        code: '', // 代码编辑框内容
         submitCodeList: null, // 提交记录列表
-        totalSubmitCode: 0,
-        listLoading: false,
+        totalSubmitCode: 0, // 提交记录数
+        listLoading: false, // 列表加载
         submitCodeListQuery: {
           page: 1, // 页码
           size: 30 // 每页数量
         },
-        dialogFormVisible: false,
-        dialogLoading: false,
-        favoriteList: null,
-        totalFavorite: 0,
-        favoriteSwitch: [],
-        switchDisabled: false,
-        favoriteListQuery: {
-          page: 1,
-          size: 10
-        },
-        isPrivateOptions: [{ label: '私有', value: true }, { label: '公开', value: false }],
-        newFavorite: {
+        dialogFormVisible: false, // 显示隐藏收藏夹对话框
+        favoriteList: null, // 用户收藏夹
+        totalFavorite: 0, // 用户收藏夹数
+        favoriteSwitch: [], // 各个收藏夹是否收藏了该题目
+        switchDisabled: false, // 其他收藏夹收藏时，禁止切换
+        isPrivateOptions: [{ label: '私有', value: true }, { label: '公开', value: false }], // 新收藏夹是否对外公开
+        newFavorite: { // 新收藏夹
           title: null,
           userId: null,
           isPrivate: true
@@ -238,22 +226,18 @@
     },
     methods: {
       unix2CurrentTime,
-      showFavoriteDialog() {
-        this.dialogLoading = true
-        listUserFavorite(this.favoriteListQuery).then(response => {
-          this.dialogFormVisible = true
+      listUserFavorite() {
+        listUserFavorite().then(response => {
           this.favoriteList = response.data.list
           this.totalFavorite = response.data.total
           this.setFavoriteSwitch()
-          this.dialogLoading = false
         })
       },
       setFavoriteSwitch() {
-        this.favoriteList.forEach((favorite, index) => {
-          favorite.problemIdList.forEach(problemId => {
-            this.favoriteSwitch[index] = problemId === this.problem.id
-          })
+        this.favoriteList.forEach(favorite => {
+          this.favoriteSwitch[favorite.id] = favorite.problemIdList.indexOf(this.problem.id) !== -1
         })
+        this.favoriteSwitch.forEach((x,index) => console.info(index+'->'+x))
       },
       handleFavoriteSwitch(favoriteId, status) {
         this.switchDisabled = true
@@ -276,12 +260,6 @@
       addFavorite() {
         this.btnLoading = true
         this.newFavorite.userId = this.userId
-        if (this.favoriteList === null) {
-          listUserFavorite(this.favoriteListQuery).then(response => {
-            this.favoriteList = response.data.list
-            this.totalFavorite = response.data.total
-          })
-        }
         const isTitleExist = this.favoriteList.filter(favorite => favorite.title === this.newFavorite.title).length === 1
         if (isTitleExist) {
           this.$message.error('收藏夹名称重复')
@@ -289,6 +267,7 @@
           return
         }
         addFavorite(this.newFavorite).then(() => {
+          this.listUserFavorite()
           this.$message.success('成功添加收藏夹')
           this.btnLoading = false
         })
@@ -305,7 +284,7 @@
         this.listLoading = true
         listSubmitCode(this.problem.id, this.listQuery).then(response => {
           this.submitCodeList = response.data.list
-          this.total = response.data.total
+          this.totalSubmitCode = response.data.total
           this.listLoading = false
         })
       },

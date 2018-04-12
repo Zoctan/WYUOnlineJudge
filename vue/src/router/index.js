@@ -93,5 +93,17 @@ export const asyncRouterMap = [
       component: _import('problem/detail'),
       meta: { permission: ['problem:detail'] }
     }]
+  },
+  {
+    path: '/feedback',
+    component: Layout,
+    redirect: 'noRedirect',
+    icon: 'component',
+    children: [{
+      path: 'index',
+      name: '反馈',
+      component: _import('feedback/index'),
+      meta: { permission: ['problem:detail'] }
+    }]
   }
 ]

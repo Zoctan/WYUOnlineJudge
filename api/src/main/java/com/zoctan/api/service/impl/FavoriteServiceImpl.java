@@ -8,6 +8,7 @@ import com.zoctan.api.model.UserFavorite;
 import com.zoctan.api.service.FavoriteService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,10 +25,18 @@ public class FavoriteServiceImpl extends AbstractService<Favorite> implements Fa
 
     @Override
     public void save(final Favorite favorite) {
-        this.favoriteMapper.insert(favorite);
+        this.favoriteMapper.insertSelective(favorite);
         this.userFavoriteMapper.insert(new UserFavorite()
                 .setFavoriteId(favorite.getId())
                 .setUserId(favorite.getUserId()));
+    }
+
+    @Override
+    public void delete(final Long id) {
+        this.favoriteMapper.deleteByPrimaryKey(id);
+        final Condition condition = new Condition(UserFavorite.class);
+        condition.createCriteria().andCondition("favorite_id = ", id);
+        this.userFavoriteMapper.deleteByCondition(condition);
     }
 
     @Override

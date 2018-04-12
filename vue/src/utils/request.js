@@ -7,7 +7,7 @@ import { getToken } from '@/store/modules/token'
 // https://www.kancloud.cn/yunye/axios/234845
 const service = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
-  timeout: 5000, // 请求超时时间
+  timeout: 15000, // 请求超时时间
   // 所有请求都以Json形式传送
   // 会有预检请求，服务端需要正常通过OPTIONS请求
   // http://www.ruanyifeng.com/blog/2016/04/cors

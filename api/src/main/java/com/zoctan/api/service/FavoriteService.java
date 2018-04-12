@@ -9,6 +9,8 @@ public interface FavoriteService extends Service<Favorite> {
     @Override
     void save(Favorite favorite);
 
+    void delete(Long id);
+
     List<Favorite> findUserFavoriteByUsername(String username);
 
     List<Favorite> findUserDetailFavoriteByUsername(String username);
