@@ -1,15 +1,11 @@
 package com.zoctan.api.service;
 
 import com.zoctan.api.core.service.Service;
-import com.zoctan.api.model.User;
+import com.zoctan.api.databaseModel.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-
-/**
- * Created by Zoctan on 2018/02/04.
- */
 public interface UserService extends Service<User> {
     @Override
     void save(User user);

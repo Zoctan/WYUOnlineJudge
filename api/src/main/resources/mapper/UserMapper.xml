@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zoctan.api.mapper.UserMapper">
-    <resultMap id="UserMap" type="com.zoctan.api.model.User">
+    <resultMap id="UserMap" type="com.zoctan.api.databaseModel.User">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
@@ -12,7 +12,7 @@
         <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
     </resultMap>
 
-    <resultMap id="UserWithRoleMap" type="com.zoctan.api.model.User" extends="UserMap">
+    <resultMap id="UserWithRoleMap" type="com.zoctan.api.databaseModel.User" extends="UserMap">
         <result column="role_id" jdbcType="BIGINT" property="roleId" />
         <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     </resultMap>
@@ -27,7 +27,7 @@
         LEFT JOIN `role` r ON ur.role_id = r.id
     </select>
 
-    <resultMap id="UserDetailMap" type="com.zoctan.api.model.User" extends="UserWithRoleMap">
+    <resultMap id="UserDetailMap" type="com.zoctan.api.databaseModel.User" extends="UserWithRoleMap">
         <!-- 一角色对应多权限 -->
         <collection property="permissionCodeList" ofType="String">
             <result column="permission_code" jdbcType="VARCHAR" property="code" />

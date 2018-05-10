@@ -1,12 +1,9 @@
-package com.zoctan.api.model;
-
-import lombok.Data;
+package com.zoctan.api.databaseModel;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
 @Table(name = "user_favorite")
 public class UserFavorite {
     /**
@@ -22,13 +19,19 @@ public class UserFavorite {
     @Column(name = "favorite_id")
     private Long favoriteId;
 
-    public UserFavorite setUserId(final Long userId) {
-        this.userId = userId;
-        return this;
+    public Long getUserId() {
+        return this.userId;
     }
 
-    public UserFavorite setFavoriteId(final Long favoriteId) {
+    public void setUserId(final Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getFavoriteId() {
+        return this.favoriteId;
+    }
+
+    public void setFavoriteId(final Long favoriteId) {
         this.favoriteId = favoriteId;
-        return this;
     }
 }

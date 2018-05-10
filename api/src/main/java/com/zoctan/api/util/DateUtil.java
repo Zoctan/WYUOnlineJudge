@@ -12,7 +12,6 @@ import java.util.Locale;
 /**
  * 日期工具类
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class DateUtil {
     /**
      * 获取现在时间

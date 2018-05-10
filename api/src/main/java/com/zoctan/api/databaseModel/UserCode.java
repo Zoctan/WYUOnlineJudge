@@ -1,12 +1,9 @@
-package com.zoctan.api.model;
-
-import lombok.Data;
+package com.zoctan.api.databaseModel;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
 @Table(name = "user_code")
 public class UserCode {
     /**
@@ -22,13 +19,19 @@ public class UserCode {
     @Column(name = "code_id")
     private Long codeId;
 
-    public UserCode setUserId(final Long userId) {
-        this.userId = userId;
-        return this;
+    public Long getUserId() {
+        return this.userId;
     }
 
-    public UserCode setCodeId(final Long codeId) {
+    public void setUserId(final Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getCodeId() {
+        return this.codeId;
+    }
+
+    public void setCodeId(final Long codeId) {
         this.codeId = codeId;
-        return this;
     }
 }

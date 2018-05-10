@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
-import com.zoctan.api.model.Role;
+import com.zoctan.api.databaseModel.Role;
 import com.zoctan.api.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -60,7 +60,7 @@ public class RoleController {
     public Result list(@RequestParam(defaultValue = "0") final Integer page,
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
-        final List<com.zoctan.api.model.Resource> list = this.roleService.findAllRoleWithPermission();
+        final List<com.zoctan.api.databaseModel.Resource> list = this.roleService.findAllRoleWithPermission();
         //noinspection unchecked
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zoctan.api.mapper.CodeMapper">
-  <resultMap id="CodeMap" type="com.zoctan.api.model.Code">
+  <resultMap id="CodeMap" type="com.zoctan.api.databaseModel.Code">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="problem_id" jdbcType="BIGINT" property="problemId" />
     <result column="status" jdbcType="BIT" property="status" />
@@ -12,7 +12,7 @@
     <result column="code" jdbcType="LONGVARCHAR" property="code" />
   </resultMap>
 
-  <resultMap id="UserProblemCodeMap" type="com.zoctan.api.model.Code" extends="CodeMap">
+  <resultMap id="UserProblemCodeMap" type="com.zoctan.api.databaseModel.Code" extends="CodeMap">
     <result column="user_id" jdbcType="BIGINT" property="userId" />
   </resultMap>
 

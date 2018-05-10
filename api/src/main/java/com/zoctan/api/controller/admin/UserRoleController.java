@@ -2,7 +2,7 @@ package com.zoctan.api.controller.admin;
 
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
-import com.zoctan.api.model.User;
+import com.zoctan.api.databaseModel.User;
 import com.zoctan.api.service.UserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

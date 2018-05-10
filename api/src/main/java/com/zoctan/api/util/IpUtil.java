@@ -14,7 +14,6 @@ import java.net.URL;
 /**
  * IP工具类
  */
-@SuppressWarnings("unused")
 class IpUtil {
     /**
      * 获取登录用户的IP地址

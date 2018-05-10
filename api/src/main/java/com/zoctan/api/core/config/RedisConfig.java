@@ -3,7 +3,8 @@ package com.zoctan.api.core.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.Cache;
@@ -23,9 +24,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
-@Slf4j
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
+    private final Logger log = LoggerFactory.getLogger(RedisConfig.class);
     // cache缓存过期时间xx秒
     @Value("${cache.expiration}")
     private int EXPIRATION;
@@ -42,12 +43,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         final JedisConnectionFactory factory = new JedisConnectionFactory();
         factory.setUsePool(true);
         factory.setPoolConfig(this.getRedisConfig());
-        log.debug("JedisConnectionFactory bean init success.");
+        this.log.info("JedisConnectionFactory setting init success");
         return factory;
     }
 
     @Bean
-    @SuppressWarnings("unchecked")
     public RedisTemplate getRedisTemplate() {
         final RedisTemplate redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(this.getConnectionFactory());
@@ -60,7 +60,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.afterPropertiesSet();
-        log.debug("RedisTemplate bean init success.");
+        this.log.info("RedisTemplate setting init success");
         return redisTemplate;
     }
 
@@ -107,29 +107,29 @@ public class RedisConfig extends CachingConfigurerSupport {
         return new SimpleCacheErrorHandler() {
             @Override
             public void handleCacheGetError(final RuntimeException exception, final Cache cache, final Object key) {
-                log.error("cache : {} , key : {}", cache, key);
-                log.error("handleCacheGetError", exception);
+                RedisConfig.this.log.error("cache : {} , key : {}", cache, key);
+                RedisConfig.this.log.error("handleCacheGetError", exception);
                 super.handleCacheGetError(exception, cache, key);
             }
 
             @Override
             public void handleCachePutError(final RuntimeException exception, final Cache cache, final Object key, final Object value) {
-                log.error("cache : {} , key : {} , value : {} ", cache, key, value);
-                log.error("handleCachePutError", exception);
+                RedisConfig.this.log.error("cache : {} , key : {} , value : {} ", cache, key, value);
+                RedisConfig.this.log.error("handleCachePutError", exception);
                 super.handleCachePutError(exception, cache, key, value);
             }
 
             @Override
             public void handleCacheEvictError(final RuntimeException exception, final Cache cache, final Object key) {
-                log.error("cache : {} , key : {}", cache, key);
-                log.error("handleCacheEvictError", exception);
+                RedisConfig.this.log.error("cache : {} , key : {}", cache, key);
+                RedisConfig.this.log.error("handleCacheEvictError", exception);
                 super.handleCacheEvictError(exception, cache, key);
             }
 
             @Override
             public void handleCacheClearError(final RuntimeException exception, final Cache cache) {
-                log.error("cache : {} ", cache);
-                log.error("handleCacheClearError", exception);
+                RedisConfig.this.log.error("cache : {} ", cache);
+                RedisConfig.this.log.error("handleCacheClearError", exception);
                 super.handleCacheClearError(exception, cache);
             }
         };

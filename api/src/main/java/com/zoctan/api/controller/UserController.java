@@ -5,9 +5,10 @@ import com.github.pagehelper.PageInfo;
 import com.zoctan.api.core.jwt.JwtUtil;
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
-import com.zoctan.api.model.User;
+import com.zoctan.api.databaseModel.User;
 import com.zoctan.api.service.UserService;
 import com.zoctan.api.service.impl.UserDetailsServiceImpl;
+import com.zoctan.api.util.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -22,11 +23,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.zoctan.api.core.ProjectConstant.ONLINE_USER_NUMBER;
+
 @Api(value = "用户接口")
 @RestController
 @RequestMapping("/user")
 @Validated
 public class UserController {
+    @Resource
+    private RedisUtil redisUtil;
     @Resource
     private UserService userService;
     @Resource
@@ -37,6 +42,13 @@ public class UserController {
     @Autowired
     public UserController(final JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
+    }
+
+    @ApiOperation(value = "当前用户在线数")
+    @GetMapping("/onlineUserNum")
+    public Result onlineUserNum() {
+        final Long online = (Long) this.redisUtil.get(ONLINE_USER_NUMBER);
+        return ResultGenerator.genOkResult(online);
     }
 
     @PreAuthorize("hasAuthority('user:delete')")

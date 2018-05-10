@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
-import com.zoctan.api.model.UserCode;
+import com.zoctan.api.databaseModel.UserCode;
 import com.zoctan.api.service.UserCodeService;
 import org.springframework.web.bind.annotation.*;
 

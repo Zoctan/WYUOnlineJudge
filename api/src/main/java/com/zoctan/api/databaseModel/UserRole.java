@@ -1,12 +1,9 @@
-package com.zoctan.api.model;
-
-import lombok.Data;
+package com.zoctan.api.databaseModel;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
 @Table(name = "user_role")
 public class UserRole {
     /**
@@ -22,13 +19,19 @@ public class UserRole {
     @Column(name = "role_id")
     private Long roleId;
 
-    public UserRole setRoleId(final Long roleId) {
-        this.roleId = roleId;
-        return this;
+    public Long getUserId() {
+        return this.userId;
     }
 
-    public UserRole setUserId(final Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
-        return this;
+    }
+
+    public Long getRoleId() {
+        return this.roleId;
+    }
+
+    public void setRoleId(final Long roleId) {
+        this.roleId = roleId;
     }
 }

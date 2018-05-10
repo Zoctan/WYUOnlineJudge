@@ -3,8 +3,8 @@ package com.zoctan.api.service.impl;
 import com.zoctan.api.core.service.AbstractService;
 import com.zoctan.api.mapper.FavoriteMapper;
 import com.zoctan.api.mapper.UserFavoriteMapper;
-import com.zoctan.api.model.Favorite;
-import com.zoctan.api.model.UserFavorite;
+import com.zoctan.api.databaseModel.Favorite;
+import com.zoctan.api.databaseModel.UserFavorite;
 import com.zoctan.api.service.FavoriteService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,6 @@ import java.util.List;
 
 @Service
 @Transactional
-@SuppressWarnings("SpringJavaAutowiringInspection")
 public class FavoriteServiceImpl extends AbstractService<Favorite> implements FavoriteService {
     @Resource
     private FavoriteMapper favoriteMapper;
@@ -26,14 +25,17 @@ public class FavoriteServiceImpl extends AbstractService<Favorite> implements Fa
     @Override
     public void save(final Favorite favorite) {
         this.favoriteMapper.insertSelective(favorite);
-        this.userFavoriteMapper.insert(new UserFavorite()
-                .setFavoriteId(favorite.getId())
-                .setUserId(favorite.getUserId()));
+
+        final UserFavorite userFavorite = new UserFavorite();
+        userFavorite.setFavoriteId(favorite.getId());
+        userFavorite.setUserId(favorite.getUserId());
+        this.userFavoriteMapper.insert(userFavorite);
     }
 
     @Override
     public void delete(final Long id) {
         this.favoriteMapper.deleteByPrimaryKey(id);
+
         final Condition condition = new Condition(UserFavorite.class);
         condition.createCriteria().andCondition("favorite_id = ", id);
         this.userFavoriteMapper.deleteByCondition(condition);

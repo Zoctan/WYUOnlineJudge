@@ -1,7 +1,8 @@
 package com.zoctan.api.util;
 
-import com.zoctan.api.model.Feedback;
-import lombok.extern.slf4j.Slf4j;
+import com.zoctan.api.databaseModel.Feedback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
-@Slf4j
 @Component
 public class EmailUtil {
+    private final Logger log = LoggerFactory.getLogger(EmailUtil.class);
     @Value("${spring.mail.to}")
     private String TO;
     @Value("${spring.mail.username}")
@@ -36,7 +37,7 @@ public class EmailUtil {
             this.sender.send(message);
             return true;
         } catch (final Exception e) {
-            log.error(e.getMessage());
+            this.log.error(e.getMessage());
             return false;
         }
     }
@@ -58,7 +59,7 @@ public class EmailUtil {
             this.sender.send(message);
             return true;
         } catch (final Exception e) {
-            log.error(e.getMessage());
+            this.log.error(e.getMessage());
             return false;
         }
     }

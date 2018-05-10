@@ -1,6 +1,7 @@
 package com.zoctan.api.core.jwt;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -17,9 +18,9 @@ import java.io.IOException;
 /**
  * 验证请求的Token
  */
-@Slf4j
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    private final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     @Resource
     private JwtUtil jwtUtil;
 
@@ -43,11 +44,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String token = this.jwtUtil.getTokenFromRequest(request);
         if (token == null) {
-            log.info("Anonymous request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
+            this.log.info("Anonymous request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
         } else {
             final String username = this.jwtUtil.getUsername(token);
-            log.info("JwtFilter => user<{}> token : {}", username, token);
-            log.info("request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
+            this.log.info("JwtFilter => user<{}> token : {}", username, token);
+            this.log.info("request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 if (this.jwtUtil.validateToken(token)) {
@@ -56,7 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                    log.info("JwtFilter => user<{}> is authorized, set security context", username);
+                    this.log.info("JwtFilter => user<{}> is authorized, set security context", username);
                 }
             }
         }

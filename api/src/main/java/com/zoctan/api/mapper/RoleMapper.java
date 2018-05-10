@@ -1,8 +1,8 @@
 package com.zoctan.api.mapper;
 
 import com.zoctan.api.core.mapper.MyMapper;
-import com.zoctan.api.model.Resource;
-import com.zoctan.api.model.Role;
+import com.zoctan.api.databaseModel.Resource;
+import com.zoctan.api.databaseModel.Role;
 
 import java.util.List;
 

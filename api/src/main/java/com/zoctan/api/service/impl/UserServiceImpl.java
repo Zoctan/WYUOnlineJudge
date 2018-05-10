@@ -5,11 +5,10 @@ import com.zoctan.api.core.service.AbstractService;
 import com.zoctan.api.mapper.PermissionMapper;
 import com.zoctan.api.mapper.UserMapper;
 import com.zoctan.api.mapper.UserRoleMapper;
-import com.zoctan.api.model.User;
-import com.zoctan.api.model.UserRole;
+import com.zoctan.api.databaseModel.User;
+import com.zoctan.api.databaseModel.UserRole;
 import com.zoctan.api.service.UserService;
 import com.zoctan.api.util.DateUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,8 +22,6 @@ import java.util.Map;
 
 @Service
 @Transactional
-@Slf4j
-@SuppressWarnings("SpringJavaAutowiringInspection")
 public class UserServiceImpl extends AbstractService<User> implements UserService {
     @Resource
     private UserMapper userMapper;
@@ -59,9 +56,10 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
                 if (roleId == null) {
                     roleId = 2L;
                 }
-                this.userRoleMapper.insert(new UserRole()
-                        .setUserId(user.getId())
-                        .setRoleId(roleId));
+                final UserRole userRole = new UserRole();
+                userRole.setUserId(user.getId());
+                userRole.setRoleId(roleId);
+                this.userRoleMapper.insert(userRole);
             }
         }
     }

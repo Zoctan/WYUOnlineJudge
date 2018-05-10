@@ -1,4 +1,4 @@
-package com.zoctan.api.model;
+package com.zoctan.api.databaseModel;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -10,7 +10,14 @@ import java.util.List;
  * 如果这里不定义，那么嵌套返回结果里就只能返回一对一的结果，而不是一对多的
  * 对MyBatis源码有研究的同学看DefaultResultSetHandler.instantiateCollectionPropertyIfAppropriate()就明白了
  */
-@SuppressWarnings("unused")
 public class Resource extends JSONObject {
+    public List<JSONObject> getHandleList() {
+        return this.handleList;
+    }
+
+    public void setHandleList(final List<JSONObject> handleList) {
+        this.handleList = handleList;
+    }
+
     private List<JSONObject> handleList;
 }

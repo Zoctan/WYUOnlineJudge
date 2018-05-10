@@ -1,7 +1,6 @@
 package com.zoctan.api.util;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import sun.misc.BASE64Decoder;
 
@@ -16,7 +15,6 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * RSA 工具类
  */
-@Slf4j
 @Component
 public class RSAUtil {
     private final String RESOURCES_PATH = System.getProperty("user.dir") + "/src/main/resources/rsa/";
@@ -99,7 +97,7 @@ public class RSAUtil {
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePublic(spec);
         } catch (final Exception e) {
-            log.error(e.getMessage());
+            //log.error(e.getMessage());
             return null;
         }
     }
@@ -121,7 +119,7 @@ public class RSAUtil {
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePrivate(spec);
         } catch (final Exception e) {
-            log.error(e.getMessage());
+            //log.error(e.getMessage());
             return null;
         }
     }
