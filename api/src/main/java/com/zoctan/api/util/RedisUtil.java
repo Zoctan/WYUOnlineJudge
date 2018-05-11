@@ -143,6 +143,15 @@ public class RedisUtil {
     }
 
     /**
+     * 获取递增递减
+     *
+     * @param key 键
+     */
+    public String getIncDec(final String key) {
+        return this.redisTemplate.boundValueOps(this.prefix + key).get(0, -1);
+    }
+
+    /**
      * 递增
      *
      * @param key   键

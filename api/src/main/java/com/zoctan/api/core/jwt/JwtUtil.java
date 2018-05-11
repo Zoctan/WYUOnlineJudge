@@ -89,6 +89,8 @@ public class JwtUtil {
         this.redisUtil.delete(username);
         // 清除用户的权限信息
         this.redisUtil.delete(this.jwtSetting.getHeader() + username);
+        // 当前用户数减1
+        this.redisUtil.decrement(ONLINE_USER_NUMBER, 1);
         this.log.info("User<{}> logout and redis delete all info", username);
     }
 

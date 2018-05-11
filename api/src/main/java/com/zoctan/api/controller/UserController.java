@@ -47,7 +47,7 @@ public class UserController {
     @ApiOperation(value = "当前用户在线数")
     @GetMapping("/onlineUserNum")
     public Result onlineUserNum() {
-        final Long online = (Long) this.redisUtil.get(ONLINE_USER_NUMBER);
+        final Long online = Long.parseLong(this.redisUtil.getIncDec(ONLINE_USER_NUMBER));
         return ResultGenerator.genOkResult(online);
     }
 
