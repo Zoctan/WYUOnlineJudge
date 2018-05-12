@@ -1,4 +1,4 @@
-package com.zoctan.api.databaseModel;
+package com.zoctan.api.model;
 
 import javax.persistence.*;
 import java.util.Date;

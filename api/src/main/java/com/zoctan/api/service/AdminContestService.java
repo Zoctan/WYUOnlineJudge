@@ -1,7 +1,7 @@
 package com.zoctan.api.service;
 
 import com.zoctan.api.core.service.Service;
-import com.zoctan.api.databaseModel.AdminContest;
+import com.zoctan.api.model.AdminContest;
 
 public interface AdminContestService extends Service<AdminContest> {
 

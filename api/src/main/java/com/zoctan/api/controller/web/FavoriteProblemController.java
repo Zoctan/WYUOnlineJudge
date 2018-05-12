@@ -2,7 +2,7 @@ package com.zoctan.api.controller.web;
 
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
-import com.zoctan.api.databaseModel.FavoriteProblem;
+import com.zoctan.api.model.FavoriteProblem;
 import com.zoctan.api.service.FavoriteProblemService;
 import org.springframework.web.bind.annotation.*;
 

@@ -7,7 +7,7 @@ public final class ProjectConstant {
     // 项目基础包名称
     public static final String BASE_PACKAGE = "com.zoctan.api";
     // Model所在包
-    public static final String MODEL_PACKAGE = BASE_PACKAGE + ".databaseModel";
+    public static final String MODEL_PACKAGE = BASE_PACKAGE + ".model";
     // Mapper所在包
     public static final String MAPPER_PACKAGE = BASE_PACKAGE + ".mapper";
     // Service所在包

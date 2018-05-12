@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zoctan.api.core.jwt.JwtUtil;
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
-import com.zoctan.api.databaseModel.User;
+import com.zoctan.api.model.User;
 import com.zoctan.api.service.UserService;
 import com.zoctan.api.service.impl.UserDetailsServiceImpl;
 import com.zoctan.api.util.RedisUtil;

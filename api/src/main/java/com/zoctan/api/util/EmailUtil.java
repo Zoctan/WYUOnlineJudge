@@ -1,6 +1,6 @@
 package com.zoctan.api.util;
 
-import com.zoctan.api.databaseModel.Feedback;
+import com.zoctan.api.model.Feedback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

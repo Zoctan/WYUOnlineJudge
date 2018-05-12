@@ -1,4 +1,4 @@
-package com.zoctan.api.databaseModel;
+package com.zoctan.api.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import org.hibernate.validator.constraints.NotEmpty;

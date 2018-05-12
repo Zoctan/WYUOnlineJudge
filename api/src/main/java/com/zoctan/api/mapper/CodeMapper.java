@@ -1,7 +1,7 @@
 package com.zoctan.api.mapper;
 
 import com.zoctan.api.core.mapper.MyMapper;
-import com.zoctan.api.databaseModel.Code;
+import com.zoctan.api.model.Code;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

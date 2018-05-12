@@ -66,7 +66,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html**",
                         "/swagger-resources**",
                         "/webjars/**",
-                        "/v2/**"
+                        "/v2/**",
+                        "/websocket"
                 ).permitAll()
                 // 允许登录和注册
                 .antMatchers(

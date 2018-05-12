@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
-import com.zoctan.api.databaseModel.AdminContest;
+import com.zoctan.api.model.AdminContest;
 import com.zoctan.api.service.AdminContestService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,11 +1,11 @@
-package com.zoctan.api.databaseModel;
+package com.zoctan.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "user_role")
-public class UserRole {
+@Table(name = "user_code")
+public class UserCode {
     /**
      * 用户Id
      */
@@ -14,10 +14,10 @@ public class UserRole {
     private Long userId;
 
     /**
-     * 角色Id
+     * 代码Id
      */
-    @Column(name = "role_id")
-    private Long roleId;
+    @Column(name = "code_id")
+    private Long codeId;
 
     public Long getUserId() {
         return this.userId;
@@ -27,11 +27,11 @@ public class UserRole {
         this.userId = userId;
     }
 
-    public Long getRoleId() {
-        return this.roleId;
+    public Long getCodeId() {
+        return this.codeId;
     }
 
-    public void setRoleId(final Long roleId) {
-        this.roleId = roleId;
+    public void setCodeId(final Long codeId) {
+        this.codeId = codeId;
     }
 }

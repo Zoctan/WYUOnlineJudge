@@ -1,4 +1,4 @@
-package com.zoctan.api.databaseModel;
+package com.zoctan.api.model;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;

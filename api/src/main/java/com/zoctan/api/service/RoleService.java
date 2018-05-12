@@ -1,8 +1,8 @@
 package com.zoctan.api.service;
 
 import com.zoctan.api.core.service.Service;
-import com.zoctan.api.databaseModel.Resource;
-import com.zoctan.api.databaseModel.Role;
+import com.zoctan.api.model.Resource;
+import com.zoctan.api.model.Role;
 
 import java.util.List;
 

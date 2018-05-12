@@ -1,29 +1,38 @@
 package com.zoctan.api;
 
+import com.zoctan.api.setting.JWTSetting;
 import com.zoctan.api.util.RSAUtil;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class)
 public class RSASignTest {
-    private final RSAUtil rsaUtil = new RSAUtil();
+    @Resource
+    private RSAUtil rsaUtil;
+    @Resource
+    private JWTSetting jwtSetting;
 
     /**
      * 加载公私钥pem格式文件测试
      */
     @Test
     public void test1() throws Exception {
-        final PublicKey publicKey = this.rsaUtil.loadPemPublicKey("rsa/public-key.pem");
-        final PrivateKey privateKey = this.rsaUtil.loadPemPrivateKey("rsa/private-key.pem");
+        final PublicKey publicKey = this.rsaUtil.loadPemPublicKey(this.jwtSetting.getPublicKey());
+        final PrivateKey privateKey = this.rsaUtil.loadPemPrivateKey(this.jwtSetting.getPrivateKey());
         Assert.assertNotNull(publicKey);
         Assert.assertNotNull(privateKey);
         System.out.println("公钥：" + publicKey);
         System.out.println("私钥：" + privateKey);
-
     }
 
     /**

@@ -3,8 +3,8 @@ package com.zoctan.api.service.impl;
 import com.zoctan.api.core.service.AbstractService;
 import com.zoctan.api.mapper.RoleMapper;
 import com.zoctan.api.mapper.RolePermissionMapper;
-import com.zoctan.api.databaseModel.Role;
-import com.zoctan.api.databaseModel.RolePermission;
+import com.zoctan.api.model.Role;
+import com.zoctan.api.model.RolePermission;
 import com.zoctan.api.service.RoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
     private RolePermissionMapper rolePermissionMapper;
 
     @Override
-    public List<com.zoctan.api.databaseModel.Resource> findAllRoleWithPermission() {
+    public List<com.zoctan.api.model.Resource> findAllRoleWithPermission() {
         return this.roleMapper.findAllRoleWithPermission();
     }
 

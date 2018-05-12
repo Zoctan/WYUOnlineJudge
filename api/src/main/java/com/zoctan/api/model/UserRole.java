@@ -1,23 +1,23 @@
-package com.zoctan.api.databaseModel;
+package com.zoctan.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "admin_contest")
-public class AdminContest {
+@Table(name = "user_role")
+public class UserRole {
     /**
-     * 举办者Id
+     * 用户Id
      */
     @Id
     @Column(name = "user_id")
     private Long userId;
 
     /**
-     * 比赛Id
+     * 角色Id
      */
-    @Column(name = "contest_id")
-    private Long contestId;
+    @Column(name = "role_id")
+    private Long roleId;
 
     public Long getUserId() {
         return this.userId;
@@ -27,11 +27,11 @@ public class AdminContest {
         this.userId = userId;
     }
 
-    public Long getContestId() {
-        return this.contestId;
+    public Long getRoleId() {
+        return this.roleId;
     }
 
-    public void setContestId(final Long contestId) {
-        this.contestId = contestId;
+    public void setRoleId(final Long roleId) {
+        this.roleId = roleId;
     }
 }

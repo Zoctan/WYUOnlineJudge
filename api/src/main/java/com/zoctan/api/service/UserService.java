@@ -1,7 +1,7 @@
 package com.zoctan.api.service;
 
 import com.zoctan.api.core.service.Service;
-import com.zoctan.api.databaseModel.User;
+import com.zoctan.api.model.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;

@@ -2,8 +2,8 @@ package com.zoctan.api.service.impl;
 
 import com.zoctan.api.core.service.AbstractService;
 import com.zoctan.api.mapper.UserRoleMapper;
-import com.zoctan.api.databaseModel.User;
-import com.zoctan.api.databaseModel.UserRole;
+import com.zoctan.api.model.User;
+import com.zoctan.api.model.UserRole;
 import com.zoctan.api.service.UserRoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

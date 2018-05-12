@@ -1,6 +1,6 @@
 package com.zoctan.api.service.impl;
 
-import com.zoctan.api.databaseModel.User;
+import com.zoctan.api.model.User;
 import com.zoctan.api.service.UserService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

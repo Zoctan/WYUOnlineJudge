@@ -17,7 +17,6 @@ import java.security.spec.X509EncodedKeySpec;
  */
 @Component
 public class RSAUtil {
-    private final String RESOURCES_PATH = System.getProperty("user.dir") + "/src/main/resources/rsa/";
     private final String algorithm = "RSA";
 
     /**
@@ -64,7 +63,7 @@ public class RSAUtil {
     }
 
     private byte[] replaceAndBase64Decode(final String file, final String headReplace, final String tailReplace) throws Exception {
-        final File f = new File(this.RESOURCES_PATH + file);
+        final File f = new File(file);
         final FileInputStream fis = new FileInputStream(f);
         final DataInputStream dis = new DataInputStream(fis);
         final byte[] keyBytes = new byte[(int) f.length()];
@@ -74,7 +73,6 @@ public class RSAUtil {
         final String temp = new String(keyBytes);
         String publicKeyPEM = temp.replace(headReplace, "");
         publicKeyPEM = publicKeyPEM.replace(tailReplace, "");
-
 
         final BASE64Decoder b64 = new BASE64Decoder();
         return b64.decodeBuffer(publicKeyPEM);
@@ -91,8 +89,8 @@ public class RSAUtil {
             final byte[] decoded = this.replaceAndBase64Decode(
                     pem,
                     "-----BEGIN PUBLIC KEY-----\n",
-                    "-----END PUBLIC KEY-----");
-
+                    "-----END PUBLIC KEY-----"
+            );
             final X509EncodedKeySpec spec = new X509EncodedKeySpec(decoded);
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePublic(spec);
@@ -113,8 +111,8 @@ public class RSAUtil {
             final byte[] decoded = this.replaceAndBase64Decode(
                     pem,
                     "-----BEGIN PRIVATE KEY-----\n",
-                    "-----END PRIVATE KEY-----");
-
+                    "-----END PRIVATE KEY-----"
+            );
             final PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePrivate(spec);

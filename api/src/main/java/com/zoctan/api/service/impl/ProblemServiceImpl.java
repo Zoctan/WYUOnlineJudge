@@ -2,7 +2,7 @@ package com.zoctan.api.service.impl;
 
 import com.zoctan.api.core.service.AbstractService;
 import com.zoctan.api.mapper.ProblemMapper;
-import com.zoctan.api.databaseModel.Problem;
+import com.zoctan.api.model.Problem;
 import com.zoctan.api.service.ProblemService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

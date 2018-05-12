@@ -1,7 +1,7 @@
 package com.zoctan.api.service;
 
 import com.zoctan.api.core.service.Service;
-import com.zoctan.api.databaseModel.Favorite;
+import com.zoctan.api.model.Favorite;
 
 import java.util.List;
 

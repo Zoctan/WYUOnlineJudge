@@ -1,7 +1,7 @@
 package com.zoctan.api.mapper;
 
 import com.zoctan.api.core.mapper.MyMapper;
-import com.zoctan.api.databaseModel.User;
+import com.zoctan.api.model.User;
 
 import java.util.List;
 import java.util.Map;
