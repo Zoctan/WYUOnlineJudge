@@ -5,6 +5,9 @@ import com.zoctan.api.model.Favorite;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface FavoriteService extends Service<Favorite> {
     @Override
     void save(Favorite favorite);

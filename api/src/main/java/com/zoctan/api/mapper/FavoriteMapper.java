@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface FavoriteMapper extends MyMapper<Favorite> {
     List<Favorite> findUserDetailFavoriteByUsername(@Param("username") String username);
 

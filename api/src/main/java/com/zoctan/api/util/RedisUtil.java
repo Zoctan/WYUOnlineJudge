@@ -12,10 +12,12 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 基于spring和redis的redisTemplate工具类
- * 针对所有的hash 都是以h开头的方法
- * 针对所有的Set 都是以s开头的方法                    不含通用方法
- * 针对所有的List 都是以l开头的方法
+ * Redis 工具类
+ * 针对所有的 hash 都是以 h 开头的方法
+ * 针对所有的 Set 都是以 s 开头的方法（不含通用方法）
+ * 针对所有的 List 都是以 l 开头的方法
+ *
+ * @author Zoctan
  */
 @Component
 public class RedisUtil {

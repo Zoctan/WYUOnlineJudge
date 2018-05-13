@@ -17,6 +17,8 @@ import java.io.IOException;
 
 /**
  * 验证请求的Token
+ *
+ * @author Zoctan
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -38,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         response.setHeader("Access-Control-Expose-Headers", "*");
         // axios 预请求后，直接返回
         // 返回码必须为 200 否则视为请求失败
-        if (request.getMethod().equals("OPTIONS")) {
+        if ("OPTIONS".equals(request.getMethod())) {
             return;
         }
 

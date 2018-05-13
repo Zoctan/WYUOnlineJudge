@@ -9,6 +9,9 @@ import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public class User {
     /**
      * 用户Id

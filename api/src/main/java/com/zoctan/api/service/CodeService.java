@@ -5,6 +5,9 @@ import com.zoctan.api.model.Code;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface CodeService extends Service<Code> {
     List<Code> findAllUserProblemSubmitCode(Long problemId, String username);
 }

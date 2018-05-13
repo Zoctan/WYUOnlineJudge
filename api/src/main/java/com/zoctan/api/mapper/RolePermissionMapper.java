@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface RolePermissionMapper extends MyMapper<RolePermission> {
     void saveRolePermission(@Param("roleId") Object roleId, @Param("permissionIdList") List<Integer> permissionIdList);
 }

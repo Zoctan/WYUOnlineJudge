@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 @Api(value = "权限接口")
 @RestController
 @RequestMapping("/admin/permission")

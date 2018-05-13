@@ -6,6 +6,9 @@ import com.zoctan.api.model.Permission;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface PermissionService extends Service<Permission> {
     List<JSONObject> findAllResourcePermission();
 }

@@ -6,6 +6,9 @@ import com.zoctan.api.model.Permission;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface PermissionMapper extends MyMapper<Permission> {
     List<JSONObject> findAllResourcePermission();
 

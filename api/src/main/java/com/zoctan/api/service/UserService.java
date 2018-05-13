@@ -6,6 +6,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface UserService extends Service<User> {
     @Override
     void save(User user);

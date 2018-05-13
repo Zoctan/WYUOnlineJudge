@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by Zoctan on 2018/03/29.
+ * @author Zoctan
  */
 @RestController
 @RequestMapping("/contest")

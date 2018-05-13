@@ -3,6 +3,9 @@ package com.zoctan.api.util;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
+/**
+ * @author Zoctan
+ */
 class Base64Util {
     /**
      * base64加密方法

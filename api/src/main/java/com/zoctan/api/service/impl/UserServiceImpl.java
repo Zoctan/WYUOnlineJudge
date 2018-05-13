@@ -20,8 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Zoctan
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl extends AbstractService<User> implements UserService {
     @Resource
     private UserMapper userMapper;
@@ -84,7 +87,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
 
     @Override
     public User findDetailBy(final String column, final Object param) {
-        final Map<String, Object> map = new HashMap<>();
+        final Map<String, Object> map = new HashMap<>(1);
         map.put(column, param);
         return this.userMapper.findDetailBy(map);
     }
@@ -95,7 +98,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         if (user == null) {
             throw new UsernameNotFoundException("not found this username");
         }
-        if (user.getRoleName().equals("ROLE_ADMIN")) {
+        if ("ROLE_ADMIN".equals(user.getRoleName())) {
             // 超级管理员所有权限都有
             user.setPermissionCodeList(this.permissionMapper.findAllCode());
         }

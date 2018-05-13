@@ -3,6 +3,9 @@ package com.zoctan.api.model;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author Zoctan
+ */
 public class Code {
     /**
      * 代码Id

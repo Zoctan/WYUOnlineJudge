@@ -12,15 +12,18 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * @author Zoctan
+ */
 @Component
 public class EmailUtil {
     private final Logger log = LoggerFactory.getLogger(EmailUtil.class);
     @Value("${spring.mail.to}")
-    private String TO;
+    private String to;
     @Value("${spring.mail.username}")
-    private String USERNAME;
+    private String username;
     @Value("${spring.mail.subject}")
-    private String SUBJECT;
+    private String subject;
     @Resource
     private JavaMailSender sender;
 
@@ -29,9 +32,9 @@ public class EmailUtil {
      */
     public boolean sendSimpleMail(final Feedback feedback) {
         final SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(this.USERNAME);
-        message.setTo(this.TO);
-        message.setSubject(this.SUBJECT + feedback.getEmail());
+        message.setFrom(this.username);
+        message.setTo(this.to);
+        message.setSubject(this.subject + feedback.getEmail());
         message.setText(feedback.getContent());
         try {
             this.sender.send(message);
@@ -51,9 +54,9 @@ public class EmailUtil {
         try {
             //true表示需要创建一个multipart message
             final MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(this.USERNAME);
-            helper.setTo(this.TO);
-            helper.setSubject(this.SUBJECT + feedback.getEmail());
+            helper.setFrom(this.username);
+            helper.setTo(this.to);
+            helper.setSubject(this.subject + feedback.getEmail());
             helper.setText(feedback.getContent(), true);
 
             this.sender.send(message);

@@ -6,6 +6,9 @@ import com.zoctan.api.model.Role;
 
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public interface RoleMapper extends MyMapper<Role> {
     List<Resource> findAllRoleWithPermission();
 }

@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public class Role {
     /**
      * 角色Id

@@ -9,8 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+/**
+ * @author Zoctan
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class AdminProblemServiceImpl extends AbstractService<AdminProblem> implements AdminProblemService {
     @Resource
     private AdminProblemMapper adminProblemMapper;

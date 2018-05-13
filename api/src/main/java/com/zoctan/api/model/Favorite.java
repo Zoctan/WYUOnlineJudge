@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 public class Favorite {
     /**
      * 收藏夹Id

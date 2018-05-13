@@ -8,6 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 /**
+ * @author Zoctan
+ */
+
+/**
  * ID工具类
  */
 class IdUtil {

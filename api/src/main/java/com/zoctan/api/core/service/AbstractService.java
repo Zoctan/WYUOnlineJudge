@@ -13,12 +13,17 @@ import java.util.List;
 
 /**
  * 基于通用MyBatis Mapper插件的Service接口的实现
+ *
+ * @author Zoctan
+ * @date 5/13/18 3:01 PM
  */
 public abstract class AbstractService<T> implements Service<T> {
     @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
     @Autowired
     protected MyMapper<T> mapper;
-    // 当前泛型真实类型的Class
+    /**
+     * 当前泛型真实的 Class
+     */
     private final Class<T> modelClass;
 
     protected AbstractService() {

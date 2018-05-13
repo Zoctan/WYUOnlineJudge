@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * @author Zoctan
+ */
 @RestController
 @RequestMapping("/feedback")
 public class FeedbackController {

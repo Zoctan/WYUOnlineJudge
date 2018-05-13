@@ -11,8 +11,11 @@ import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 
+/**
+ * @author Zoctan
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class UserRoleServiceImpl extends AbstractService<UserRole> implements UserRoleService {
     @Resource
     private UserRoleMapper userRoleMapper;

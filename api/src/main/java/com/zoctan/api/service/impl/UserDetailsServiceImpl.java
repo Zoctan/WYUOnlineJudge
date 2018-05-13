@@ -11,6 +11,9 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Zoctan
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Resource

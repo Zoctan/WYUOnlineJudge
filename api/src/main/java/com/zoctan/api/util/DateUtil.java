@@ -11,6 +11,8 @@ import java.util.Locale;
 
 /**
  * 日期工具类
+ *
+ * @author Zoctan
  */
 public class DateUtil {
     /**
@@ -144,8 +146,8 @@ public class DateUtil {
      */
     public static Date getLastDate(final long day) {
         final Date date = new Date();
-        final long date_3_hm = date.getTime() - 3600000 * 34 * day;
-        return new Date(date_3_hm);
+        final long date3hm = date.getTime() - 3600000 * 34 * day;
+        return new Date(date3hm);
     }
 
     /**
@@ -241,8 +243,8 @@ public class DateUtil {
         final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             final Date date1 = format.parse(sj1);
-            final long Time = (date1.getTime() / 1000) + Integer.parseInt(jj) * 60;
-            date1.setTime(Time * 1000);
+            final long time = (date1.getTime() / 1000) + Integer.parseInt(jj) * 60;
+            date1.setTime(time * 1000);
             return format.format(date1);
         } catch (final Exception e) {
             return "";
@@ -376,27 +378,36 @@ public class DateUtil {
         final Calendar c = Calendar.getInstance();
         c.setTime(dd);
         switch (num) {
-            case "1": // 返回星期一所在的日期
+            // 返回星期一所在的日期
+            case "1":
                 c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
                 break;
-            case "2": // 返回星期二所在的日期
+            // 返回星期二所在的日期
+            case "2":
                 c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
                 break;
-            case "3": // 返回星期三所在的日期
+            // 返回星期三所在的日期
+            case "3":
                 c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
                 break;
-            case "4": // 返回星期四所在的日期
+            // 返回星期四所在的日期
+            case "4":
                 c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
                 break;
-            case "5": // 返回星期五所在的日期
+            // 返回星期五所在的日期
+            case "5":
                 c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
                 break;
-            case "6": // 返回星期六所在的日期
+            // 返回星期六所在的日期
+            case "6":
                 c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
                 break;
-            case "0": // 返回星期日所在的日期
+            // 返回星期日所在的日期
+            case "0":
                 c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
                 break;
+            default:
+                return null;
         }
         return new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
     }
@@ -441,10 +452,10 @@ public class DateUtil {
      * @return 两个时间之间的天数
      */
     public static long getDays(final String date1, final String date2) {
-        if (date1 == null || date1.equals("")) {
+        if (date1 == null || "".equals(date1)) {
             return 0;
         }
-        if (date2 == null || date2.equals("")) {
+        if (date2 == null || "".equals(date2)) {
             return 0;
         }
         // 转换为标准时间

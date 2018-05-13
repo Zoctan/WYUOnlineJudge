@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 @Api(value = "角色接口")
 @RestController
 @RequestMapping("/admin/role")

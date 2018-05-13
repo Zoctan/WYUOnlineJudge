@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Zoctan
+ */
 @Table(name = "admin_problem")
 public class AdminProblem {
     /**

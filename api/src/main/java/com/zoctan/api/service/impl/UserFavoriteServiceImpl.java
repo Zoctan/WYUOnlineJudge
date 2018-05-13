@@ -10,11 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 /**
- * Created by Zoctan on 2018/04/09.
+ * @author Zoctan
  */
 @Service
-@Transactional
-@SuppressWarnings("SpringJavaAutowiringInspection")
+@Transactional(rollbackFor = Exception.class)
 public class UserFavoriteServiceImpl extends AbstractService<UserFavorite> implements UserFavoriteService {
     @Resource
     private UserFavoriteMapper userFavoriteMapper;

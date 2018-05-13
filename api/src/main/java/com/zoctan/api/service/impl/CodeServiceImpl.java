@@ -10,8 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class CodeServiceImpl extends AbstractService<Code> implements CodeService {
     @Resource
     private CodeMapper codeMapper;

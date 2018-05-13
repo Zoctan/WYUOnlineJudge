@@ -6,6 +6,9 @@ import com.zoctan.api.model.User;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Zoctan
+ */
 public interface UserMapper extends MyMapper<User> {
     List<User> findAllUserWithRole();
 

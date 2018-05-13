@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
 
 import static com.zoctan.api.core.ProjectConstant.ONLINE_USER_NUMBER;
 
+/**
+ * @author Zoctan
+ */
 @Component
 public class JwtUtil {
     private final Logger log = LoggerFactory.getLogger(JwtUtil.class);

@@ -14,6 +14,10 @@ import java.util.*;
 import static com.zoctan.api.core.ProjectConstant.*;
 
 /**
+ * @author Zoctan
+ */
+
+/**
  * 代码生成器，根据数据表名称生成对应的Model、MyMapper、Service、Controller简化开发。
  */
 class CodeGenerator {

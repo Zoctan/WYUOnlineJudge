@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
+/**
+ * @author Zoctan
+ */
 @EnableEncryptableProperties
 @SpringBootApplication
 @EnableCaching

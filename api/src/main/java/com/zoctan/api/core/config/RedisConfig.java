@@ -24,12 +24,17 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
+/**
+ * @author Zoctan
+ */
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
     private final Logger log = LoggerFactory.getLogger(RedisConfig.class);
-    // cache缓存过期时间xx秒
+    /**
+     * Cache 缓存过期时间xx秒
+     */
     @Value("${cache.expiration}")
-    private int EXPIRATION;
+    private int expiration;
 
     @Bean
     @ConfigurationProperties(prefix = "spring.redis.pool")
@@ -94,7 +99,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Override
     public CacheManager cacheManager() {
         final RedisCacheManager redisCacheManager = new RedisCacheManager(this.getRedisTemplate());
-        redisCacheManager.setDefaultExpiration(this.EXPIRATION);
+        redisCacheManager.setDefaultExpiration(this.expiration);
         return redisCacheManager;
     }
 

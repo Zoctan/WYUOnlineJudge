@@ -13,8 +13,11 @@ import tk.mybatis.mapper.entity.Condition;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author Zoctan
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class FavoriteServiceImpl extends AbstractService<Favorite> implements FavoriteService {
     @Resource
     private FavoriteMapper favoriteMapper;

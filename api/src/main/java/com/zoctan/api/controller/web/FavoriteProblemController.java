@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+/**
+ * @author Zoctan
+ */
 @RestController
 @RequestMapping("/favorite/problem")
 public class FavoriteProblemController {

@@ -25,6 +25,9 @@ import java.util.List;
 
 import static com.zoctan.api.core.ProjectConstant.ONLINE_USER_NUMBER;
 
+/**
+ * @author Zoctan
+ */
 @Api(value = "用户接口")
 @RestController
 @RequestMapping("/user")
