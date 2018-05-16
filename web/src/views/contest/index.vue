@@ -12,8 +12,12 @@
         </template>
       </el-table-column>
       <el-table-column label="比赛"
-                       align="center"
-                       prop="title" />
+                       align="center">
+      <template slot-scope="scope">
+        <span v-if="hasPermission('contest:list')" v-text="scope.row.title" @click="dialogFormVisible = true"></span>
+        <span v-else v-text="scope.row.title" @click="noLoginTip"></span>
+      </template>
+      </el-table-column>
       <el-table-column label="开始时间"
                        prop="startTime"
                        sortable
@@ -63,11 +67,22 @@
       :page-sizes="[10, 30, 50, 100]"
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
+
+    <el-dialog title="join"
+               :visible.sync="dialogFormVisible">
+      <p>xxxxxxxx</p>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">cancel</el-button>
+        <el-button type="primary"
+                   :loading="btnLoading"
+                   @click.native.prevent="">sure</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
   import { list as getContestList } from '@/api/contest'
-  import { unix2CurrentTime } from '@/utils'
+  import { unix2CurrentTime, noLoginTip } from '@/utils'
 
   export default {
     created() {
@@ -82,11 +97,13 @@
           page: 1, // 页码
           size: 30 // 每页数量
         },
-        btnLoading: false // 按钮等待动画
+        btnLoading: false, // 按钮等待动画
+        dialogFormVisible: false
       }
     },
     methods: {
       unix2CurrentTime,
+      noLoginTip,
       filterPermitted(value, row) {
         return row.permitted === value
       },

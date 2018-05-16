@@ -99,11 +99,11 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: 'noRedirect',
     icon: 'component',
+    meta: { permission: ['problem:detail'] },
     children: [{
       path: 'index',
       name: '反馈',
-      component: _import('feedback/index'),
-      meta: { permission: ['problem:detail'] }
+      component: _import('feedback/index')
     }]
   }
 ]

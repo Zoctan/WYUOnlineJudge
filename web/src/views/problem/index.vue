@@ -19,7 +19,7 @@
           <router-link v-if="hasPermission('problem:detail')" :to="{name: '题目详情', params: {id: scope.row.id}}">
             <span v-text="scope.row.title"></span>
           </router-link>
-          <span v-else v-text="scope.row.title"></span>
+          <span v-else v-text="scope.row.title" @click="noLoginTip"></span>
         </template>
       </el-table-column>
       <el-table-column label="标签"
@@ -64,6 +64,7 @@
 </template>
 <script>
   import { list as getProblemList } from '@/api/problem'
+  import { noLoginTip } from '@/utils'
 
   export default {
     created() {
@@ -84,6 +85,7 @@
       }
     },
     methods: {
+      noLoginTip,
       filterTag(value, row) {
         return row.tags.indexOf(value) !== -1
       },
