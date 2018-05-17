@@ -103,6 +103,61 @@ label {
   }
 }
 
+// html问题描述
+.problem-description {
+  p {
+    margin: 0 0 10px;
+  }
+  pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    overflow: auto;
+    font-size: 14px;
+    line-height: 1.9;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #F2F2F2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    .nf {
+      color: #900;
+      font-weight: bold;
+    }
+    .na {
+      color: teal;
+    }
+    .kt {
+      color: #458;
+      font-weight: bold;
+    }
+    .o {
+      font-weight: bold;
+    }
+  }
+  code {
+    white-space: nowrap;
+    word-break: normal;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
+  b {
+    font-weight: 700;
+  }
+  ol {
+    margin-top: 10px;
+  }
+  li {
+    font-size: 16px;
+  }
+}
+
 .hover,
 .hover:hover {
   color:#2196F3;

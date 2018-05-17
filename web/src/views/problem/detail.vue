@@ -71,7 +71,7 @@
           <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
 
           <el-container>
-            <el-main>{{ problem.description }}</el-main>
+            <el-main><div class="problem-description" v-html="problem.description" v-if="problem.description"></div></el-main>
             <el-card class="box-card" style="width: 240px">
               <el-row type="flex" class="card-row" justify="space-between">
                 <el-col :span="20"><span>题目难度：</span></el-col>

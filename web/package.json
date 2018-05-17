@@ -2,7 +2,7 @@
   "name": "web",
   "version": "1.0.0",
   "license": "APACHE 2.0",
-  "description": "Vue Admin",
+  "description": "WYUOJ",
   "author": "Zoctan <752481828@qq.com>",
   "scripts": {
     "dev": "node build/dev-server.js",

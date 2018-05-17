@@ -48,7 +48,7 @@
                              sortable
                              align="center">
               <template slot-scope="scope">
-                <span>{{ (scope.row.accepted/scope.row.submitted).toFixed(2) * 100 + '%' }}</span>
+                <span>{{ scope.row.submitted === 0 ? '0%' : (scope.row.accepted/scope.row.submitted).toFixed(2) * 100 + '%' }}</span>
               </template>
             </el-table-column>
             <el-table-column label="难度"
@@ -70,7 +70,7 @@
             :current-page="listQuery.page"
             :page-size="listQuery.size"
             :total="total"
-            :page-sizes="[10, 30, 50, 100]"
+            :page-sizes="[10, 20, 40, 100]"
             layout="total, sizes, prev, pager, next, jumper" />
         </el-card>
       </el-col>
@@ -103,7 +103,9 @@
           <span class="card-title"><svg-icon icon-class="classification" /> 题目分类</span>
           <div class="tag">
             <span v-for="tag in tags" style="margin-right: 5px">
-              <el-tag size="mini">{{ tag.text }}</el-tag>
+              <el-badge :value="tagsNum.get(tag.text)" :max="99" class="item">
+                <el-tag>{{ tag.text }}</el-tag>
+              </el-badge>
             </span>
           </div>
         </el-card>
@@ -123,11 +125,12 @@
       return {
         problemList: [], // 题目列表
         tags: [], // 标签列表
+        tagsNum: null,
         listLoading: false, // 数据加载等待动画
         total: 0, // 数据总数
         listQuery: {
           page: 1, // 页码
-          size: 30 // 每页数量
+          size: 20 // 每页数量
         },
         searchData: null,
         btnLoading: false // 按钮等待动画
@@ -152,13 +155,27 @@
         })
       },
       getTagsFromProblemList() {
-        // 从题目列表获得过滤标签
-        const set = new Set()
+        // 从题目列表获得过滤标签及其数目
+        if (this.tagsNum === null) {
+          this.tagsNum = new Map()
+        }
         this.problemList.forEach((problem) => {
           const tagList = problem.tags.split(' ')
-          tagList.forEach(tag => set.add(tag))
+          tagList.forEach(tag => {
+            if (!this.tagsNum.has(tag)) {
+              this.tagsNum.set(tag, 1)
+            } else {
+              const num = this.tagsNum.get(tag)
+              this.tagsNum.set(tag, num + 1)
+            }
+          })
         })
-        set.forEach(tag => this.tags.push({ text: tag, value: tag }))
+        this.tagsNum.forEach((value, key, map) => {
+          const has = this.tags.filter(_tag => _tag.text === key).length > 0
+          if (!has) {
+            this.tags.push({ text: key, value: key })
+          }
+        })
       },
       handleSizeChange(size) {
         // 改变每页数量

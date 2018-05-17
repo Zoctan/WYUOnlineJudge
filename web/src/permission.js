@@ -4,6 +4,7 @@ import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import { getToken } from '@/store/modules/token'
 
+// 白名单,不需要登录的路由
 const whiteList = [
   '/401',
   '/404',
@@ -12,7 +13,7 @@ const whiteList = [
   '/contest/index',
   '/user/index',
   '/login/index'
-] // 白名单,不需要登录的路由
+]
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // 开始Progress
