@@ -1,41 +1,17 @@
 <template>
   <div class="app-container">
-    <div :data="problem">
-      <h2>{{ problem.id + '.' + problem.title }}</h2>
-      <el-tabs type="card"
-               v-loading.body="loading"
-               element-loading-text="loading">
-        <el-tab-pane>
-          <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
+    <div class="detail"
+         :data="problem">
+      <el-row>
+        <el-col :span="20"><span class="title">{{ problem.id + '.' + problem.title }}</span></el-col>
 
-          <el-dialog title="收藏题目" width="35%" center
-                     :visible.sync="dialogFormVisible">
-            <el-table :data="favoriteList" height="250">
-              <el-table-column prop="title" label="收藏夹" align="center" />
-              <el-table-column prop="id" label="操作" align="center">
-                <template slot-scope="scope">
-                  <el-switch
-                    active-text="收藏"
-                    active-color="#13ce66"
-                    inactive-text="移除"
-                    inactive-color="#ff4949"
-                    :disabled="switchDisabled"
-                    @change="handleFavoriteSwitch(scope.row.id, favoriteSwitch[scope.row.id])"
-                    v-model="favoriteSwitch[scope.row.id]" />
-                </template>
-              </el-table-column>
-            </el-table>
-            <div slot="footer" class="dialog-footer">
-              <el-button @click="dialogFormVisible = false">完成</el-button>
-            </div>
-          </el-dialog>
-
-          <el-dropdown trigger="click" size="medium" split-button
+        <el-col :span="4">
+          <el-dropdown trigger="click" size="mini" split-button
                        :hide-on-click="false"
                        @click="dialogFormVisible = true"
                        :loading="btnLoading">
-            <svg-icon icon-class="star" v-if="favoriteSwitch.indexOf(true) !== -1" style="color: #C03639" />
-            <svg-icon icon-class="star" v-else /> 收藏
+            <i class="el-icon-star-on"  v-if="favoriteSwitch.indexOf(true) !== -1" style="color: #FEC171"></i>
+            <i class="el-icon-star-off" v-else></i> 收藏
 
             <el-dropdown-menu slot="dropdown">
               <el-popover ref="popoverFavorite" placement="right" width="200" trigger="click">
@@ -65,46 +41,71 @@
               </router-link>
             </el-dropdown-menu>
           </el-dropdown>
+        </el-col>
+      </el-row>
+
+      <el-dialog title="收藏题目" width="35%" center
+                 :visible.sync="dialogFormVisible">
+        <el-table :data="favoriteList" height="250">
+          <el-table-column prop="title" label="收藏夹" align="center" />
+          <el-table-column prop="id" label="操作" align="center">
+            <template slot-scope="scope">
+              <el-switch active-text="收藏" active-color="#13ce66"
+                         inactive-text="移除" inactive-color="#ff4949"
+                         :disabled="switchDisabled"
+                         @change="handleFavoriteSwitch(scope.row.id, favoriteSwitch[scope.row.id])"
+                         v-model="favoriteSwitch[scope.row.id]" />
+            </template>
+          </el-table-column>
+        </el-table>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">完成</el-button>
+        </div>
+      </el-dialog>
+
+      <el-tabs type="card"
+               v-loading.body="loading"
+               element-loading-text="loading"
+               style="margin-top: 24px">
+        <el-tab-pane>
+          <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
 
           <el-container>
             <el-main>{{ problem.description }}</el-main>
-            <el-aside width="250px">
-              <ul class="list">
-                <li class="list-item"><span>题目难度：</span>
-                  <span class="right">
-                    <el-tag v-if="problem.level === 1" type="success">简单</el-tag>
-                    <el-tag v-else-if="problem.level === 2" type="warning">中等</el-tag>
-                    <el-tag v-else type="danger">困难</el-tag>
-                  </span>
-                </li>
+            <el-card class="box-card" style="width: 240px">
+              <el-row type="flex" class="card-row" justify="space-between">
+                <el-col :span="20"><span>题目难度：</span></el-col>
+                <el-col :span="4">
+                  <el-tag v-if="problem.level === 1" type="success" size="mini">简单</el-tag>
+                  <el-tag v-else-if="problem.level === 2" type="warning" size="mini">中等</el-tag>
+                  <el-tag v-else type="danger" size="mini">困难</el-tag>
+                </el-col>
+              </el-row>
 
-                <li class="list-item"><span>通过次数：</span>
-                  <span class="right">
-                  {{ problem.submitted }}
-                  </span>
-                </li>
+              <el-row type="flex" class="card-row" justify="space-between">
+                <el-col :span="20"><span>提交次数：</span></el-col>
+                <el-col :span="4"><span>{{ problem.submitted }}</span></el-col>
+              </el-row>
 
-                <li class="list-item"><span>通过次数：</span>
-                  <span class="right">
-                    {{ problem.accepted }}
-                  </span>
-                </li>
-              </ul>
-            </el-aside>
+              <el-row type="flex" class="card-row" justify="space-between">
+                <el-col :span="20"><span>通过次数：</span></el-col>
+                <el-col :span="4"><span>{{ problem.accepted }}</span></el-col>
+              </el-row>
+            </el-card>
           </el-container>
 
           <div class="code-editor">
             <code-editor class="editor" ref="codeEditor" v-model="code" />
             <div class="code-button">
-              <el-row :gutter="20">
-                <el-col :span="2" :offset="16">
+              <el-row>
+                <el-col :span="20">
                   <el-button round
                              :loading="btnLoading"
-                             @click.native.prevent="handleRunOrSubmit(false)">执行代码</el-button></el-col>
-                <el-col :span="2" :offset="2">
-                  <el-button type="primary" round
+                             @click.native.prevent="handleRunOrSubmit(false)"><svg-icon icon-class="run" /> 执行代码</el-button></el-col>
+                <el-col :span="4">
+                  <el-button type="primary"
                              :loading="btnLoading"
-                             @click.native.prevent="handleRunOrSubmit(true)">提交解答</el-button></el-col>
+                             @click.native.prevent="handleRunOrSubmit(true)"><svg-icon icon-class="submit" /> 提交解答</el-button></el-col>
               </el-row>
             </div>
           </div>
@@ -333,23 +334,12 @@
 </script>
 
 <style lang="scss" scoped>
-  .list {
-    border-left-style: solid;
-    border-left-color: #F5F5F5;
-    border-left-width: 2px;
-    border-right-style: solid;
-    border-right-color: #F5F5F5;
-    border-right-width: 2px;
-    box-sizing: border-box;
+  .detail {
+    margin: 20px 0;
   }
-  .list-item {
-    padding: 10px 0;
-    list-style-type: none;
-    font-size: 14px;
-    .right {
-      float: right;
-      padding-right: 30px;
-    }
+  .title {
+    padding: 4px;
+    font-size: 30px;
   }
   .code-editor {
     border-top-style: solid;

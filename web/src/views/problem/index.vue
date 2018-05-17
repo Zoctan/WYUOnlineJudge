@@ -1,70 +1,119 @@
 <template>
   <div class="app-container">
-    <el-input v-model="searchData" placeholder="搜索题目" style="width:240px" />
-    <el-button type="primary" @click="doSearch">搜索</el-button>
-    <el-table :data="problemList"
-              v-loading.body="listLoading"
-              element-loading-text="loading"
-              fit>
-      <el-table-column label="#"
-                       align="center"
-                       width="50">
-        <template slot-scope="scope">
-          <span v-text="getIndex(scope.$index)"></span>
-        </template>
-      </el-table-column>
-      <el-table-column label="题目"
-                       align="center">
-        <template slot-scope="scope">
-          <router-link v-if="hasPermission('problem:detail')" :to="{name: '题目详情', params: {id: scope.row.id}}">
-            <span v-text="scope.row.title"></span>
-          </router-link>
-          <span v-else v-text="scope.row.title" @click="noLoginTip"></span>
-        </template>
-      </el-table-column>
-      <el-table-column label="标签"
-                       prop="tag"
-                       align="center"
-                       :filters="tags"
-                       :filter-method="filterTag">
-        <template slot-scope="scope">
-          <span v-text="scope.row.tags.split(' ').join(' / ')"></span>
-        </template>
-      </el-table-column>
-      <el-table-column label="通过率"
-                       prop="accepted/submitted"
-                       sortable
-                       align="center">
-        <template slot-scope="scope">
-          <span v-text="(scope.row.accepted/scope.row.submitted).toFixed(2) * 100 + '%'"></span>
-        </template>
-      </el-table-column>
-      <el-table-column label="难度"
-                       sortable
-                       prop="level"
-                       align="center"
-                       :filters="[{text: '简单', value: 1}, {text: '中等', value: 2}, {text: '困难', value: 3}]"
-                       :filter-method="filterLevel">
-        <template slot-scope="scope">
-          <el-tag v-if="scope.row.level === 1" type="success">简单</el-tag>
-          <el-tag v-else-if="scope.row.level === 2" type="warning">中等</el-tag>
-          <el-tag v-else type="danger">困难</el-tag>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="listQuery.page"
-      :page-size="listQuery.size"
-      :total="total"
-      :page-sizes="[10, 30, 50, 100]"
-      layout="total, sizes, prev, pager, next, jumper" />
+    <el-row :gutter="20">
+      <el-col :span="19">
+        <el-card class="box-card">
+          <el-row>
+            <el-col :span="21">
+              <el-button @click="doSearch" icon="el-icon-search" circle size="small" />
+              <el-input v-model="searchData" placeholder="搜索题目" style="width:200px" />
+            </el-col>
+            <el-col :span="3">
+              <el-button @click="doSearch">随机开始 <svg-icon icon-class="random" /></el-button>
+            </el-col>
+          </el-row>
+          <el-table :data="problemList"
+                    v-loading.body="listLoading"
+                    element-loading-text="loading"
+                    stripe
+                    fit>
+            <el-table-column label="#"
+                             align="center"
+                             width="50">
+              <template slot-scope="scope">
+                <span>{{ getIndex(scope.$index) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column show-overflow-tooltip
+                             label="题目"
+                             align="center">
+              <template slot-scope="scope">
+                <router-link v-if="hasPermission('problem:detail')" :to="{name: '题目详情', params: {id: scope.row.id}}">
+                  <span class="hover">{{ scope.row.title }}</span>
+                </router-link>
+                <span v-else @click="noLoginTip">{{ scope.row.title }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="标签"
+                             prop="tag"
+                             align="center"
+                             :filters="tags"
+                             :filter-method="filterTag">
+              <template slot-scope="scope">
+                <span>{{ scope.row.tags.split(' ').join(' / ') }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="通过率"
+                             prop="accepted/submitted"
+                             sortable
+                             align="center">
+              <template slot-scope="scope">
+                <span>{{ (scope.row.accepted/scope.row.submitted).toFixed(2) * 100 + '%' }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="难度"
+                             sortable
+                             prop="level"
+                             align="center"
+                             :filters="[{text: '简单', value: 1}, {text: '中等', value: 2}, {text: '困难', value: 3}]"
+                             :filter-method="filterLevel">
+              <template slot-scope="scope">
+                <el-tag v-if="scope.row.level === 1" type="success" size="mini">简单</el-tag>
+                <el-tag v-else-if="scope.row.level === 2" type="warning" size="mini">中等</el-tag>
+                <el-tag v-else type="danger" size="mini">困难</el-tag>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="listQuery.page"
+            :page-size="listQuery.size"
+            :total="total"
+            :page-sizes="[10, 30, 50, 100]"
+            layout="total, sizes, prev, pager, next, jumper" />
+        </el-card>
+      </el-col>
+
+      <el-col :span="5">
+        <el-card class="box-card record">
+          <span class="card-title"><svg-icon icon-class="record" /> 记录</span>
+          <el-row type="flex" class="card-row" justify="space-between">
+            <el-col :span="16"><svg-icon icon-class="right" /> 已解决</el-col>
+            <el-col :span="8"><el-tag type="info" size="mini">123/456</el-tag></el-col>
+          </el-row>
+
+          <el-row type="flex" class="card-row" justify="space-between">
+            <el-col :span="16"><svg-icon icon-class="easy" /> 简单</el-col>
+            <el-col :span="8"><el-tag type="success" size="mini">1</el-tag></el-col>
+          </el-row>
+
+          <el-row type="flex" class="card-row" justify="space-between">
+            <el-col :span="16"><svg-icon icon-class="medium" /> 中等</el-col>
+            <el-col :span="8"><el-tag type="warning" size="mini">2</el-tag></el-col>
+          </el-row>
+
+          <el-row type="flex" class="card-row" justify="space-between">
+            <el-col :span="16"><svg-icon icon-class="hard" /> 困难</el-col>
+            <el-col :span="8"><el-tag type="danger" size="mini">3</el-tag></el-col>
+          </el-row>
+        </el-card>
+
+        <el-card class="box-card classification" style="margin-top: 12px">
+          <span class="card-title"><svg-icon icon-class="classification" /> 题目分类</span>
+          <div class="tag">
+            <span v-for="tag in tags" style="margin-right: 5px">
+              <el-tag size="mini">{{ tag.text }}</el-tag>
+            </span>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>
   import { list as getProblemList } from '@/api/problem'
-  import { noLoginTip } from '@/utils'
+  import { noLoginTip } from '@/utils/Tip'
 
   export default {
     created() {
@@ -156,3 +205,16 @@
     }
   }
 </script>
+
+
+<style lang="scss" scoped>
+  .record {
+    padding-top: 10px;
+  }
+  .classification {
+    padding-top: 10px;
+    .tag {
+      padding-top: 12px;
+    }
+  }
+</style>

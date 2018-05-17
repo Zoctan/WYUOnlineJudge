@@ -60,13 +60,3 @@ export function formatTime(time, option) {
 export function unix2CurrentTime(timestamp) {
   return parseTime(new Date(timestamp).toLocaleString())
 }
-
-/**
- * 未登录提示
- */
-export function noLoginTip() {
-  this.$message({
-    message: '请先登录！',
-    type: 'danger'
-  })
-}

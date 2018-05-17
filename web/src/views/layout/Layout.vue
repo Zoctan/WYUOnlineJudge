@@ -4,19 +4,23 @@
     <div class="main-container">
       <navbar />
       <app-main />
+
     </div>
   </div>
 </template>
 
 <script>
-  import { Navbar, Sidebar, AppMain } from './components'
+  import { Navbar, Sidebar, AppMain, AppFooter } from './components'
+  import App from '../../App'
 
   export default {
     name: 'layout',
     components: {
+      App,
       Navbar,
       Sidebar,
-      AppMain
+      AppMain,
+      AppFooter
     },
     computed: {
       sidebar() {

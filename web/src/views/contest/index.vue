@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
-    <el-table :data="contestList"
+    <el-table tooltip-effect="dark"
+              :data="contestList"
               v-loading.body="listLoading"
               element-loading-text="loading"
               fit>
@@ -8,14 +9,15 @@
                        align="center"
                        width="50">
         <template slot-scope="scope">
-          <span v-text="getIndex(scope.$index)"></span>
+          <span>{{ getIndex(scope.$index) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="比赛"
+      <el-table-column show-overflow-tooltip
+                       label="比赛"
                        align="center">
       <template slot-scope="scope">
-        <span v-if="hasPermission('contest:list')" v-text="scope.row.title" @click="dialogFormVisible = true"></span>
-        <span v-else v-text="scope.row.title" @click="noLoginTip"></span>
+        <span v-if="hasPermission('contest:detail')" @click="getContestPassword(scope.row.id)">{{ scope.row.title }}</span>
+        <span v-else @click="noLoginTip">{{ scope.row.title }}</span>
       </template>
       </el-table-column>
       <el-table-column label="开始时间"
@@ -68,9 +70,8 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
 
-    <el-dialog title="join"
+    <el-dialog title="加入比赛？"
                :visible.sync="dialogFormVisible">
-      <p>xxxxxxxx</p>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">cancel</el-button>
         <el-button type="primary"
@@ -81,8 +82,9 @@
   </div>
 </template>
 <script>
-  import { list as getContestList } from '@/api/contest'
-  import { unix2CurrentTime, noLoginTip } from '@/utils'
+  import { list as getContestList, detail as getContestDetail } from '@/api/contest'
+  import { unix2CurrentTime } from '@/utils'
+  import { noLoginTip } from '@/utils/Tip'
 
   export default {
     created() {
@@ -98,7 +100,8 @@
           size: 30 // 每页数量
         },
         btnLoading: false, // 按钮等待动画
-        dialogFormVisible: false
+        dialogFormVisible: false,
+        contestPassword: null
       }
     },
     methods: {
@@ -109,6 +112,12 @@
       },
       filterStatus(value, row) {
         return row.status === value
+      },
+      getContestPassword(id) {
+        getContestDetail(id).then(response => {
+          this.contestPassword = response.data.password
+          this.dialogFormVisible = true
+        })
       },
       getContestList() {
         // 查询列表

@@ -36,20 +36,7 @@
     created() {
       this.initWebSocket()
     },
-    mounted() {
-      this.runWebSocket()
-    },
     methods: {
-      runWebSocket() {
-        if (this.ws.readyState === this.ws.OPEN) {
-          this.sendMessage('open')
-        } else if (this.ws.readyState === this.ws.CONNECTING) {
-          this.sendMessage('Hello')
-        } else {
-          this.initWebSocket()
-          this.sendMessage('Hello')
-        }
-      },
       initWebSocket() {
         this.ws = new WebSocket(this.wsurl)
         this.ws.onopen = () => {

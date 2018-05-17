@@ -1,18 +1,20 @@
 <template>
   <div class="code-editor">
     <div class="editor-option">
-      <el-row :gutter="20">
-        <el-col :span="6">
-          <el-dropdown trigger="click" size="medium" split-button @command="setLanguage">
-            语言
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="item in language" :disabled="codeMirror.language !== null && item.name === codeMirror.language.name" v-text="item.name" :command="item" :key="item.name" />
-            </el-dropdown-menu>
-          </el-dropdown>
+      <el-row>
+        <el-col :span="20">
+          <el-select filterable v-model="languageSelected" placeholder="语言" @change="setLanguage">
+            <el-option v-for="item in language"
+                       :key="item.name"
+                       :label="item.name"
+                       :value="item.name" />
+          </el-select>
         </el-col>
-        <el-col :span="6" :offset="12">
-          <el-dropdown trigger="click" size="medium" split-button @command="setTheme">
-            主题
+        <el-col :span="4">
+          <el-dropdown trigger="click" @command="setTheme">
+            <el-button>
+              <svg-icon icon-class="editor_theme" /> 主题 <i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-for="item in theme" :disabled="codeMirror.theme !== undefined && item === codeMirror.theme" v-text="item" :command="item" :key="item" />
             </el-dropdown-menu>
@@ -69,6 +71,7 @@
           { name: 'Ruby', mime: 'text/x-ruby', mode: 'ruby' },
           { name: 'Go', mime: 'text/x-go', mode: 'go' }
         ],
+        languageSelected: 'C',
         theme: ['eclipse', 'material', 'ambiance']
       }
     },
@@ -99,7 +102,9 @@
           'F11': cm => cm.setOption('fullScreen', !cm.getOption('fullScreen'))
         }
       })
-      this.setLanguage(this.codeMirror.language !== null ? this.codeMirror.language : { name: 'C', mime: 'text/x-csrc', mode: 'clike' })
+      // 读取Cookie
+      this.languageSelected = this.codeMirror.language !== null ? this.codeMirror.language.name : 'C'
+      this.setLanguage(this.languageSelected)
       this.setTheme(this.codeMirror.theme !== undefined ? this.codeMirror.theme : 'eclipse')
       this.codeEditor.setValue(this.value)
       this.codeEditor.on('change', cm => {
@@ -113,8 +118,12 @@
       },
       setLanguage(language) {
         // 设置语言
-        this.$store.dispatch('SetLanguage', language)
-        this.codeEditor.setOption('mode', language.mimes ? language.mimes[0] : language.mime)
+        // todo: no for
+        this.language.filter(i => i.name === language).map(i => {
+          console.info(i.name)
+          this.$store.dispatch('SetLanguage', i)
+          this.codeEditor.setOption('mode', i.mimes ? i.mimes[0] : i.mime)
+        })
       },
       setTheme(theme) {
         // 设置主题
