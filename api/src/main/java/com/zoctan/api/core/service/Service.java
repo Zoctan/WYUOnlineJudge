@@ -119,4 +119,11 @@ public interface Service<T> {
      * @return List<T>
      */
     List<T> findAll();
+
+    /**
+     * 计数
+     *
+     * @return int
+     */
+    int countByCondition(Condition condition);
 }

@@ -6,10 +6,12 @@ import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
 import com.zoctan.api.model.Contest;
 import com.zoctan.api.service.ContestService;
+import com.zoctan.api.service.UserContestService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +22,8 @@ import java.util.List;
 public class ContestController {
     @Resource
     private ContestService contestService;
+    @Resource
+    private UserContestService userContestService;
 
     @PostMapping
     public Result add(@RequestBody final Contest contest) {
@@ -39,9 +43,21 @@ public class ContestController {
         return ResultGenerator.genOkResult();
     }
 
+    @PostMapping("/user/{id}")
+    public Result userJoinContest(@PathVariable final Long id, @AuthenticationPrincipal final UserDetails userDetails) {
+        this.userContestService.save(id, userDetails.getUsername());
+        return ResultGenerator.genOkResult();
+    }
+
+    @DeleteMapping("/user/{id}")
+    public Result userOutContest(@PathVariable final Long id, @AuthenticationPrincipal final UserDetails userDetails) {
+        this.userContestService.delete(id, userDetails.getUsername());
+        return ResultGenerator.genOkResult();
+    }
+
     @GetMapping("/{id}")
-    public Result detail(@PathVariable final Long id) {
-        final Contest contest = this.contestService.findById(id);
+    public Result detail(@PathVariable final Long id, @AuthenticationPrincipal final UserDetails userDetails) {
+        final Contest contest = this.contestService.findOne(id, userDetails.getUsername());
         return ResultGenerator.genOkResult(contest);
     }
 
@@ -49,12 +65,7 @@ public class ContestController {
     public Result list(@RequestParam(defaultValue = "0") final Integer page,
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
-        final List<Contest> contests = this.contestService.findAll();
-        final List<Contest> list = new ArrayList<>();
-        for (final Contest contest : contests) {
-            contest.setDescription(null);
-            list.add(contest);
-        }
+        final List<Contest> list = this.contestService.findAll();
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

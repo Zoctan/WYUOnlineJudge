@@ -37,6 +37,7 @@
 
 <style lang="scss" scoped>
   .clock {
+    color: #757575;
     .date {
       font-size: 18px;
     }

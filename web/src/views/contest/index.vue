@@ -52,7 +52,7 @@
                          align="center"
                          width="120">
           <template slot-scope="scope">
-            xxx
+            {{ scope.row.joinCount }}
           </template>
         </el-table-column>
         <el-table-column label="状态"

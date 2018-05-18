@@ -1,7 +1,7 @@
 <template>
   <section class="app-main">
     <transition name="fade" mode="out-in">
-      <router-view :key="key" id="my-router-view"/>
+      <router-view :key="key"/>
     </transition>
   </section>
 </template>
@@ -16,7 +16,3 @@
     }
   }
 </script>
-
-<style type="text/css">
-
-</style>

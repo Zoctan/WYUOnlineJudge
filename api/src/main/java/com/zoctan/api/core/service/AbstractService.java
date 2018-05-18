@@ -117,4 +117,9 @@ public abstract class AbstractService<T> implements Service<T> {
     public List<T> findAll() {
         return this.mapper.selectAll();
     }
+
+    @Override
+    public int countByCondition(final Condition condition) {
+        return this.mapper.selectCountByCondition(condition);
+    }
 }

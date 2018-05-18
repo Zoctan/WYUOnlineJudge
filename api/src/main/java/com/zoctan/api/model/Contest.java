@@ -1,9 +1,6 @@
 package com.zoctan.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -53,6 +50,18 @@ public class Contest {
      * 描述
      */
     private String description;
+
+    /**
+     * 参加人数
+     */
+    @Transient
+    private int joinCount;
+
+    /**
+     * 当前用户是否参加
+     */
+    @Transient
+    private boolean isJoin;
 
     public Long getId() {
         return this.id;
@@ -116,5 +125,21 @@ public class Contest {
 
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public int getJoinCount() {
+        return this.joinCount;
+    }
+
+    public void setJoinCount(final int joinCount) {
+        this.joinCount = joinCount;
+    }
+
+    public boolean isJoin() {
+        return this.isJoin;
+    }
+
+    public void setJoin(final boolean join) {
+        this.isJoin = join;
     }
 }

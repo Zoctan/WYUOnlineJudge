@@ -14,3 +14,17 @@ export function detail(id) {
     method: 'get'
   })
 }
+
+export function join(id) {
+  return request({
+    url: '/contest/user/' + id,
+    method: 'post'
+  })
+}
+
+export function out(id) {
+  return request({
+    url: '/contest/user/' + id,
+    method: 'delete'
+  })
+}
