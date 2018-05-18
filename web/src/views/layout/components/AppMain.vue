@@ -1,12 +1,8 @@
 <template>
   <section class="app-main">
     <transition name="fade" mode="out-in">
-      <router-view :key="key" />
+      <router-view :key="key" id="my-router-view"/>
     </transition>
-    <el-footer class="footer">
-      <div class="top">Copyright @ WYUOJ</div>
-      <div class="bottom">Code by ZhuTianQiang</div>
-    </el-footer>
   </section>
 </template>
 
@@ -20,3 +16,7 @@
     }
   }
 </script>
+
+<style type="text/css">
+
+</style>
