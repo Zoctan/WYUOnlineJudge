@@ -19,18 +19,18 @@
 <style type="text/css">
   #app-wrapper {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
   }
 
   #app {
-    padding-bottom: 60px;
-    width: 100%;
-    height: 100%;
+    flex: 1;
   }
 
   .footer {
-    margin-top: -60px;
+    flex: 0 0 60px;
     width: 100%;
     height: 60px;
     text-align: center;
