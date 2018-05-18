@@ -4,7 +4,7 @@
   <el-menu :default-active="$route.path" mode="vertical" :collapse="isCollapse"
            background-color="#03A9F4"
            text-color="#ffffff"
-           active-text-color="#FFC107">
+           active-text-color="#3F51B5">
     <sidebar-item :routes="permissionRouters" />
   </el-menu>
   </scroll-bar>

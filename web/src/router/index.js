@@ -95,6 +95,17 @@ export const asyncRouterMap = [
     }]
   },
   {
+    path: '/contest',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: ':id',
+      name: '比赛详情',
+      component: _import('contest/detail'),
+      meta: { permission: ['contest:detail'] }
+    }]
+  },
+  {
     path: '/feedback',
     component: Layout,
     redirect: 'noRedirect',

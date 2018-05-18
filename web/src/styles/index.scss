@@ -32,9 +32,15 @@ label {
   margin: 10px 0;
 }
 
+.el-pagination {
+  margin-top: 16px;
+}
+
 //main-container全局样式
 .app-container {
-  padding: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   flex: 1;
 }
 
@@ -42,9 +48,9 @@ label {
   flex: 0;
   text-align: center;
   color: white;
-  background-color: orange;
+  background-color: $menuBg;
   .top {
-    padding-top: 12px;
+    padding-top: 14px;
   }
   .bottom {
     padding-bottom: 12px;
@@ -54,10 +60,6 @@ label {
 .components-container {
   margin: 30px 50px;
   position: relative;
-}
-
-.pagination-container {
-  margin-top: 30px;
 }
 
 .text-center {
@@ -104,7 +106,7 @@ label {
 }
 
 // html问题描述
-.problem-description {
+.html-description {
   p {
     margin: 0 0 10px;
   }

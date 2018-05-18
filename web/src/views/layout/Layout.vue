@@ -4,13 +4,12 @@
     <div class="main-container">
       <navbar />
       <app-main />
-
     </div>
   </div>
 </template>
 
 <script>
-  import { Navbar, Sidebar, AppMain, AppFooter } from './components'
+  import { Navbar, Sidebar, AppMain } from './components'
   import App from '../../App'
 
   export default {
@@ -19,8 +18,7 @@
       App,
       Navbar,
       Sidebar,
-      AppMain,
-      AppFooter
+      AppMain
     },
     computed: {
       sidebar() {

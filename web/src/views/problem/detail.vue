@@ -71,8 +71,10 @@
           <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
 
           <el-container>
-            <el-main><div class="problem-description" v-html="problem.description" v-if="problem.description"></div></el-main>
-            <el-card class="box-card" style="width: 240px">
+            <el-main width="80%">
+              <div class="html-description" v-html="problem.description" v-if="problem.description"></div>
+            </el-main>
+            <el-aside width="20%">
               <el-row type="flex" class="card-row" justify="space-between">
                 <el-col :span="20"><span>题目难度：</span></el-col>
                 <el-col :span="4">
@@ -91,7 +93,7 @@
                 <el-col :span="20"><span>通过次数：</span></el-col>
                 <el-col :span="4"><span>{{ problem.accepted }}</span></el-col>
               </el-row>
-            </el-card>
+            </el-aside>
           </el-container>
 
           <div class="code-editor">
@@ -103,7 +105,7 @@
                              :loading="btnLoading"
                              @click.native.prevent="handleRunOrSubmit(false)"><svg-icon icon-class="run" /> 执行代码</el-button></el-col>
                 <el-col :span="4">
-                  <el-button type="primary"
+                  <el-button round type="primary"
                              :loading="btnLoading"
                              @click.native.prevent="handleRunOrSubmit(true)"><svg-icon icon-class="submit" /> 提交解答</el-button></el-col>
               </el-row>
@@ -238,7 +240,7 @@
         this.favoriteList.forEach(favorite => {
           this.favoriteSwitch[favorite.id] = favorite.problemIdList.indexOf(this.problem.id) !== -1
         })
-        this.favoriteSwitch.forEach((x,index) => console.info(index+'->'+x))
+        this.favoriteSwitch.forEach((x, index) => console.info(index + '->' + x))
       },
       handleFavoriteSwitch(favoriteId, status) {
         this.switchDisabled = true

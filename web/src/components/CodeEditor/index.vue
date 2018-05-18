@@ -134,7 +134,6 @@
   }
 </script>
 
-
 <style scoped>
   .code-editor {
     height: 100%;

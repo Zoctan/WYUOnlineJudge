@@ -1,4 +1,4 @@
-package com.zoctan.api.core.socket;
+package com.zoctan.api.socket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

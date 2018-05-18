@@ -1,4 +1,4 @@
-package com.zoctan.api.controller;
+package com.zoctan.api.socket;
 
 import com.zoctan.api.util.DateUtil;
 import org.slf4j.Logger;

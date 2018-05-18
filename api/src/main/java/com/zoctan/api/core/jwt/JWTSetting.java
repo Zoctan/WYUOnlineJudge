@@ -1,4 +1,4 @@
-package com.zoctan.api.setting;
+package com.zoctan.api.core.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

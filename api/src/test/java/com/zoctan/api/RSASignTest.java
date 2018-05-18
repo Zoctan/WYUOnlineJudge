@@ -1,6 +1,6 @@
 package com.zoctan.api;
 
-import com.zoctan.api.setting.JWTSetting;
+import com.zoctan.api.core.jwt.JWTSetting;
 import com.zoctan.api.util.RSAUtil;
 import org.junit.Assert;
 import org.junit.Test;

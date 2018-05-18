@@ -1,62 +1,35 @@
-export function parseTime(time, cFormat) {
-  if (arguments.length === 0) {
-    return null
-  }
-  const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
-  let date
-  if (typeof time === 'object') {
-    date = time
-  } else {
-    if (('' + time).length === 10) time = parseInt(time) * 1000
-    date = new Date(time)
-  }
-  const formatObj = {
-    y: date.getFullYear(),
-    m: date.getMonth() + 1,
-    d: date.getDate(),
-    h: date.getHours(),
-    i: date.getMinutes(),
-    s: date.getSeconds(),
-    a: date.getDay()
-  }
-  return format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
-    let value = formatObj[key]
-    if (key === 'a') return ['一', '二', '三', '四', '五', '六', '日'][value - 1]
-    if (result.length > 0 && value < 10) {
-      value = '0' + value
-    }
-    return value || 0
-  })
-}
-
-export function formatTime(time, option) {
-  time = +time * 1000
-  const d = new Date(time)
-  const now = Date.now()
-
-  const diff = (now - d) / 1000
-
-  if (diff < 30) {
-    return '刚刚'
-  } else if (diff < 3600) { // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前'
-  } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前'
-  } else if (diff < 3600 * 24 * 2) {
-    return '1天前'
-  }
-  if (option) {
-    return parseTime(time, option)
-  } else {
-    return d.getMonth() + 1 + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分'
-  }
+/**
+ * Unix时间戳转换成日期格式  unix2CurrentTime("1497232433000")
+ * @param unixTime Unix时间戳
+ * @return string yyyy-MM-dd HH:mm:ss
+ */
+export function unix2CurrentTime(unixTime) {
+  const date = new Date(parseInt(unixTime))
+  const y = date.getFullYear()
+  let m = date.getMonth() + 1
+  m = m < 10 ? ('0' + m) : m
+  let d = date.getDate()
+  d = d < 10 ? ('0' + d) : d
+  let h = date.getHours()
+  h = h < 10 ? ('0' + h) : h
+  let minute = date.getMinutes()
+  let second = date.getSeconds()
+  minute = minute < 10 ? ('0' + minute) : minute
+  second = second < 10 ? ('0' + second) : second
+  return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second
 }
 
 /**
- * unix time -> {y}-{m}-{d} {h}:{i}:{s}
- * @param timestamp
- * @returns 2018-01-01 08:00:00
+ * 两个Unix时间戳差值
+ * @param unixTimeStart Unix时间戳1
+ * @param unixTimeEnd Unix时间戳2
+ * @return string xx 小时 | xx 天
  */
-export function unix2CurrentTime(timestamp) {
-  return parseTime(new Date(timestamp).toLocaleString())
+export function unixDifference(unixTimeStart, unixTimeEnd) {
+  const difference = (unixTimeEnd - unixTimeStart) / 3600 / 1000
+  if (difference >= 24) {
+    return difference / 24 + '天'
+  } else {
+    return difference + '小时'
+  }
 }

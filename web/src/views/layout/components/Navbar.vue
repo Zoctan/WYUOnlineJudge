@@ -2,32 +2,32 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened" />
     <breadcrumb class="breadcrumb-container" />
-    <div class="right-menu">
+    <div class="right">
       <el-tooltip effect="dark" content="全屏" placement="bottom">
         <screenfull class="screenfull right-menu-item" />
       </el-tooltip>
 
-    <el-dropdown class="user-container right-menu-item" trigger="click">
-      <div class="avatar-wrapper">
-        <img class="user-avatar" :src="avatar + '?imageView2/1/w/80/h/80'">
-        <i class="el-icon-caret-bottom"></i>
-      </div>
-      <el-dropdown-menu slot="dropdown">
-        <router-link class="inlineBlock" to="/user/index">
-          <el-dropdown-item>{{ username }}</el-dropdown-item>
-        </router-link>
+      <el-dropdown class="user-container right-menu-item" trigger="click">
+        <div class="avatar-wrapper">
+          <img class="user-avatar" :src="avatar + '?imageView2/1/w/80/h/80'">
+          <i class="el-icon-caret-bottom"></i>
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <router-link class="inlineBlock" to="/user/index">
+            <el-dropdown-item>{{ username }}</el-dropdown-item>
+          </router-link>
 
-        <el-dropdown-item divided v-if="token">
-          <span @click="logout" style="display:block;">登出</span>
-        </el-dropdown-item>
-
-        <router-link class="inlineBlock" v-else to="/login/index">
-          <el-dropdown-item divided >
-            <span style="display:block;">登录</span>
+          <el-dropdown-item divided v-if="token">
+            <span @click="logout" style="display:block;">登出</span>
           </el-dropdown-item>
-        </router-link>
-      </el-dropdown-menu>
-    </el-dropdown>
+
+          <router-link class="inlineBlock" v-else to="/login/index">
+            <el-dropdown-item divided >
+              <span style="display:block;">登录</span>
+            </el-dropdown-item>
+          </router-link>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </el-menu>
 </template>
@@ -43,6 +43,11 @@
       Breadcrumb,
       Hamburger,
       Screenfull
+    },
+    data() {
+      return {
+        time: null
+      }
     },
     computed: {
       ...mapGetters([
@@ -81,7 +86,7 @@
     .breadcrumb-container {
       float: left;
     }
-    .right-menu {
+    .right {
       float: right;
       height: 100%;
       &:focus{

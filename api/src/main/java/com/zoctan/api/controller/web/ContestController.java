@@ -9,6 +9,7 @@ import com.zoctan.api.service.ContestService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +49,12 @@ public class ContestController {
     public Result list(@RequestParam(defaultValue = "0") final Integer page,
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
-        final List<Contest> list = this.contestService.findAll();
+        final List<Contest> contests = this.contestService.findAll();
+        final List<Contest> list = new ArrayList<>();
+        for (final Contest contest : contests) {
+            contest.setDescription(null);
+            list.add(contest);
+        }
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

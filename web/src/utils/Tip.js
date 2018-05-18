@@ -1,10 +1,4 @@
 import { Notification } from 'element-ui'
-/**
- * 未登录提示
- */
-export function noLoginTip() {
-  Tip.defaultError('请先登录！')
-}
 
 export function Tip() {
 }
@@ -20,3 +14,10 @@ Tip.defaultSuccess = (message) => Tip.success('成功', message)
 
 Tip.error = (title, message) => Notification({ title, message, type: 'error' })
 Tip.defaultError = (message) => Tip.error('错误', message)
+
+/**
+ * 未登录提示
+ */
+export function noLoginTip() {
+  Tip.defaultError('请先登录！')
+}

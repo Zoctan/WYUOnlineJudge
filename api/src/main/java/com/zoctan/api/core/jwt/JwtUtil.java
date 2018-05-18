@@ -1,6 +1,5 @@
 package com.zoctan.api.core.jwt;
 
-import com.zoctan.api.setting.JWTSetting;
 import com.zoctan.api.util.RSAUtil;
 import com.zoctan.api.util.RedisUtil;
 import io.jsonwebtoken.*;
