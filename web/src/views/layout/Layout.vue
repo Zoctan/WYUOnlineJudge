@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import { Navbar, Sidebar, AppMain } from './components'
+  import { Navbar, Sidebar, AppMain, AppFooter } from './components'
   import App from '../../App'
 
   export default {
@@ -18,7 +18,8 @@
       App,
       Navbar,
       Sidebar,
-      AppMain
+      AppMain,
+      AppFooter
     },
     computed: {
       sidebar() {
@@ -27,13 +28,3 @@
     }
   }
 </script>
-
-<style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/mixin.scss";
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-  }
-</style>

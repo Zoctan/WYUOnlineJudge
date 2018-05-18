@@ -89,7 +89,7 @@
   .clearfix:before,
   .clearfix:after {
     display: table;
-    content: "";
+    content: '';
   }
   .clearfix:after {
     clear: both

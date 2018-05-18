@@ -37,11 +37,28 @@ label {
 
 //main-container全局样式
 .app-container {
+<<<<<<< Updated upstream
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
+=======
+  padding: 20px 20px 20px 44px;
+}
+
+.footer {
+  text-align: center;
+  color: white;
+  background-color: $menuBg;
+  .top {
+    padding-top: 13px;
+  }
+  .bottom {
+    padding-top: 3px;
+  }
+}
+>>>>>>> Stashed changes
 
 .components-container {
   margin: 30px 50px;

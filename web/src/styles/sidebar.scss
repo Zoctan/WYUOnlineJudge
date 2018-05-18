@@ -1,9 +1,9 @@
 #app {
   // 主体区域
   .main-container {
+    margin-left: 160px;
     min-height: 100%;
     transition: margin-left 0.20s;
-    margin-left: 160px;
   } // 侧边栏
   .sidebar-container {
     transition: width 0.20s;
@@ -30,9 +30,6 @@
     .sidebar-container,.sidebar-container .el-menu {
       width: 52px!important;
       // overflow: inherit;
-    }
-    .main-container {
-      margin-left: 52px;
     }
   }
   .hideSidebar {
