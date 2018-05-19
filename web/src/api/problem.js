@@ -8,6 +8,13 @@ export function list(params) {
   })
 }
 
+export function listRecord() {
+  return request({
+    url: '/problem/record',
+    method: 'get'
+  })
+}
+
 export function detail(id) {
   return request({
     url: '/problem/' + id,

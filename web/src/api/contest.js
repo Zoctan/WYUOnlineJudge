@@ -28,3 +28,19 @@ export function out(id) {
     method: 'delete'
   })
 }
+
+export function validatePassword(form) {
+  return request({
+    url: '/contest/password',
+    method: 'post',
+    data: form
+  })
+}
+
+export function contestProblem(id, params) {
+  return request({
+    url: '/contest/problem/' + id,
+    method: 'get',
+    params
+  })
+}

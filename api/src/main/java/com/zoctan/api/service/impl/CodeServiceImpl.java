@@ -20,7 +20,12 @@ public class CodeServiceImpl extends AbstractService<Code> implements CodeServic
     private CodeMapper codeMapper;
 
     @Override
-    public List<Code> findAllUserProblemSubmitCode(final Long problemId, final String username) {
-        return this.codeMapper.findAllUserProblemSubmitCode(problemId, username);
+    public List<Code> findAllUserProblemSubmitCode(final Long contestId, final Long problemId, final String username) {
+        return this.codeMapper.findAllUserProblemSubmitCode(contestId, problemId, username);
+    }
+
+    @Override
+    public List<Code> findAllUserSubmitCode(final Long contestId, final String username) {
+        return this.codeMapper.findAllUserSubmitCode(contestId, username);
     }
 }

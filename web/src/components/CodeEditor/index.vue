@@ -120,7 +120,7 @@
         // 设置语言
         // todo: no for
         this.language.filter(i => i.name === language).map(i => {
-          console.info(i.name)
+          //console.info(i.name)
           this.$store.dispatch('SetLanguage', i)
           this.codeEditor.setOption('mode', i.mimes ? i.mimes[0] : i.mime)
         })

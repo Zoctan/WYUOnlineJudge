@@ -3,7 +3,6 @@ package com.zoctan.api.socket;
 import com.zoctan.api.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -14,8 +13,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * @author Zoctan
  */
-@ServerEndpoint(value = "/websocket")
 @Component
+@ServerEndpoint(value = "/websocket")
 public class WebSocketServer {
     private final Logger log = LoggerFactory.getLogger(WebSocketServer.class);
     /**
@@ -65,7 +64,7 @@ public class WebSocketServer {
         }
     }
 
-    @Scheduled(fixedRate = 2000)
+    //@Scheduled(fixedRate = 2000)
     public void sendSomething() {
         if (WEB_SOCKET_SET.isEmpty()) {
             this.log.info("服务器端尝试推送，但是没有客户端连接");
@@ -82,11 +81,14 @@ public class WebSocketServer {
      */
     @OnMessage
     public void onMessage(final String message, final Session session) {
+        this.send2All(message);
+        /*
         this.log.debug("来自客户端 => {}", message);
         try {
             session.getBasicRemote().sendText("Hello Client");
         } catch (final IOException ignored) {
         }
+        */
     }
 
     /**

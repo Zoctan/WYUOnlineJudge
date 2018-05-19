@@ -8,9 +8,11 @@ import com.zoctan.api.model.Code;
 import com.zoctan.api.service.CodeService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -26,6 +28,11 @@ public class CodeController {
     public Result runOrSubmit(@RequestParam("status") final boolean status, @RequestBody final Code code) {
         System.out.println(status);
         System.out.println(code.getCode());
+        try {
+            final String code2 = new String(Base64Utils.decodeFromString(code.getCode()), "utf-8");
+            System.out.println(code2);
+        } catch (final UnsupportedEncodingException ignored) {
+        }
         System.out.println(code.getLanguage());
         System.out.println(code.getProblemId());
         System.out.println(code.getUserId());
@@ -51,7 +58,7 @@ public class CodeController {
                                  @RequestParam(defaultValue = "0") final Integer size,
                                  @AuthenticationPrincipal final UserDetails userDetails) {
         PageHelper.startPage(page, size);
-        final List<Code> list = this.codeService.findAllUserProblemSubmitCode(problemId, userDetails.getUsername());
+        final List<Code> list = this.codeService.findAllUserProblemSubmitCode(-1L, problemId, userDetails.getUsername());
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

@@ -9,6 +9,7 @@ import com.zoctan.api.service.ContestService;
 import com.zoctan.api.service.UserContestService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,6 +25,8 @@ public class ContestController {
     private ContestService contestService;
     @Resource
     private UserContestService userContestService;
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping
     public Result add(@RequestBody final Contest contest) {
@@ -47,6 +50,13 @@ public class ContestController {
     public Result userJoinContest(@PathVariable final Long id, @AuthenticationPrincipal final UserDetails userDetails) {
         this.userContestService.save(id, userDetails.getUsername());
         return ResultGenerator.genOkResult();
+    }
+
+    @PostMapping("/password")
+    public Result validatePassword(@RequestBody final Contest contest) {
+        final Contest contest1 = this.contestService.findById(contest.getId());
+        final boolean isValidate = this.passwordEncoder.matches(contest.getPassword(), contest1.getPassword());
+        return ResultGenerator.genOkResult(isValidate);
     }
 
     @DeleteMapping("/user/{id}")

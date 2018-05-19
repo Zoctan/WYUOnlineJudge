@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard-container">
-
     <el-carousel :interval="4000" type="card" height="300px">
       <el-carousel-item v-for="item in 4" :key="item">
         <span class="title">{{ item }}</span>
@@ -24,44 +23,6 @@
       ...mapGetters([
         'permissionCodeList'
       ])
-    },
-    data() {
-      return {
-        message: '',
-        response: {},
-        ws: null,
-        wsurl: 'ws:127.0.0.1:9090/websocket'
-      }
-    },
-    created() {
-      this.initWebSocket()
-    },
-    methods: {
-      initWebSocket() {
-        this.ws = new WebSocket(this.wsurl)
-        this.ws.onopen = () => {
-          // Web Socket 已连接上，使用 send() 方法发送数据
-          console.log('数据发送中...')
-          this.sendMessage('open')
-          console.log('数据发送完成')
-        }
-        this.ws.onmessage = e => this.getMessage(e)
-        this.ws.onclose = () => {
-          // 关闭 websocket
-          console.log('连接已关闭...')
-        }
-        // 路由跳转时结束websocket链接
-        this.$router.afterEach(() => {
-          this.ws.close()
-        })
-      },
-      getMessage(e) {
-        console.log('数据已接收: ' + e.data)
-        // this.response = JSON.parse(e.data)
-      },
-      sendMessage(content) {
-        this.ws.send(content)
-      }
     }
   }
 </script>

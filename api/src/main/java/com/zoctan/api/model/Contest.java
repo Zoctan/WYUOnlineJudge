@@ -42,6 +42,11 @@ public class Contest {
     private Short status;
 
     /**
+     * 是否在结束后公开题目：0否 | 1是
+     */
+    private Boolean afterShow;
+
+    /**
      * 密码
      */
     private String password;
@@ -141,5 +146,13 @@ public class Contest {
 
     public void setJoin(final boolean join) {
         this.isJoin = join;
+    }
+
+    public Boolean getAfterShow() {
+        return afterShow;
+    }
+
+    public void setAfterShow(Boolean afterShow) {
+        this.afterShow = afterShow;
     }
 }

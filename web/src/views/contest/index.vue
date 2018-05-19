@@ -168,10 +168,7 @@
       },
       doSearch() {
         if (this.searchData == null) {
-          this.$message({
-            message: '搜索内容不能为空哦！',
-            type: 'danger'
-          })
+          this.Tip.defaultError('搜索内容不能为空哦！')
         } else {
           const resultList = []
           this.contestList.forEach(i => {
@@ -180,10 +177,7 @@
             }
           })
           if (resultList.length === 0) {
-            this.$message({
-              message: '找不到相关内容哦！',
-              type: 'warning'
-            })
+            this.Tip.defaultWarning('找不到相关内容哦！')
           } else {
             this.search.beforeSearchList = this.contestList
             this.search.isSearch = true

@@ -22,41 +22,37 @@
         </el-card>
       </el-col>
       <el-col :span="7">
-        <el-card class="box-card">
-          <span class="card-title"><svg-icon icon-class="record" /> 常见帮助</span>
-          <el-row type="flex" class="card-row" justify="space-between">
-            <el-col :span="16"><svg-icon icon-class="right" /> 已解决</el-col>
-            <el-col :span="8"><el-tag type="info" size="mini">123/456</el-tag></el-col>
-          </el-row>
-
-          <el-row type="flex" class="card-row" justify="space-between">
-            <el-col :span="16"><svg-icon icon-class="easy" /> 简单</el-col>
-            <el-col :span="8"><el-tag type="success" size="mini">1</el-tag></el-col>
-          </el-row>
-
-          <el-row type="flex" class="card-row" justify="space-between">
-            <el-col :span="16"><svg-icon icon-class="medium" /> 中等</el-col>
-            <el-col :span="8"><el-tag type="warning" size="mini">2</el-tag></el-col>
-          </el-row>
-
-          <el-row type="flex" class="card-row" justify="space-between">
-            <el-col :span="16"><svg-icon icon-class="hard" /> 困难</el-col>
-            <el-col :span="8"><el-tag type="danger" size="mini">3</el-tag></el-col>
-          </el-row>
+        <el-card class="box-card"
+                 v-model="helpList"
+                 v-loading.body="loading">
+          <div slot="header" class="card-clearfix">
+            <span><svg-icon icon-class="record" /> 常见帮助</span>
+          </div>
+          <div v-for="help in helpList" class="hover card-row" @click="seeHelp(help)">{{ help.title }}</div>
         </el-card>
       </el-col>
     </el-row>
+
+    <el-dialog :title="help.title"
+               :visible.sync="dialogFormVisible">
+      <div class="html-description" v-html="help.description" v-if="help.description"></div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">关闭</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   import { feedback } from '@/api/feedback'
+  import { list as getHelpList } from '@/api/help'
   import { isValidateEmail, isValidateString } from '@/utils/validate'
   import EditorSlideUpload from '../../components/Tinymce/components/editorImage'
 
   export default {
     components: { EditorSlideUpload },
     created() {
+      this.getHelpList()
     },
     data() {
       const validateEmail = (rule, value, callback) => {
@@ -74,7 +70,14 @@
         }
       }
       return {
+        loading: false,
         btnLoading: false,
+        helpList: [],
+        dialogFormVisible: false,
+        help: {
+          title: null,
+          description: null
+        },
         sendFeedbackRules: {
           email: [{ required: true, trigger: 'blur', validator: validateEmail }],
           content: [{ required: true, trigger: 'blur', validator: validateContent }]
@@ -86,10 +89,19 @@
       }
     },
     methods: {
+      getHelpList() {
+        getHelpList().then(response => {
+          this.helpList = response.data.list
+        })
+      },
+      seeHelp(help) {
+        this.help = help
+        this.dialogFormVisible = true
+      },
       sendFeedback() {
         this.btnLoading = true
         feedback(this.feedbackContent).then(() => {
-          this.$message.success('反馈成功')
+          this.Tip.success('反馈成功')
           this.btnLoading = false
         })
       }

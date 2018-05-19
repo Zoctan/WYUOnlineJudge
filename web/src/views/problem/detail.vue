@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
     <div class="detail"
-         :data="problem">
+         :data="problem"
+         :loading="loading">
       <el-row>
         <el-col :span="20"><span class="title">{{ problem.id + '.' + problem.title }}</span></el-col>
 
@@ -250,12 +251,12 @@
         }
         if (status) {
           addProblem2Favorite(form).then(() => {
-            this.$message.success('收藏成功')
+            this.Tip.defaultSuccess('收藏成功')
             this.switchDisabled = false
           })
         } else {
           removeProblemFromFavorite(form).then(() => {
-            this.$message.success('已取消收藏')
+            this.Tip.defaultSuccess('已取消收藏')
             this.switchDisabled = false
           })
         }
@@ -265,13 +266,13 @@
         this.newFavorite.userId = this.userId
         const isTitleExist = this.favoriteList.filter(favorite => favorite.title === this.newFavorite.title).length === 1
         if (isTitleExist) {
-          this.$message.error('收藏夹名称重复')
+          this.Tip.defaultError('收藏夹名称重复')
           this.btnLoading = false
           return
         }
         addFavorite(this.newFavorite).then(() => {
           this.listUserFavorite()
-          this.$message.success('成功添加收藏夹')
+          this.Tip.defaultSuccess('成功添加收藏夹')
           this.btnLoading = false
         })
       },
@@ -294,6 +295,7 @@
       handleRunOrSubmit(status) {
         this.btnLoading = true
         const codeForm = {
+          contestId: -1,
           problemId: this.problem.id,
           userId: this.userId,
           code: Base64.encode(this.code),
@@ -301,12 +303,12 @@
         }
         if (!status) {
           runCode(codeForm).then(() => {
-            this.$message.success('run成功')
+            this.Tip.defaultSuccess('运行成功')
             this.btnLoading = false
           })
         } else {
           submitCode(codeForm).then(() => {
-            this.$message.success('submit成功')
+            this.Tip.defaultSuccess('提交成功')
             this.btnLoading = false
           })
         }

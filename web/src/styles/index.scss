@@ -23,8 +23,13 @@ label {
   font-weight: 700;
 }
 
-.card-title {
-  font-size: 17px;
+.card-clearfix:before,
+.card-clearfix:after {
+  display: table;
+  content: '';
+}
+.card-clearfix:after {
+  clear: both
 }
 
 .card-row {

@@ -43,6 +43,8 @@ INSERT INTO `user_code` VALUES (2,2);
 INSERT INTO `user_code` VALUES (2,3);
 INSERT INTO `user_code` VALUES (2,4);
 INSERT INTO `user_code` VALUES (1,5);
+INSERT INTO `user_code` VALUES (2,6);
+INSERT INTO `user_code` VALUES (2,7);
 /*!40000 ALTER TABLE `user_code` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

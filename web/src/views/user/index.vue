@@ -246,7 +246,7 @@
       update(user) {
         this.btnLoading = true
         updateUser(user).then(response => {
-          this.$message.success('修改成功')
+          this.Tip.defaultSuccess('修改成功')
           this.resetToken(response.data)
           this.regainUserInfo()
           this.btnLoading = false

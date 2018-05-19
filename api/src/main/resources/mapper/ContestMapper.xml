@@ -8,6 +8,7 @@
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="permitted" jdbcType="BIT" property="permitted" />
     <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="after_show" jdbcType="SMALLINT" property="afterShow" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>

@@ -5,8 +5,9 @@
              :model="loginForm"
              :rules="loginRules"
              ref="loginForm"
+             v-loading.body="loading"
              status-icon>
-      <h2 class="title text-center">WYU OpenJudge 登录</h2>
+      <h2 class="title text-center">WYU-OnlineJudge 登录</h2>
        <el-form-item prop="usernameOrEmail">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="username" />
@@ -61,6 +62,7 @@
         }
       }
       return {
+        loading: false,
         loginForm: {
           usernameOrEmail: 'admin',
           password: 'admin123'
@@ -94,6 +96,7 @@
                 // 生成路由
                 this.$store.dispatch('GenerateRoutes', response.data).then(() => {
                   this.loading = false
+                  this.Tip.defaultSuccess('登陆成功')
                   this.$router.addRoutes(this.$store.getters.addRouters)
                   this.$router.push({ path: '/' })
                   location.reload()
@@ -103,6 +106,7 @@
               this.loading = false
             })
           } else {
+            this.Tip.defaultSuccess('登陆失败')
             return false
           }
         })

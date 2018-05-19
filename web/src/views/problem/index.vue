@@ -10,7 +10,7 @@
               <el-button v-if="searchData !== null" @click="noSearch" icon="el-icon-close" circle size="small" />
             </el-col>
             <el-col :span="3">
-              <el-button @click="doSearch">随机开始 <svg-icon icon-class="random" /></el-button>
+              <el-button @click="randomStart">随机开始 <svg-icon icon-class="random" /></el-button>
             </el-col>
           </el-row>
           <el-table :data="problemList"
@@ -77,31 +77,37 @@
       </el-col>
 
       <el-col :span="5">
-        <el-card class="box-card record">
-          <span class="card-title"><svg-icon icon-class="record" /> 记录</span>
+        <el-card class="box-card record"
+                 v-model="record"
+                 v-loading.body="loading">
+          <div slot="header" class="card-clearfix">
+            <span><svg-icon icon-class="record" /> 记录</span>
+          </div>
           <el-row type="flex" class="card-row" justify="space-between">
             <el-col :span="16"><svg-icon icon-class="right" /> 已解决</el-col>
-            <el-col :span="8"><el-tag type="info" size="mini">123/456</el-tag></el-col>
+            <el-col :span="8"><el-tag type="info" size="mini">{{ record.solved + '/' + total }}</el-tag></el-col>
           </el-row>
 
           <el-row type="flex" class="card-row" justify="space-between">
             <el-col :span="16"><svg-icon icon-class="easy" /> 简单</el-col>
-            <el-col :span="8"><el-tag type="success" size="mini">1</el-tag></el-col>
+            <el-col :span="8"><el-tag type="success" size="mini">{{ record.easy }}</el-tag></el-col>
           </el-row>
 
           <el-row type="flex" class="card-row" justify="space-between">
             <el-col :span="16"><svg-icon icon-class="medium" /> 中等</el-col>
-            <el-col :span="8"><el-tag type="warning" size="mini">2</el-tag></el-col>
+            <el-col :span="8"><el-tag type="warning" size="mini">{{ record.medium }}</el-tag></el-col>
           </el-row>
 
           <el-row type="flex" class="card-row" justify="space-between">
             <el-col :span="16"><svg-icon icon-class="hard" /> 困难</el-col>
-            <el-col :span="8"><el-tag type="danger" size="mini">3</el-tag></el-col>
+            <el-col :span="8"><el-tag type="danger" size="mini">{{ record.hard }}</el-tag></el-col>
           </el-row>
         </el-card>
 
         <el-card class="box-card classification" style="margin-top: 12px">
-          <span class="card-title"><svg-icon icon-class="classification" /> 题目分类</span>
+          <div slot="header" class="card-clearfix">
+            <span><svg-icon icon-class="classification" /> 题目分类</span>
+          </div>
           <div class="tag">
             <span v-for="tag in tags" style="margin-right: 5px">
               <el-badge :value="tagsNum.get(tag.text)" :max="99" class="item">
@@ -115,15 +121,17 @@
   </div>
 </template>
 <script>
-  import { list as getProblemList } from '@/api/problem'
+  import { list as getProblemList, listRecord as getUserRecord } from '@/api/problem'
   import { noLoginTip } from '@/utils/Tip'
 
   export default {
     created() {
       this.getProblemList()
+      this.getUserRecord()
     },
     data() {
       return {
+        loading: false,
         problemList: [], // 题目列表
         tags: [], // 标签列表
         tagsNum: null,
@@ -138,7 +146,13 @@
           isSearch: false, // 是否进行过搜索
           beforeSearchList: [] // 搜索前的数据
         },
-        btnLoading: false // 按钮等待动画
+        btnLoading: false, // 按钮等待动画
+        record: {
+          solved: 0,
+          easy: 0,
+          medium: 0,
+          hard: 0
+        }
       }
     },
     methods: {
@@ -157,6 +171,13 @@
           this.total = response.data.total
           this.listLoading = false
           this.getTagsFromProblemList()
+        })
+      },
+      getUserRecord() {
+        this.loading = true
+        getUserRecord().then(response => {
+          this.record = response.data
+          this.loading = false
         })
       },
       getTagsFromProblemList() {
@@ -211,10 +232,7 @@
       },
       doSearch() {
         if (this.searchData == null) {
-          this.$message({
-            message: '搜索内容不能为空哦！',
-            type: 'danger'
-          })
+          this.Tip.defaultError('搜索内容不能为空哦！')
         } else {
           const resultList = []
           this.problemList.forEach(i => {
@@ -223,16 +241,18 @@
             }
           })
           if (resultList.length === 0) {
-            this.$message({
-              message: '找不到相关内容哦！',
-              type: 'warning'
-            })
+            this.Tip.defaultWarning('找不到相关内容哦！')
           } else {
             this.search.beforeSearchList = this.problemList
             this.search.isSearch = true
             this.problemList = resultList
           }
         }
+      },
+      randomStart() {
+        const random = Math.floor(Math.random() * (this.total + 1))
+        // console.info(random)
+        this.$router.push({ path: '/problem/' + random })
       }
     }
   }
