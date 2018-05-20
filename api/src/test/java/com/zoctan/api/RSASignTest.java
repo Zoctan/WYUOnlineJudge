@@ -2,6 +2,7 @@ package com.zoctan.api;
 
 import com.zoctan.api.core.jwt.JWTSetting;
 import com.zoctan.api.util.RSAUtil;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +13,6 @@ import javax.annotation.Resource;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.Base64;
 
 /**
  * @author Zoctan
@@ -48,11 +48,11 @@ public class RSASignTest {
 
         // 获取公钥，并以base64格式打印出来
         final PublicKey publicKey = keyPair.getPublic();
-        System.out.println("公钥：" + new String(Base64.getEncoder().encode(publicKey.getEncoded())));
+        System.out.println("公钥：" + new String(Base64.encodeBase64(publicKey.getEncoded())));
 
         // 获取私钥，并以base64格式打印出来
         final PrivateKey privateKey = keyPair.getPrivate();
-        System.out.println("私钥：" + new String(Base64.getEncoder().encode(privateKey.getEncoded())));
+        System.out.println("私钥：" + new String(Base64.encodeBase64(privateKey.getEncoded())));
 
         // 公钥加密
         final byte[] encryptedBytes = this.rsaUtil.encrypt(data.getBytes(), publicKey);

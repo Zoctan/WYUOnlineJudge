@@ -1,8 +1,10 @@
 package com.zoctan.api.util;
 
 
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import sun.misc.BASE64Decoder;
 
 import javax.crypto.Cipher;
 import java.io.DataInputStream;
@@ -20,6 +22,7 @@ import java.security.spec.X509EncodedKeySpec;
 @Component
 public class RSAUtil {
     private final String algorithm = "RSA";
+    private final Logger log = LoggerFactory.getLogger(RSAUtil.class);
 
     /**
      * 生成密钥对
@@ -76,8 +79,7 @@ public class RSAUtil {
         String publicKeyPEM = temp.replace(headReplace, "");
         publicKeyPEM = publicKeyPEM.replace(tailReplace, "");
 
-        final BASE64Decoder b64 = new BASE64Decoder();
-        return b64.decodeBuffer(publicKeyPEM);
+        return Base64.decodeBase64(publicKeyPEM);
     }
 
     /**
@@ -97,7 +99,7 @@ public class RSAUtil {
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePublic(spec);
         } catch (final Exception e) {
-            //log.error(e.getMessage());
+            this.log.error(e.getMessage());
             return null;
         }
     }
@@ -119,7 +121,7 @@ public class RSAUtil {
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePrivate(spec);
         } catch (final Exception e) {
-            //log.error(e.getMessage());
+            this.log.error(e.getMessage());
             return null;
         }
     }
