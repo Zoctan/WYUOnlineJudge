@@ -52,9 +52,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(final HttpSecurity http)
+    protected void configure(final HttpSecurity httpSecurity)
             throws Exception {
-        http    // 关闭cors验证
+        httpSecurity
+                // 关闭cors验证
                 .cors().disable()
                 // 关闭csrf验证
                 .csrf().disable()
@@ -86,9 +87,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated().and();
 
-        http    // 基于定制JWT安全过滤器
+        httpSecurity    // 基于定制JWT安全过滤器
                 .addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         // 禁用页面缓存
-        http.headers().cacheControl();
+        httpSecurity.headers().cacheControl();
     }
 }

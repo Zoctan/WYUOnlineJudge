@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Zoctan
  */
 @Component
-@ServerEndpoint(value = "/websocket")
+@ServerEndpoint(value = "/websocket.ws")
 public class WebSocketServer {
     private final Logger log = LoggerFactory.getLogger(WebSocketServer.class);
     /**

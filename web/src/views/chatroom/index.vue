@@ -36,7 +36,7 @@
     data() {
       return {
         ws: null,
-        wsurl: 'ws:127.0.0.1:9090/websocket',
+        wsurl: 'wss:api2.txdna.cn/websocket',
         message: null,
         content: null
       }

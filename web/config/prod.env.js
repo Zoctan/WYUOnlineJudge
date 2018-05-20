@@ -1,4 +1,4 @@
 module.exports = {
   NODE_ENV: '"production"',
-  BASE_API: '"http://localhost:9090"',
+  BASE_API: '"https://api2.txdna.cn"',
 }
