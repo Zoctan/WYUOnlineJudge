@@ -26,7 +26,7 @@ CREATE TABLE `permission` (
   `code` varchar(256) NOT NULL COMMENT '权限的代码/通配符,对应代码中@hasAuthority(xx)',
   `handle` varchar(256) NOT NULL COMMENT '对应的资源操作',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='权限表';
 
 --
 -- Dumping data for table `permission`
@@ -46,9 +46,10 @@ INSERT INTO `permission` VALUES (9,'题目','problem:detail','详情');
 INSERT INTO `permission` VALUES (10,'题目','problem:add','添加');
 INSERT INTO `permission` VALUES (11,'题目','problem:update','更新');
 INSERT INTO `permission` VALUES (12,'题目','problem:delete','删除');
-INSERT INTO `permission` VALUES (13,'比赛','contest:add','添加');
-INSERT INTO `permission` VALUES (14,'比赛','contest:update','更新');
-INSERT INTO `permission` VALUES (15,'比赛','contest:delete','删除');
+INSERT INTO `permission` VALUES (13,'比赛','contest:detail','详情');
+INSERT INTO `permission` VALUES (14,'比赛','contest:add','添加');
+INSERT INTO `permission` VALUES (15,'比赛','contest:update','更新');
+INSERT INTO `permission` VALUES (16,'比赛','contest:delete','删除');
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
