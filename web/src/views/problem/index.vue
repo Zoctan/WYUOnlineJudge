@@ -121,13 +121,16 @@
   </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex'
   import { list as getProblemList, listRecord as getUserRecord } from '@/api/problem'
   import { noLoginTip } from '@/utils/Tip'
 
   export default {
     created() {
       this.getProblemList()
-      this.getUserRecord()
+      if (this.token) {
+        this.getUserRecord()
+      }
     },
     data() {
       return {
@@ -154,6 +157,11 @@
           hard: 0
         }
       }
+    },
+    computed: {
+      ...mapGetters([
+        'token'
+      ])
     },
     methods: {
       noLoginTip,

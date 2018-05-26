@@ -46,13 +46,15 @@ service.interceptors.response.use(
   error => {
     // 401:需要认证
     if (error.response.status === 401) {
-      MessageBox.confirm('需要登录', 'logout', {
+      MessageBox.confirm('需要登录', '警告', {
         confirmButtonText: '好的',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         // 为了重新实例化vue-router对象 避免bug
-        store.dispatch('FedLogout').then(() => location.reload())
+        // store.dispatch('FedLogout').then(() => location.reload())
+      }).bind(this).catch(error => {
+        console.error(error)
       })
     } else {
       Message({
