@@ -109,7 +109,7 @@
             <span><svg-icon icon-class="classification" /> 题目分类</span>
           </div>
           <div class="tag">
-            <span v-for="tag in tags" style="margin-right: 5px">
+            <span v-for="tag in tags" style="display:inline-block; margin: 0px 10px 10px 0px;">
               <el-badge :value="tagsNum.get(tag.text)" :max="99" class="item">
                 <el-tag>{{ tag.text }}</el-tag>
               </el-badge>

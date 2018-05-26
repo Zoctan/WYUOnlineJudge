@@ -16,7 +16,7 @@
 
             <el-dropdown-menu slot="dropdown">
               <el-popover ref="popoverFavorite" placement="right" width="200" trigger="click">
-                <!--- fixme --->
+                <!--  fixme  -->
                 <el-form :model="newFavorite">
                   <el-row :gutter="20" style="padding-bottom: 8px">
                     <el-col :span="13">

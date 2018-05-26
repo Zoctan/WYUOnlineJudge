@@ -16,6 +16,7 @@
           <el-col :span="9">
             <el-form-item label="用户名"
                           prop="username">
+              <div v-model="tmpUser.username"></div>
               <el-input v-model="tmpUser.username" />
             </el-form-item>
           </el-col>
