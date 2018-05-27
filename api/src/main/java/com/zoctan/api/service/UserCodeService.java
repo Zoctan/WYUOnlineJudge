@@ -5,6 +5,7 @@ import com.zoctan.api.model.UserCode;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public interface UserCodeService extends Service<UserCode> {
 

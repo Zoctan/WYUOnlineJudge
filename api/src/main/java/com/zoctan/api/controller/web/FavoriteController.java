@@ -6,15 +6,15 @@ import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
 import com.zoctan.api.model.Favorite;
 import com.zoctan.api.service.FavoriteService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.List;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @RestController
 @RequestMapping("/favorite")
@@ -30,7 +30,7 @@ public class FavoriteController {
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable final Long id) {
-        this.favoriteService.delete(id);
+        this.favoriteService.deleteById(id);
         return ResultGenerator.genOkResult();
     }
 
@@ -41,16 +41,16 @@ public class FavoriteController {
     }
 
     @GetMapping
-    public Result listUserFavorite(@AuthenticationPrincipal final UserDetails userDetails,
-                                   @RequestParam(defaultValue = "0") final Integer page,
-                                   @RequestParam(defaultValue = "0") final Integer size) {
+    public Result listUserFavorite(@RequestParam(defaultValue = "0") final Integer page,
+                                   @RequestParam(defaultValue = "0") final Integer size,
+                                   final Principal user) {
         PageHelper.startPage(page, size);
         // mybatis 一对多关联查询 + pagehelper 分页
         // pagehelper分页对最先的查询语句 limit 导致查询的页数错误
         // 暂时办法 先查询用户的收藏夹
         //fixme
-        this.favoriteService.findUserFavoriteByUsername(userDetails.getUsername());
-        final List<Favorite> list = this.favoriteService.findUserDetailFavoriteByUsername(userDetails.getUsername());
+        this.favoriteService.findUserFavoriteByUsername(user.getName());
+        final List<Favorite> list = this.favoriteService.findUserDetailFavoriteByUsername(user.getName());
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

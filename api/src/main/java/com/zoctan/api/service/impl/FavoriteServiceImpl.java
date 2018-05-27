@@ -8,13 +8,13 @@ import com.zoctan.api.model.UserFavorite;
 import com.zoctan.api.service.FavoriteService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -33,15 +33,6 @@ public class FavoriteServiceImpl extends AbstractService<Favorite> implements Fa
         userFavorite.setFavoriteId(favorite.getId());
         userFavorite.setUserId(favorite.getUserId());
         this.userFavoriteMapper.insert(userFavorite);
-    }
-
-    @Override
-    public void delete(final Long id) {
-        this.favoriteMapper.deleteByPrimaryKey(id);
-
-        final Condition condition = new Condition(UserFavorite.class);
-        condition.createCriteria().andCondition("favorite_id = ", id);
-        this.userFavoriteMapper.deleteByCondition(condition);
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.Map;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -73,7 +74,8 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     @Override
     public void update(final User user) {
         // 如果修改了密码
-        if (user.getPassword() != null && user.getPassword().length() >= 6) {
+        final int defaultPasswordLength = 6;
+        if (user.getPassword() != null && user.getPassword().length() >= defaultPasswordLength) {
             // 密码修改后需要加密
             user.setPassword(this.passwordEncoder.encode(user.getPassword().trim()));
         }
@@ -96,7 +98,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     public User findDetailByUsername(final String username) throws UsernameNotFoundException {
         final User user = this.findDetailBy("username", username);
         if (user == null) {
-            throw new UsernameNotFoundException("not found this username");
+            throw new UsernameNotFoundException("用户名不存在");
         }
         if ("ROLE_ADMIN".equals(user.getRoleName())) {
             // 超级管理员所有权限都有

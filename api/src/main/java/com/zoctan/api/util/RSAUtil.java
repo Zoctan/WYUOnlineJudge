@@ -15,14 +15,16 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * RSA 工具类
+ * RSA 工具
  *
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Component
 public class RSAUtil {
+    private final static Logger log = LoggerFactory.getLogger(RSAUtil.class);
+
     private final String algorithm = "RSA";
-    private final Logger log = LoggerFactory.getLogger(RSAUtil.class);
 
     /**
      * 生成密钥对
@@ -99,7 +101,7 @@ public class RSAUtil {
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePublic(spec);
         } catch (final Exception e) {
-            this.log.error(e.getMessage());
+            log.error(e.getMessage());
             return null;
         }
     }
@@ -121,7 +123,7 @@ public class RSAUtil {
             final KeyFactory keyFactory = KeyFactory.getInstance(this.algorithm);
             return keyFactory.generatePrivate(spec);
         } catch (final Exception e) {
-            this.log.error(e.getMessage());
+            log.error(e.getMessage());
             return null;
         }
     }

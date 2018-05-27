@@ -15,7 +15,7 @@ import java.util.List;
  * 基于通用MyBatis Mapper插件的Service接口的实现
  *
  * @author Zoctan
- * @date 5/13/18 3:01 PM
+ * @date 2018/5/27
  */
 public abstract class AbstractService<T> implements Service<T> {
     @SuppressWarnings("SpringAutowiredFieldsWarningInspection")

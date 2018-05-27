@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
+ * websocket 服务器
+ *
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Component
 @ServerEndpoint(value = "/websocket.ws")

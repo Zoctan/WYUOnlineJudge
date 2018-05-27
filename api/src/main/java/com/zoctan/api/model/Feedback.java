@@ -1,10 +1,11 @@
 package com.zoctan.api.model;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public class Feedback {
     /**

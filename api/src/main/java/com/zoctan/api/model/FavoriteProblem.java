@@ -6,6 +6,7 @@ import javax.persistence.Table;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Table(name = "favorite_problem")
 public class FavoriteProblem {

@@ -2,6 +2,10 @@ package com.zoctan.api.model;
 
 import javax.persistence.*;
 
+/**
+ * @author Zoctan
+ * @date 2018/5/27
+ */
 @Table(name = "contest_problem")
 public class ContestProblem {
     /**

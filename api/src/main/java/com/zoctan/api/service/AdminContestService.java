@@ -5,6 +5,7 @@ import com.zoctan.api.model.AdminContest;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public interface AdminContestService extends Service<AdminContest> {
 

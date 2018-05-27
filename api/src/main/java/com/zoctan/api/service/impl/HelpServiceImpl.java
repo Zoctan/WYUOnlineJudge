@@ -1,20 +1,20 @@
 package com.zoctan.api.service.impl;
 
+import com.zoctan.api.core.service.AbstractService;
 import com.zoctan.api.mapper.HelpMapper;
 import com.zoctan.api.model.Help;
 import com.zoctan.api.service.HelpService;
-import com.zoctan.api.core.service.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 /**
-* Created by Zoctan on 2018/05/19.
-*/
+ * @author Zoctan
+ * @date 2018/5/27
+ */
 @Service
-@Transactional
-@SuppressWarnings("SpringJavaAutowiringInspection")
+@Transactional(rollbackFor = Exception.class)
 public class HelpServiceImpl extends AbstractService<Help> implements HelpService {
     @Resource
     private HelpMapper helpMapper;

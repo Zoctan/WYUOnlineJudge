@@ -8,11 +8,12 @@
               <el-input type="textarea"
                         v-model="content"
                         :autosize="{ minRows: 5, maxRows: 50}"
-                        placeholder="请输入消息" />
+                        placeholder="请输入消息"/>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" icon="el-icon-message" style="width: 100%"
-                         @click="sendMessage">发送</el-button>
+                         @click="sendMessage">发送
+              </el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -21,7 +22,7 @@
         <el-card class="box-card">
           <el-input type="textarea"
                     v-model="message"
-                    :autosize="{ minRows: 10, maxRows: 25}" />
+                    :autosize="{ minRows: 10, maxRows: 25}"/>
         </el-card>
       </el-col>
     </el-row>
@@ -32,17 +33,20 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    name: 'login',
     data() {
       return {
         ws: null,
-        wsurl: 'wss:api2.txdna.cn/websocket',
+        wsurl: (process.env.BASE_API + '/websocket').replace('https', 'wss'),
         message: null,
         content: null
       }
     },
     created() {
-      this.initWebSocket()
+      if (typeof WebSocket !== 'undefined') {
+        this.initWebSocket()
+      } else {
+        this.Tip.defaultError('浏览器不支持WebSocket')
+      }
     },
     computed: {
       ...mapGetters([

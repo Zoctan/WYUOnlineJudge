@@ -8,19 +8,18 @@ import com.zoctan.api.model.Code;
 import com.zoctan.api.model.ContestProblem;
 import com.zoctan.api.service.CodeService;
 import com.zoctan.api.service.ContestProblemService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
 /**
  * @author Zoctan
- * @date 2018/05/19
+ * @date 2018/5/27
  */
 @RestController
 @RequestMapping("/contest/problem")
@@ -52,14 +51,14 @@ public class ContestProblemController {
     public Result list(@PathVariable final Long id,
                        @RequestParam(defaultValue = "0") final Integer page,
                        @RequestParam(defaultValue = "0") final Integer size,
-                       @AuthenticationPrincipal final UserDetails userDetails) {
+                       final Principal user) {
         PageHelper.startPage(page, size);
         final Condition condition = new Condition(ContestProblem.class);
         condition.createCriteria().andCondition("contest_id = ", id);
         final List<ContestProblem> list = this.contestProblemService.findByCondition(condition).stream()
                 .peek(contestProblem -> {
                     // from user submit code -> select current problem accept
-                    List<Code> codes = this.codeService.findAllUserProblemSubmitCode(id, contestProblem.getId(), userDetails.getUsername());
+                    List<Code> codes = this.codeService.findAllUserProblemSubmitCode(id, contestProblem.getId(), user.getName());
                     boolean flag = false;
                     for (Code code : codes) {
                         if (code.getStatus() == 0) {

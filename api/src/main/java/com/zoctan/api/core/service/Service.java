@@ -9,12 +9,13 @@ import java.util.List;
  * Service层基础接口，其他Service接口 请继承该接口
  *
  * @author Zoctan
+ * @date 2018/5/27
  */
 public interface Service<T> {
     /**
      * 持久化
      *
-     * @param model model
+     * @param model 实体
      */
     void save(T model);
 
@@ -23,7 +24,7 @@ public interface Service<T> {
     /**
      * 持久化
      *
-     * @param models models
+     * @param models 实体
      */
     void save(List<T> models);
 
@@ -37,8 +38,8 @@ public interface Service<T> {
     /**
      * 通过Model中某个成员变量名称（非数据表中column的名称）刪除
      *
-     * @param fieldName fieldName
-     * @param value     value
+     * @param fieldName 数据库中的字段名
+     * @param value     字段对应的值
      * @throws TooManyResultsException TooManyResultsException
      */
     void deleteBy(String fieldName, Object value) throws TooManyResultsException;
@@ -46,36 +47,36 @@ public interface Service<T> {
     /**
      * 批量刪除 eg：ids -> “1,2,3,4”
      *
-     * @param ids ids
+     * @param ids 多个Id
      */
     void deleteByIds(String ids);
 
     /**
      * 根据条件刪除
      *
-     * @param condition condition
+     * @param condition 条件
      */
     void deleteByCondition(Condition condition);
 
     /**
      * 根据对象刪除
      *
-     * @param model model
+     * @param model 实体
      */
     void delete(T model);
 
     /**
      * 更新
      *
-     * @param model model
+     * @param model 实体
      */
     void update(T model);
 
     /**
      * 根据条件更新
      *
-     * @param model     model
-     * @param condition condition
+     * @param model     实体
+     * @param condition 条件
      */
     void updateByCondition(T model, Condition condition);
 
@@ -90,8 +91,8 @@ public interface Service<T> {
     /**
      * 通过Model中某个成员变量名称查找,value需符合unique约束
      *
-     * @param fieldName fieldName
-     * @param value     value
+     * @param fieldName 数据库中的字段名
+     * @param value     字段对应的值
      * @return T
      * @throws TooManyResultsException TooManyResultsException
      */
@@ -100,7 +101,7 @@ public interface Service<T> {
     /**
      * 通过多个ID查找//eg：ids -> “1,2,3,4”
      *
-     * @param ids ids
+     * @param ids 多个Id
      * @return List<T>
      */
     List<T> findByIds(String ids);
@@ -108,7 +109,7 @@ public interface Service<T> {
     /**
      * 根据条件查找
      *
-     * @param condition condition
+     * @param condition 条件
      * @return List<T>
      */
     List<T> findByCondition(Condition condition);
@@ -123,7 +124,8 @@ public interface Service<T> {
     /**
      * 计数
      *
-     * @return int
+     * @param condition 　条件
+     * @return 数量
      */
     int countByCondition(Condition condition);
 }

@@ -53,8 +53,6 @@ service.interceptors.response.use(
       }).then(() => {
         // 为了重新实例化vue-router对象 避免bug
         // store.dispatch('FedLogout').then(() => location.reload())
-      }).bind(this).catch(error => {
-        console.error(error)
       })
     } else {
       Message({

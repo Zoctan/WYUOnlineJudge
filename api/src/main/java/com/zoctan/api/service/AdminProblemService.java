@@ -5,6 +5,7 @@ import com.zoctan.api.model.AdminProblem;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public interface AdminProblemService extends Service<AdminProblem> {
 

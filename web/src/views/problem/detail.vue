@@ -11,7 +11,7 @@
                        :hide-on-click="false"
                        @click="dialogFormVisible = true"
                        :loading="btnLoading">
-            <i class="el-icon-star-on"  v-if="favoriteSwitch.indexOf(true) !== -1" style="color: #FEC171"></i>
+            <i class="el-icon-star-on" v-if="favoriteSwitch.indexOf(true) !== -1" style="color: #FEC171"></i>
             <i class="el-icon-star-off" v-else></i> 收藏
 
             <el-dropdown-menu slot="dropdown">
@@ -21,22 +21,24 @@
                   <el-row :gutter="20" style="padding-bottom: 8px">
                     <el-col :span="13">
                       <el-select size="mini" v-model="newFavorite.isPrivate" placeholder="请选择">
-                        <el-option v-for="item in isPrivateOptions" :key="item.value" :label="item.label" :value="item.value" />
+                        <el-option v-for="item in isPrivateOptions" :key="item.value" :label="item.label"
+                                   :value="item.value"/>
                       </el-select>
                     </el-col>
                     <el-col :span="11">
-                      <el-button round size="mini" type="primary" @click="addFavorite" :loading="btnLoading">添加</el-button>
+                      <el-button round size="mini" type="primary" @click="addFavorite" :loading="btnLoading">添加
+                      </el-button>
                     </el-col>
                   </el-row>
                   <el-form-item>
-                    <el-input v-model="newFavorite.title" placeholder="收藏夹名称" />
+                    <el-input v-model="newFavorite.title" placeholder="收藏夹名称"/>
                   </el-form-item>
                 </el-form>
               </el-popover>
               <el-dropdown-item v-popover:popoverFavorite>添加收藏夹</el-dropdown-item>
 
               <router-link class="inlineBlock" to="/login/index">
-                <el-dropdown-item divided >
+                <el-dropdown-item divided>
                   <span style="display:block;">我的收藏夹</span>
                 </el-dropdown-item>
               </router-link>
@@ -48,14 +50,14 @@
       <el-dialog title="收藏题目" width="35%" center
                  :visible.sync="dialogFormVisible">
         <el-table :data="favoriteList" height="250">
-          <el-table-column prop="title" label="收藏夹" align="center" />
+          <el-table-column prop="title" label="收藏夹" align="center"/>
           <el-table-column prop="id" label="操作" align="center">
             <template slot-scope="scope">
               <el-switch active-text="收藏" active-color="#13ce66"
                          inactive-text="移除" inactive-color="#ff4949"
                          :disabled="switchDisabled"
                          @change="handleFavoriteSwitch(scope.row.id, favoriteSwitch[scope.row.id])"
-                         v-model="favoriteSwitch[scope.row.id]" />
+                         v-model="favoriteSwitch[scope.row.id]"/>
             </template>
           </el-table-column>
         </el-table>
@@ -69,7 +71,7 @@
                element-loading-text="loading"
                style="margin-top: 24px">
         <el-tab-pane>
-          <span slot="label"><svg-icon icon-class="documentation" /> 题目描述</span>
+          <span slot="label"><svg-icon icon-class="documentation"/> 题目描述</span>
 
           <el-container>
             <el-main width="80%">
@@ -98,73 +100,81 @@
           </el-container>
 
           <div class="code-editor">
-            <code-editor class="editor" ref="codeEditor" v-model="code" />
+            <code-editor class="editor" ref="codeEditor" v-model="code"/>
             <div class="code-button">
               <el-row>
                 <el-col :span="20">
                   <el-button round
                              :loading="btnLoading"
-                             @click.native.prevent="handleRunOrSubmit(false)"><svg-icon icon-class="run" /> 执行代码</el-button></el-col>
+                             @click.native.prevent="handleRunOrSubmit(false)">
+                    <svg-icon icon-class="run"/>
+                    执行代码
+                  </el-button>
+                </el-col>
                 <el-col :span="4">
                   <el-button round type="primary"
                              :loading="btnLoading"
-                             @click.native.prevent="handleRunOrSubmit(true)"><svg-icon icon-class="submit" /> 提交解答</el-button></el-col>
+                             @click.native.prevent="handleRunOrSubmit(true)">
+                    <svg-icon icon-class="submit"/>
+                    提交解答
+                  </el-button>
+                </el-col>
               </el-row>
             </div>
           </div>
         </el-tab-pane>
 
         <el-tab-pane>
-          <span slot="label" @click="listSubmitCode"><svg-icon icon-class="code" /> 提交记录</span>
-            <el-table :data="submitCodeList"
-                      v-loading.body="listLoading"
-                      element-loading-text="loading"
-                      fit>
-              <el-table-column label="提交时间"
-                               align="center"
-                               sortable
-                               prop="submitTime">
-                <template slot-scope="scope">
-                  <i class="el-icon-time"></i>
-                  {{ unix2CurrentTime(scope.row.submitTime) }}
-                </template>
-              </el-table-column>
-              <el-table-column label="状态"
-                               prop="status"
-                               align="center">
-                <template slot-scope="scope">
-                  <el-tag v-if="scope.row.status === 1" type="success">通过</el-tag>
-                  <el-tag v-else-if="scope.row.status === 2" type="warning">xx</el-tag>
-                  <el-tag v-else type="danger">xxx</el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column label="消耗时间"
-                               prop="timeUsed"
-                               sortable
-                               align="center" />
-              <el-table-column label="消耗内存"
-                               prop="memoryUsed"
-                               sortable
-                               align="center" />
-              <el-table-column label="语言"
-                               prop="language"
-                               align="center" />
-            </el-table>
-            <el-pagination
-              @size-change="handleSubmitCodeSizeChange"
-              @current-change="handleSubmitCodeCurrentChange"
-              :current-page="submitCodeListQuery.page"
-              :page-size="submitCodeListQuery.size"
-              :total="totalSubmitCode"
-              :page-sizes="[10, 30, 50, 100]"
-              layout="total, sizes, prev, pager, next, jumper">
-            </el-pagination>
+          <span slot="label" @click="listSubmitCode"><svg-icon icon-class="code"/> 提交记录</span>
+          <el-table :data="submitCodeList"
+                    v-loading.body="listLoading"
+                    element-loading-text="loading"
+                    fit>
+            <el-table-column label="提交时间"
+                             align="center"
+                             sortable
+                             prop="submitTime">
+              <template slot-scope="scope">
+                <i class="el-icon-time"></i>
+                {{ unix2CurrentTime(scope.row.submitTime) }}
+              </template>
+            </el-table-column>
+            <el-table-column label="状态"
+                             prop="status"
+                             align="center">
+              <template slot-scope="scope">
+                <el-tag v-if="scope.row.status === 1" type="success">通过</el-tag>
+                <el-tag v-else-if="scope.row.status === 2" type="warning">xx</el-tag>
+                <el-tag v-else type="danger">xxx</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="消耗时间"
+                             prop="timeUsed"
+                             sortable
+                             align="center"/>
+            <el-table-column label="消耗内存"
+                             prop="memoryUsed"
+                             sortable
+                             align="center"/>
+            <el-table-column label="语言"
+                             prop="language"
+                             align="center"/>
+          </el-table>
+          <el-pagination
+            @size-change="handleSubmitCodeSizeChange"
+            @current-change="handleSubmitCodeCurrentChange"
+            :current-page="submitCodeListQuery.page"
+            :page-size="submitCodeListQuery.size"
+            :total="totalSubmitCode"
+            :page-sizes="[10, 30, 50, 100]"
+            layout="total, sizes, prev, pager, next, jumper">
+          </el-pagination>
         </el-tab-pane>
 
         <el-tab-pane disabled>
           <span slot="label">
             <el-tooltip content="即将到来" placement="top-start">
-              <svg-icon icon-class="chat" />
+              <svg-icon icon-class="chat"/>
             </el-tooltip> 社区讨论
           </span>
         </el-tab-pane>
@@ -177,7 +187,12 @@
   import { mapGetters } from 'vuex'
   import { Base64 } from 'js-base64'
   import { run as runCode, submit as submitCode, listSubmitCode } from '@/api/code'
-  import { list as listUserFavorite, add as addFavorite, addProblem as addProblem2Favorite, removeProblem as removeProblemFromFavorite } from '@/api/favorite'
+  import {
+    list as listUserFavorite,
+    add as addFavorite,
+    addProblem as addProblem2Favorite,
+    removeProblem as removeProblemFromFavorite
+  } from '@/api/favorite'
   import { detail as getProblemDetail } from '@/api/problem'
   import { unix2CurrentTime } from '@/utils'
   import CodeEditor from '@/components/CodeEditor'
@@ -241,7 +256,7 @@
         this.favoriteList.forEach(favorite => {
           this.favoriteSwitch[favorite.id] = favorite.problemIdList.indexOf(this.problem.id) !== -1
         })
-        this.favoriteSwitch.forEach((x, index) => console.info(index + '->' + x))
+        // this.favoriteSwitch.forEach((x, index) => console.info(index + '->' + x))
       },
       handleFavoriteSwitch(favoriteId, status) {
         this.switchDisabled = true
@@ -341,10 +356,12 @@
   .detail {
     margin: 20px 0;
   }
+
   .title {
     padding: 4px;
     font-size: 30px;
   }
+
   .code-editor {
     border-top-style: solid;
     border-top-color: #F5F5F5;

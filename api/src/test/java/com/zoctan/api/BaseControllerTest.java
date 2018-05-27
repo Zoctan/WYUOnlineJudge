@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -26,7 +27,7 @@ public abstract class BaseControllerTest {
     @Value("${server.port}")
     int port;
     final String url = "http://localhost:" + this.port;
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws JsonProcessingException {

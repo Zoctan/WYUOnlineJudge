@@ -16,13 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 验证请求的Token
+ * 身份认证过滤器
  *
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+    private final static Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     @Resource
     private JwtUtil jwtUtil;
 
@@ -40,17 +41,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         response.setHeader("Access-Control-Expose-Headers", "*");
         // axios 预请求后，直接返回
         // 返回码必须为 200 否则视为请求失败
+
         if ("OPTIONS".equals(request.getMethod())) {
             return;
         }
 
         final String token = this.jwtUtil.getTokenFromRequest(request);
         if (token == null) {
-            this.log.info("Anonymous request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
+            log.info("JwtFilter => Anonymous request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
         } else {
             final String username = this.jwtUtil.getUsername(token);
-            this.log.info("JwtFilter => user<{}> token : {}", username, token);
-            this.log.info("request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
+            log.info("JwtFilter => user<{}> token : {}", username, token);
+            log.info("JwtFilter => request URL<{}> Method<{}>", request.getRequestURL(), request.getMethod());
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 if (this.jwtUtil.validateToken(token)) {
@@ -59,7 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                    this.log.info("JwtFilter => user<{}> is authorized, set security context", username);
+                    log.info("JwtFilter => user<{}> is authorized, set security context", username);
                 }
             }
         }

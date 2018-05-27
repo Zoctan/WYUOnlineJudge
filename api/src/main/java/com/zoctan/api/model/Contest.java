@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public class Contest {
     /**
@@ -55,6 +56,8 @@ public class Contest {
      * 描述
      */
     private String description;
+
+    /* ---------- 以下字段来自联表查询 ------------*/
 
     /**
      * 参加人数
@@ -149,10 +152,10 @@ public class Contest {
     }
 
     public Boolean getAfterShow() {
-        return afterShow;
+        return this.afterShow;
     }
 
-    public void setAfterShow(Boolean afterShow) {
+    public void setAfterShow(final Boolean afterShow) {
         this.afterShow = afterShow;
     }
 }

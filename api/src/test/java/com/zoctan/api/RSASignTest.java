@@ -16,6 +16,7 @@ import java.security.PublicKey;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -29,7 +30,7 @@ public class RSASignTest {
      * 加载公私钥pem格式文件测试
      */
     @Test
-    public void test1() throws Exception {
+    public void test1() {
         final PublicKey publicKey = this.rsaUtil.loadPemPublicKey(this.jwtSetting.getPublicKey());
         final PrivateKey privateKey = this.rsaUtil.loadPemPrivateKey(this.jwtSetting.getPrivateKey());
         Assert.assertNotNull(publicKey);

@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public class Favorite {
     /**

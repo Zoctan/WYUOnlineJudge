@@ -1,16 +1,17 @@
 package com.zoctan.api.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public class User {
     /**
@@ -65,6 +66,7 @@ public class User {
     private Timestamp lastLoginTime;
 
     /* ---------- 以下字段来自联表查询 ------------*/
+
     /**
      * 用户的角色Id
      */

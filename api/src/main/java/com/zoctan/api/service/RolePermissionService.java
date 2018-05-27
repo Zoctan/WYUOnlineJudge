@@ -5,6 +5,7 @@ import com.zoctan.api.model.RolePermission;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public interface RolePermissionService extends Service<RolePermission> {
 

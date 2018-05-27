@@ -1,8 +1,10 @@
 package com.zoctan.api.core.exception;
 
 /**
- * @author Zoctan
  * Service异常
+ *
+ * @author Zoctan
+ * @date 2018/5/27
  */
 public class ServiceException extends RuntimeException {
     public ServiceException(final String message) {

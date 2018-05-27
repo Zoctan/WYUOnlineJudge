@@ -12,12 +12,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis 工具类
+ * Redis 工具
  * 针对所有的 hash 都是以 h 开头的方法
  * 针对所有的 Set 都是以 s 开头的方法（不含通用方法）
  * 针对所有的 List 都是以 l 开头的方法
  *
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Component
 public class RedisUtil {

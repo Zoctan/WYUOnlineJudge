@@ -13,11 +13,14 @@ import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
 /**
+ * 邮箱工具
+ *
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Component
 public class EmailUtil {
-    private final Logger log = LoggerFactory.getLogger(EmailUtil.class);
+    private final static Logger log = LoggerFactory.getLogger(EmailUtil.class);
     @Value("${spring.mail.to}")
     private String to;
     @Value("${spring.mail.username}")
@@ -40,7 +43,7 @@ public class EmailUtil {
             this.sender.send(message);
             return true;
         } catch (final Exception e) {
-            this.log.error(e.getMessage());
+            log.error(e.getMessage());
             return false;
         }
     }
@@ -62,7 +65,7 @@ public class EmailUtil {
             this.sender.send(message);
             return true;
         } catch (final Exception e) {
-            this.log.error(e.getMessage());
+            log.error(e.getMessage());
             return false;
         }
     }

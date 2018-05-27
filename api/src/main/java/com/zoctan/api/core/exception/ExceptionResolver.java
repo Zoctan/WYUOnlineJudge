@@ -2,6 +2,8 @@ package com.zoctan.api.core.exception;
 
 import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -22,11 +24,14 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 /**
- * @author Zoctan
  * 统一异常处理
+ *
+ * @author Zoctan
+ * @date 2018/5/27
  */
 @RestControllerAdvice
 public class ExceptionResolver {
+    private final static Logger log = LoggerFactory.getLogger(ExceptionResolver.class);
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
@@ -77,6 +82,7 @@ public class ExceptionResolver {
     @ExceptionHandler(Exception.class)
     public Result globalException(final HttpServletRequest request, final Throwable e) {
         final Integer status = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        log.error(e.getMessage());
         if (status == null) {
             return ResultGenerator.genInternalServerErrorResult(request.getRequestURI());
         }

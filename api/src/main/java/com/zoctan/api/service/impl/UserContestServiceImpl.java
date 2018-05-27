@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -23,25 +24,19 @@ public class UserContestServiceImpl extends AbstractService<UserContest> impleme
     @Resource
     private UserMapper userMapper;
 
-    private UserContest get(final Long id, final String username) {
+    @Override
+    public void save(final String username, final Long contestId) {
         final Condition condition = new Condition(User.class);
         condition.createCriteria().andCondition("username = ", username);
         final User user = this.userMapper.selectByCondition(condition).get(0);
         final UserContest userContest = new UserContest();
-        userContest.setContestIdId(id);
+        userContest.setContestIdId(contestId);
         userContest.setUserId(user.getId());
-        return userContest;
-    }
-
-    @Override
-    public void save(final Long id, final String username) {
-        final UserContest userContest = this.get(id, username);
         this.userContestMapper.insert(userContest);
     }
 
     @Override
-    public void delete(final Long id, final String username) {
-        final UserContest userContest = this.get(id, username);
-        this.userContestMapper.delete(userContest);
+    public void delete(final String username, final Long contestId) {
+        this.userContestMapper.deleteByUsernameAndContestId(username, contestId);
     }
 }

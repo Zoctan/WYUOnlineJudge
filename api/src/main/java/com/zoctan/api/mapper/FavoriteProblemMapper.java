@@ -5,6 +5,7 @@ import com.zoctan.api.model.FavoriteProblem;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public interface FavoriteProblemMapper extends MyMapper<FavoriteProblem> {
 }

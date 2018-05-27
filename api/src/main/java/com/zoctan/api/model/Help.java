@@ -1,7 +1,13 @@
 package com.zoctan.api.model;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+/**
+ * @author Zoctan
+ * @date 2018/5/27
+ */
 public class Help {
     /**
      * 帮助Id
@@ -26,7 +32,7 @@ public class Help {
      * @return id - 帮助Id
      */
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -34,7 +40,7 @@ public class Help {
      *
      * @param id 帮助Id
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -44,7 +50,7 @@ public class Help {
      * @return title - 标题
      */
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     /**
@@ -52,7 +58,7 @@ public class Help {
      *
      * @param title 标题
      */
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -62,7 +68,7 @@ public class Help {
      * @return description - 描述
      */
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     /**
@@ -70,7 +76,7 @@ public class Help {
      *
      * @param description 描述
      */
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 }

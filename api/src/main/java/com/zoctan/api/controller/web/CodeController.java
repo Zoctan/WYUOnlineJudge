@@ -6,17 +6,17 @@ import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
 import com.zoctan.api.model.Code;
 import com.zoctan.api.service.CodeService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.List;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @RestController
 @RequestMapping("/code")
@@ -56,9 +56,9 @@ public class CodeController {
     public Result listSubmitCode(@PathVariable final Long problemId,
                                  @RequestParam(defaultValue = "0") final Integer page,
                                  @RequestParam(defaultValue = "0") final Integer size,
-                                 @AuthenticationPrincipal final UserDetails userDetails) {
+                                 final Principal user) {
         PageHelper.startPage(page, size);
-        final List<Code> list = this.codeService.findAllUserProblemSubmitCode(-1L, problemId, userDetails.getUsername());
+        final List<Code> list = this.codeService.findAllUserProblemSubmitCode(-1L, problemId, user.getName());
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

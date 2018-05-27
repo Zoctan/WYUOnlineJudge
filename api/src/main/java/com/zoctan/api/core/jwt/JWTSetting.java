@@ -4,7 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * Json web token配置
+ *
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Component
 @ConfigurationProperties(prefix = "jwt")

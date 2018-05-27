@@ -6,6 +6,7 @@ import com.zoctan.api.model.UserRole;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 public interface UserRoleService extends Service<UserRole> {
     void updateUserRole(User user);

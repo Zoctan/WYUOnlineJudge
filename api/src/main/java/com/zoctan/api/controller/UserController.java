@@ -13,20 +13,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.List;
 
 import static com.zoctan.api.core.ProjectConstant.ONLINE_USER_NUMBER;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @Api(value = "用户接口")
 @RestController
@@ -39,13 +39,8 @@ public class UserController {
     private UserService userService;
     @Resource
     private UserDetailsServiceImpl userDetailsService;
-
-    private final JwtUtil jwtUtil;
-
-    @Autowired
-    public UserController(final JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    @Resource
+    private JwtUtil jwtUtil;
 
     @ApiOperation(value = "当前用户在线数")
     @GetMapping("/onlineUserNum")
@@ -89,13 +84,15 @@ public class UserController {
     }
 
     /**
-     * AuthenticationPrincipal 注解可以获得当前用户
+     * 注解 @AuthenticationPrincipal 返回的是 Authentication.getPrincipal()
+     * https://docs.spring.io/spring-security/site/docs/5.0.0.RELEASE/api/
+     * Principal 由 spring security 注入
      */
     @ApiOperation(value = "获取用户信息")
     @GetMapping("/info")
-    public Result info(@AuthenticationPrincipal final UserDetails userDetails) {
-        final User user = this.userService.findDetailByUsername(userDetails.getUsername());
-        return ResultGenerator.genOkResult(user);
+    public Result info(final Principal user) {
+        final User userInfo = this.userService.findDetailByUsername(user.getName());
+        return ResultGenerator.genOkResult(userInfo);
     }
 
     @PreAuthorize("hasAuthority('user:list')")
@@ -154,8 +151,8 @@ public class UserController {
 
     @ApiOperation(value = "用户注销")
     @GetMapping("/logout")
-    public Result logout(@AuthenticationPrincipal final UserDetails userDetails) {
-        this.jwtUtil.invalidRedisStore(userDetails.getUsername());
+    public Result logout(final Principal user) {
+        this.jwtUtil.invalidRedisStore(user.getName());
         return ResultGenerator.genOkResult();
     }
 

@@ -8,17 +8,17 @@ import com.zoctan.api.model.Code;
 import com.zoctan.api.model.Problem;
 import com.zoctan.api.service.CodeService;
 import com.zoctan.api.service.ProblemService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @RestController
 @RequestMapping("/problem")
@@ -54,14 +54,14 @@ public class ProblemController {
     }
 
     @GetMapping("/record")
-    public Result listRecord(@AuthenticationPrincipal final UserDetails userDetails) {
+    public Result listRecord(final Principal user) {
         final List<Problem> problems = this.problemService.findAll();
         Long solved = 0L;
         Long easy = 0L;
         Long medium = 0L;
         Long hard = 0L;
         for (final Problem problem : problems) {
-            final List<Code> codes = this.codeService.findAllUserProblemSubmitCode(-1L, problem.getId(), userDetails.getUsername());
+            final List<Code> codes = this.codeService.findAllUserProblemSubmitCode(-1L, problem.getId(), user.getName());
             for (final Code code : codes) {
                 if (code.getStatus() == 0) {
                     solved++;

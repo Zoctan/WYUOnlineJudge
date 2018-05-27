@@ -3,12 +3,11 @@ package com.zoctan.api.core.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -17,22 +16,13 @@ import java.util.List;
  * Spring MVC 配置
  *
  * @author Zoctan
- * @date 5/13/18 3:01 PM
+ * @date 2018/5/27
  */
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
-    /**
-     * 当前激活的配置文件
-     */
-    @Value("${spring.profiles.active}")
-    private String env;
+public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * 使用阿里 FastJson 作为JSON MessageConverter
-     *
-     * @param converters converters
-     * @author Zoctan
-     * @date 5/13/18 3:01 PM
      */
     @Override
     public void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
@@ -52,11 +42,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * 放行 swagger2
-     *
-     * @param registry registry
-     * @author Zoctan
-     * @date 5/13/18 3:01 PM
+     * 视图控制器
      */
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
@@ -67,14 +53,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * 放行 swagger2
-     *
-     * @param registry registry
-     * @author Zoctan
-     * @date 5/13/18 3:01 PM
+     * 资源控制器
      */
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        // 放行 swagger2
         registry.addResourceHandler("/swagger-ui.html**").addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

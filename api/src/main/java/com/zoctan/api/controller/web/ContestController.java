@@ -7,16 +7,16 @@ import com.zoctan.api.core.response.ResultGenerator;
 import com.zoctan.api.model.Contest;
 import com.zoctan.api.service.ContestService;
 import com.zoctan.api.service.UserContestService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.List;
 
 /**
  * @author Zoctan
+ * @date 2018/5/27
  */
 @RestController
 @RequestMapping("/contest")
@@ -46,9 +46,9 @@ public class ContestController {
         return ResultGenerator.genOkResult();
     }
 
-    @PostMapping("/user/{id}")
-    public Result userJoinContest(@PathVariable final Long id, @AuthenticationPrincipal final UserDetails userDetails) {
-        this.userContestService.save(id, userDetails.getUsername());
+    @PostMapping("/user/{contestId}")
+    public Result userJoinContest(@PathVariable final Long contestId, final Principal user) {
+        this.userContestService.save(user.getName(), contestId);
         return ResultGenerator.genOkResult();
     }
 
@@ -59,15 +59,15 @@ public class ContestController {
         return ResultGenerator.genOkResult(isValidate);
     }
 
-    @DeleteMapping("/user/{id}")
-    public Result userOutContest(@PathVariable final Long id, @AuthenticationPrincipal final UserDetails userDetails) {
-        this.userContestService.delete(id, userDetails.getUsername());
+    @DeleteMapping("/user/{contestId}")
+    public Result userOutContest(@PathVariable final Long contestId, final Principal user) {
+        this.userContestService.delete(user.getName(), contestId);
         return ResultGenerator.genOkResult();
     }
 
     @GetMapping("/{id}")
-    public Result detail(@PathVariable final Long id, @AuthenticationPrincipal final UserDetails userDetails) {
-        final Contest contest = this.contestService.findOne(id, userDetails.getUsername());
+    public Result detail(@PathVariable final Long id, final Principal user) {
+        final Contest contest = this.contestService.findOne(id, user.getName());
         return ResultGenerator.genOkResult(contest);
     }
 

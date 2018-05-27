@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zoctan.api.mapper.UserContestMapper">
-  <resultMap id="BaseResultMap" type="com.zoctan.api.model.UserContest">
-    <id column="user_id" jdbcType="BIGINT" property="userId" />
-    <id column="contest_id" jdbcType="BIGINT" property="contestId" />
-  </resultMap>
+    <resultMap id="UserContestMap" type="com.zoctan.api.model.UserContest">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <id column="contest_id" jdbcType="BIGINT" property="contestId"/>
+    </resultMap>
+
+    <select id="findBy" resultMap="UserContestMap">
+        SELECT uc.*
+        FROM `user_contest` uc
+        LEFT JOIN `user` u ON u.username = #{username}
+        WHERE uc.user_id = u.id
+        <if test="contestId != null">
+            AND uc.contest_id = #{contestId}
+        </if>
+    </select>
+
+    <delete id="deleteByUsernameAndContestId">
+        DELETE uc
+        FROM `user_contest` uc
+        LEFT JOIN `user` u ON u.username = #{username}
+        WHERE uc.user_id = u.id AND uc.contest_id = #{contestId}
+    </delete>
 </mapper>
