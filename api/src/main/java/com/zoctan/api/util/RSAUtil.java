@@ -4,6 +4,9 @@ package com.zoctan.api.util;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -70,7 +73,9 @@ public class RSAUtil {
     }
 
     private byte[] replaceAndBase64Decode(final String file, final String headReplace, final String tailReplace) throws Exception {
-        final File f = new File(file);
+        final ResourceLoader loader = new DefaultResourceLoader();
+        final Resource resource = loader.getResource(file);
+        final File f = resource.getFile();
         final FileInputStream fis = new FileInputStream(f);
         final DataInputStream dis = new DataInputStream(fis);
         final byte[] keyBytes = new byte[(int) f.length()];

@@ -34,9 +34,13 @@
 
   export default {
     data() {
+      let url = process.env.BASE_API + '/websocket'
+      if (url.indexOf('https') !== -1) url = url.replace('https', 'wss')
+      else url = url.replace('http', 'ws')
+      console.info(url)
       return {
         ws: null,
-        wsurl: (process.env.BASE_API + '/websocket').replace('https', 'wss'),
+        wsurl: url,
         message: null,
         content: null
       }
@@ -59,15 +63,15 @@
         this.ws.onopen = () => {
           // Web Socket 已连接上，使用 send() 方法发送数据
           /*
-          console.log('数据发送中...')
+          console.info('数据发送中...')
           this.ws.send('open')
-          console.log('数据发送完成')
+          console.info('数据发送完成')
           */
         }
         this.ws.onmessage = e => this.getMessage(e)
         this.ws.onclose = () => {
           // 关闭 websocket
-          console.log('连接已关闭...')
+          console.info('连接已关闭...')
         }
         // 路由跳转时结束websocket链接
         this.$router.afterEach(() => {
