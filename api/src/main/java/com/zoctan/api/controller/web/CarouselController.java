@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author Zoctan
- * @date 2018/5/27
+ * @date 2018/5/31
  */
 @RestController
 @RequestMapping("/carousel")

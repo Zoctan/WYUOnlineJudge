@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * @author Zoctan
- * @date 2018/5/27
+ * @date 2018/5/31
  */
 @RestController
-@RequestMapping("/carousel")
+@RequestMapping("/note")
 public class NoteController {
     @Resource
     private NoteService noteService;
@@ -51,10 +49,7 @@ public class NoteController {
     public Result list(@RequestParam(defaultValue = "0") final Integer page,
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
-        final List<Note> list = this.noteService.findAll()
-                .stream()
-                .peek(carousel -> carousel.setDescription(null))
-                .collect(toList());
+        final List<Note> list = this.noteService.findNewest();
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

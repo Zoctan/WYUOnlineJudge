@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author Zoctan
- * @date 2018/5/27
+ * @date 2018/5/31
  */
 public class Carousel {
     /**
@@ -20,7 +20,6 @@ public class Carousel {
     /**
      * 创建用户Id
      */
-    @Id
     @Column(name = "user_id")
     private Long userId;
 
@@ -105,7 +104,7 @@ public class Carousel {
      * @return image - 轮播图
      */
     public String getImage() {
-        return image;
+        return this.image;
     }
 
     /**
@@ -113,23 +112,23 @@ public class Carousel {
      *
      * @return image - 轮播图
      */
-    public void setImage(String image) {
+    public void setImage(final String image) {
         this.image = image;
     }
 
     public Date getCreateTime() {
-        return createTime;
+        return this.createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(final Date createTime) {
         this.createTime = createTime;
     }
 
     public Long getUserId() {
-        return userId;
+        return this.userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 }

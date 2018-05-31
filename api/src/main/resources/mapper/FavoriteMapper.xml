@@ -28,7 +28,7 @@
     f.id,
     f.title,
     f.is_private,
-    ifnull(fp.problem_id, -1) as problem_id
+    ifnull(fp.problem_id, -1) AS problem_id
     FROM `user` u
     LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
     LEFT JOIN `favorite` f ON f.id = uf.favorite_id

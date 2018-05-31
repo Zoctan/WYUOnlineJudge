@@ -56,7 +56,7 @@ export const constantRouterMap = [
     path: '/problem',
     component: Layout,
     redirect: 'noRedirect',
-    icon: 'code',
+    icon: 'problem',
     children: [{
       path: 'index',
       name: '题目',
@@ -67,7 +67,7 @@ export const constantRouterMap = [
     path: '/contest',
     component: Layout,
     redirect: 'noRedirect',
-    icon: 'component',
+    icon: 'contest',
     children: [{
       path: 'index',
       name: '比赛',
@@ -109,7 +109,7 @@ export const asyncRouterMap = [
     path: '/feedback',
     component: Layout,
     redirect: 'noRedirect',
-    icon: 'component',
+    icon: 'feedback',
     meta: { permission: ['problem:detail'] },
     children: [{
       path: 'index',
@@ -121,7 +121,7 @@ export const asyncRouterMap = [
     path: '/chatroom',
     component: Layout,
     redirect: 'noRedirect',
-    icon: 'component',
+    icon: 'chat',
     meta: { permission: ['problem:detail'] },
     children: [{
       path: 'index',

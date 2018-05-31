@@ -8,15 +8,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Zoctan
- * @date 2018/5/27
+ * @date 2018/5/31
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class NoteServiceImpl extends AbstractService<Note> implements NoteService {
     @Resource
     private NoteMapper noteMapper;
+
+    @Override
+    public List<Note> findNewest() {
+        return this.noteMapper.findNewest();
+    }
 
 }

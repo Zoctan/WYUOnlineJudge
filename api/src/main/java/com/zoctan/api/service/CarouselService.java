@@ -5,7 +5,7 @@ import com.zoctan.api.model.Carousel;
 
 /**
  * @author Zoctan
- * @date 2018/5/27
+ * @date 2018/5/31
  */
 public interface CarouselService extends Service<Carousel> {
 

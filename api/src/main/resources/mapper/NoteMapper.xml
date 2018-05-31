@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zoctan.api.mapper.HelpMapper">
-  <resultMap id="BaseResultMap" type="com.zoctan.api.model.Note">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <id column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="description" jdbcType="LONGVARCHAR" property="description" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-  </resultMap>
+<mapper namespace="com.zoctan.api.mapper.NoteMapper">
+    <resultMap id="NoteMap" type="com.zoctan.api.model.Note">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="description" jdbcType="LONGVARCHAR" property="description"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <resultMap id="NoteWithUserMap" type="com.zoctan.api.model.Note" extends="NoteMap">
+        <result column="username" jdbcType="VARCHAR" property="username" />
+    </resultMap>
+
+    <select id="findNewest" resultMap="NoteWithUserMap">
+        SELECT
+            n.id,
+            n.title,
+            n.create_time,
+            u.username
+        FROM `note` n
+        LEFT JOIN `user` u ON u.id = n.user_id
+        ORDER BY n.create_time DESC
+    </select>
+
 </mapper>

@@ -13,8 +13,7 @@
       </el-row>
       <el-table tooltip-effect="dark"
                 :data="contestList"
-                v-loading.body="listLoading"
-                element-loading-text="loading">
+                v-loading.body="listLoading">
         <el-table-column label="#"
                          align="center"
                          width="50">

@@ -18,21 +18,38 @@
     </resultMap>
 
     <select id="findAll" resultMap="ContestWithJoinCountMap">
-        SELECT c.id, c.title, c.start_time, c.end_time, c.permitted, c.status, c.after_show, c.password,
-            (SELECT COUNT(*) FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
+        SELECT
+            c.id,
+            c.title,
+            c.start_time,
+            c.end_time,
+            c.permitted,
+            c.status,
+            c.after_show,
+            c.password,
+            (SELECT COUNT(*)
+             FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
         FROM `contest` c
     </select>
 
-    <!-- fixme -->
     <select id="findHot" resultMap="ContestWithJoinCountMap">
-        SELECT c.id, c.title, c.start_time,
-            (SELECT COUNT(*) FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
-        FROM `contest` c
+        SELECT *
+        FROM (SELECT
+                  c.id,
+                  c.title,
+                  c.start_time,
+                  (SELECT COUNT(*)
+                   FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
+              FROM `contest` c) c
+        WHERE c.join_count != 0
+        ORDER BY c.join_count DESC
     </select>
 
     <select id="findOne" resultMap="ContestWithJoinCountMap">
-        SELECT c.*,
-            (SELECT COUNT(*) FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
+        SELECT
+            c.*,
+            (SELECT COUNT(*)
+             FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
         FROM `contest` c
         WHERE c.id = #{contestId}
     </select>

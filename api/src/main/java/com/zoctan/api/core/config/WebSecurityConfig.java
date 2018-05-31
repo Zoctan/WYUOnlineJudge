@@ -85,7 +85,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         HttpMethod.GET,
                         "/problem",
-                        "/contest"
+                        "/contest",
+                        "/contest/hot",
+                        "/carousel",
+                        "/note"
                 ).permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated().and();

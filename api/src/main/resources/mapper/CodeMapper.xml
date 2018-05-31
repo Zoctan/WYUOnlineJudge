@@ -20,7 +20,7 @@
   <select id="findAllUserProblemSubmitCode" resultMap="UserProblemCodeMap">
     SELECT
     c.*,
-    u.id as user_id
+    u.id AS user_id
     FROM `code` c
     LEFT JOIN `user_code` uc ON uc.code_id = c.id
     LEFT JOIN `user` u ON u.id = uc.user_id
@@ -30,7 +30,7 @@
   <select id="findAllUserSubmitCode" resultMap="UserProblemCodeMap">
     SELECT
     c.*,
-    u.id as user_id
+    u.id AS user_id
     FROM `code` c
     LEFT JOIN `user_code` uc ON uc.code_id = c.id
     LEFT JOIN `user` u ON u.id = uc.user_id

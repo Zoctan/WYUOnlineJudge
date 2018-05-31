@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <el-carousel :interval="4000" height="350px">
+    <el-carousel :interval="4000">
       <el-carousel-item v-for="item in imageList"
                         :key="item.image"
                         :loading="loadingImage">
@@ -31,11 +31,10 @@
                 <span class="hover" v-else @click="noLoginTip">{{ scope.row.title }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="时间"
+            <el-table-column label="开始时间"
                              width="280">
               <template slot-scope="scope">
-                <p>开始时间：{{ unix2CurrentTime(scope.row.startTime) }}</p>
-                <p>结束时间：{{ unix2CurrentTime(scope.row.endTime) }}</p>
+                {{ unix2CurrentTime(scope.row.startTime) }}
               </template>
             </el-table-column>
           </el-table>
@@ -49,7 +48,7 @@
              :loading="loadingNote">最新笔记</div>
         <el-card class="box-card">
           <div class="link" v-for="note in noteList">
-            <router-link v-if="hasPermission('contest:detail')" :to="{name: '详情', params: {id: note.id}}">
+            <router-link v-if="hasPermission('problem:detail')" :to="{name: '详情', params: {id: note.id}}">
               <span class="hover">{{ note.title }}</span>
             </router-link>
             <span class="hover" v-else @click="noLoginTip">{{ note.title }}</span>
@@ -67,6 +66,7 @@
   import { list as listNote } from '@/api/note'
   import { listHot as listHotContest } from '@/api/contest'
   import { list as listCarousel } from '@/api/carousel'
+  import { noLoginTip } from "@/utils/Tip"
 
   export default {
     name: 'home',
@@ -92,6 +92,7 @@
       ...mapGetters(['permissionCodeList'])
     },
     methods: {
+      noLoginTip,
       unix2CurrentTime,
       listCarousel() {
         this.loadingImage = true

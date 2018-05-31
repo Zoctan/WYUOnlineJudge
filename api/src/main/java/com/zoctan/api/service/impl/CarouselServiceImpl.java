@@ -11,12 +11,11 @@ import javax.annotation.Resource;
 
 /**
  * @author Zoctan
- * @date 2018/5/27
+ * @date 2018/5/31
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CarouselServiceImpl extends AbstractService<Carousel> implements CarouselService {
     @Resource
     private CarouselMapper carouselMapper;
-
 }

@@ -128,7 +128,6 @@
           <span slot="label" @click="listSubmitCode"><svg-icon icon-class="code"/> 提交记录</span>
           <el-table :data="submitCodeList"
                     v-loading.body="listLoading"
-                    element-loading-text="loading"
                     fit>
             <el-table-column label="提交时间"
                              align="center"

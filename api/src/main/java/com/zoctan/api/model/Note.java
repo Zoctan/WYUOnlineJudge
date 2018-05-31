@@ -1,14 +1,11 @@
 package com.zoctan.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * @author Zoctan
- * @date 2018/5/27
+ * @date 2018/5/31
  */
 public class Note {
     /**
@@ -20,7 +17,6 @@ public class Note {
     /**
      * 创建用户Id
      */
-    @Id
     @Column(name = "user_id")
     private Long userId;
 
@@ -39,6 +35,14 @@ public class Note {
      */
     @Column(name = "create_time")
     private Date createTime;
+
+    /* ---------- 以下字段来自联表查询 ------------*/
+
+    /**
+     * 用户名
+     */
+    @Transient
+    private String username;
 
     /**
      * 获取笔记Id
@@ -95,18 +99,26 @@ public class Note {
     }
 
     public Date getCreateTime() {
-        return createTime;
+        return this.createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(final Date createTime) {
         this.createTime = createTime;
     }
 
     public Long getUserId() {
-        return userId;
+        return this.userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(final String username) {
+        this.username = username;
     }
 }
