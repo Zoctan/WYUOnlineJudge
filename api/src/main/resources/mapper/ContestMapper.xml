@@ -23,6 +23,13 @@
         FROM `contest` c
     </select>
 
+    <!-- fixme -->
+    <select id="findHot" resultMap="ContestWithJoinCountMap">
+        SELECT c.id, c.title, c.start_time,
+            (SELECT COUNT(*) FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
+        FROM `contest` c
+    </select>
+
     <select id="findOne" resultMap="ContestWithJoinCountMap">
         SELECT c.*,
             (SELECT COUNT(*) FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count

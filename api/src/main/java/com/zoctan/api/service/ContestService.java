@@ -17,6 +17,12 @@ public interface ContestService extends Service<Contest> {
      */
     @Override
     List<Contest> findAll();
+    /**
+     * 获取热门比赛
+     *
+     * @return 热门比赛列表
+     */
+    List<Contest> findHot();
 
     /**
      * 获取具体的比赛，包含用户参与信息

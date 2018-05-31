@@ -79,4 +79,13 @@ public class ContestController {
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
+
+    @GetMapping("/hot")
+    public Result listHot(@RequestParam(defaultValue = "0") final Integer page,
+                          @RequestParam(defaultValue = "0") final Integer size) {
+        PageHelper.startPage(page, size);
+        final List<Contest> list = this.contestService.findHot();
+        final PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genOkResult(pageInfo);
+    }
 }

@@ -30,6 +30,11 @@ public class ContestServiceImpl extends AbstractService<Contest> implements Cont
     }
 
     @Override
+    public List<Contest> findHot() {
+        return this.contestMapper.findHot();
+    }
+
+    @Override
     public Contest findOne(final Long contestId, final String username) {
         final Contest contest = this.contestMapper.findOne(contestId);
 

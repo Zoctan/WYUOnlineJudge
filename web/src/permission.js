@@ -8,7 +8,7 @@ import { getToken } from '@/store/modules/token'
 const whiteList = [
   '/401',
   '/404',
-  '/dashboard',
+  '/home',
   '/problem/index',
   '/contest/index',
   '/user/index',

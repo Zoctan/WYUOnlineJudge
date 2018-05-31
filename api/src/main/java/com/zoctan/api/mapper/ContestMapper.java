@@ -19,6 +19,13 @@ public interface ContestMapper extends MyMapper<Contest> {
     List<Contest> findAll();
 
     /**
+     * 获取热门比赛
+     *
+     * @return 热门比赛列表
+     */
+    List<Contest> findHot();
+
+    /**
      * 获取比赛
      *
      * @param contestId 　比赛Id

@@ -21,11 +21,11 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: 'dashboard',
-    icon: 'dashboard',
+    redirect: 'home',
+    icon: 'home',
     children: [{
-      component: _import('dashboard/index'),
-      path: 'dashboard',
+      component: _import('home/index'),
+      path: 'home',
       name: '主页',
       meta: { noCache: true }
     }]
@@ -56,7 +56,7 @@ export const constantRouterMap = [
     path: '/problem',
     component: Layout,
     redirect: 'noRedirect',
-    icon: 'component',
+    icon: 'code',
     children: [{
       path: 'index',
       name: '题目',

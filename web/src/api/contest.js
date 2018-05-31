@@ -8,6 +8,14 @@ export function list(params) {
   })
 }
 
+export function listHot(params) {
+  return request({
+    url: '/contest/hot',
+    method: 'get',
+    params
+  })
+}
+
 export function detail(id) {
   return request({
     url: '/contest/' + id,
