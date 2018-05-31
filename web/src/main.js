@@ -18,10 +18,7 @@ import { Tip } from './utils/Tip'
 
 import lang from 'element-ui/lib/locale/lang/zh-CN'
 import locale from 'element-ui/lib/locale'
-// 日历插件
-import 'vue-event-calendar/dist/style.css' // 1.1.10之后的版本，css被放在了单独的文件中，方便替换
-import vueEventCalendar from 'vue-event-calendar'
-Vue.use(vueEventCalendar, { locale: 'en' }) // 可以设置语言，支持中文和英文
+
 // 设置语言
 locale.use(lang)
 
