@@ -25,4 +25,9 @@ public class NoteServiceImpl extends AbstractService<Note> implements NoteServic
         return this.noteMapper.findNewest();
     }
 
+    @Override
+    public Note find(final Long noteId) {
+        return this.noteMapper.find(noteId);
+    }
+
 }

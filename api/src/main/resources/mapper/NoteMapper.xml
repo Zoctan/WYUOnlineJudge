@@ -24,4 +24,13 @@
         ORDER BY n.create_time DESC
     </select>
 
+    <select id="find" resultMap="NoteWithUserMap">
+        SELECT
+            n.*,
+            u.username
+        FROM `note` n
+        LEFT JOIN `user` u ON u.id = n.user_id
+        WHERE n.id = #{noteId}
+    </select>
+
 </mapper>

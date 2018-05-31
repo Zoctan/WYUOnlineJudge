@@ -17,4 +17,12 @@ public interface NoteService extends Service<Note> {
      * @return 最新的笔记列表
      */
     List<Note> findNewest();
+
+    /**
+     * 获取笔记
+     *
+     * @param noteId 笔记Id
+     * @return 笔记
+     */
+    Note find(Long noteId);
 }

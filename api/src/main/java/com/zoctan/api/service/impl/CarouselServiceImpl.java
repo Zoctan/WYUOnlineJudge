@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Zoctan
@@ -18,4 +19,14 @@ import javax.annotation.Resource;
 public class CarouselServiceImpl extends AbstractService<Carousel> implements CarouselService {
     @Resource
     private CarouselMapper carouselMapper;
+
+    @Override
+    public List<Carousel> findNewest() {
+        return this.carouselMapper.findNewest();
+    }
+
+    @Override
+    public Carousel find(final Long carouselId) {
+        return this.carouselMapper.find(carouselId);
+    }
 }

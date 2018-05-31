@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * @author Zoctan
  * @date 2018/5/31
@@ -43,7 +41,7 @@ public class CarouselController {
 
     @GetMapping("/{id}")
     public Result detail(@PathVariable final Long id) {
-        final Carousel carousel = this.carouselService.findById(id);
+        final Carousel carousel = this.carouselService.find(id);
         return ResultGenerator.genOkResult(carousel);
     }
 
@@ -51,10 +49,7 @@ public class CarouselController {
     public Result list(@RequestParam(defaultValue = "0") final Integer page,
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
-        final List<Carousel> list = this.carouselService.findAll()
-                .stream()
-                .peek(carousel -> carousel.setDescription(null))
-                .collect(toList());
+        final List<Carousel> list = this.carouselService.findNewest();
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

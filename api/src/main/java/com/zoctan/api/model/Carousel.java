@@ -1,9 +1,6 @@
 package com.zoctan.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -43,6 +40,14 @@ public class Carousel {
      */
     @Column(name = "create_time")
     private Date createTime;
+
+    /* ---------- 以下字段来自联表查询 ------------*/
+
+    /**
+     * 用户名
+     */
+    @Transient
+    private String username;
 
     /**
      * 获取轮播Id
@@ -130,5 +135,13 @@ public class Carousel {
 
     public void setUserId(final Long userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(final String username) {
+        this.username = username;
     }
 }

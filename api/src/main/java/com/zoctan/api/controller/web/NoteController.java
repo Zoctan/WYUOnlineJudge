@@ -41,7 +41,7 @@ public class NoteController {
 
     @GetMapping("/{id}")
     public Result detail(@PathVariable final Long id) {
-        final Note note = this.noteService.findById(id);
+        final Note note = this.noteService.find(id);
         return ResultGenerator.genOkResult(note);
     }
 
