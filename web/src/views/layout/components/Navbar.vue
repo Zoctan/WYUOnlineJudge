@@ -16,6 +16,9 @@
           <router-link class="inlineBlock" to="/user/index">
             <el-dropdown-item>{{ username }}</el-dropdown-item>
           </router-link>
+          <router-link class="inlineBlock" to="/user/index" v-if="token">
+            <el-dropdown-item>我的收藏</el-dropdown-item>
+          </router-link>
 
           <el-dropdown-item divided v-if="token">
             <span @click="logout" style="display:block;">登出</span>

@@ -145,6 +145,12 @@
       color: #454545;
     }
   }
+  .el-form{
+    display: inline-block;
+  }
+  .el-form > div{
+    margin: auto;
+  }
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

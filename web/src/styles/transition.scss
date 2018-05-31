@@ -3,12 +3,15 @@
 /*fade*/
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.28s;
+  transition: all .5s ease;
 }
 
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
+}
+.fade-enter{
+  transform: translateY(50px);
 }
 
 /*fade*/

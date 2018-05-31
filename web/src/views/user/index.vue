@@ -16,26 +16,29 @@
           <el-col :span="9">
             <el-form-item label="用户名"
                           prop="username">
-              <div v-model="tmpUser.username"></div>
-              <el-input v-model="tmpUser.username" />
+              <div v-if="!revise" class="tmpUser_message">{{tmpUser.username}}</div>
+              <el-input v-else v-model="tmpUser.username" />
             </el-form-item>
           </el-col>
           <el-col :span="9">
             <el-form-item label="邮箱"
                           prop="email">
-              <el-input v-model="tmpUser.email" />
+              <div v-if="!revise" class="tmpUser_message">{{tmpUser.email}}</div>
+              <el-input v-else v-model="tmpUser.email" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="18">
           <el-col :span="9">
             <el-form-item label="注册时间">
-              <el-input :value="unix2CurrentTime(user.registerTime)" readonly="readonly" />
+              <div v-if="!revise" class="tmpUser_message">{{user.registerTime}}</div>              
+              <el-input v-else :value="unix2CurrentTime(user.registerTime)" readonly="readonly" />
             </el-form-item>
           </el-col>
           <el-col :span="9">
             <el-form-item label="最后登陆时间">
-              <el-input :value="unix2CurrentTime(user.lastLoginTime)" readonly="readonly" />
+              <div v-if="!revise" class="tmpUser_message">{{user.lastLoginTime}}</div>
+              <el-input v-else :value="unix2CurrentTime(user.lastLoginTime)" readonly="readonly" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -43,7 +46,8 @@
           <el-col :span="18">
             <el-form-item label="简介"
                           prop="resume">
-              <el-input type="textarea"
+              <div v-if="!revise" class="tmpUser_message">{{tmpUser.resume}}</div>              
+              <el-input v-else type="textarea"
                         :autosize="{ minRows: 3, maxRows: 6}"
                         v-model="tmpUser.resume" />
             </el-form-item>
@@ -57,9 +61,12 @@
                          @click="regainUserInfo">重新获取信息</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button type="primary"
+              <el-button v-if="!revise" type="primary"
                          :loading="btnLoading"
-                         @click="updateInfo">修改信息</el-button>
+                         @click="changeRevise">修改信息</el-button>
+              <el-button v-else type="primary"
+                         :loading="btnLoading"
+                         @click="updateInfo">确认修改</el-button>
             </el-col>
             <el-col :span="6">
               <el-button type="danger"
@@ -178,6 +185,7 @@
         loading: false,
         btnLoading: false,
         dialogFormVisible: false,
+        revise:false,
         size: 170,
         tmpPassword: {
           oldPassword: '',
@@ -262,6 +270,7 @@
             return false
           }
         })
+        this.revise = !this.revise;
       },
       showUpdatePassword() {
         this.dialogFormVisible = true
@@ -281,7 +290,19 @@
             return false
           }
         })
+      },
+      changeRevise(){
+        this.revise = !this.revise
       }
     }
   }
 </script>
+<style scoped>
+.tmpUser_message{
+  text-align: left;
+  color: #707070;
+}
+.el-form > div{
+  margin: auto;
+}
+</style>
