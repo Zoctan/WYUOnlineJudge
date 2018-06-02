@@ -77,6 +77,11 @@ public class Code {
     @Transient
     private Long userId;
 
+    /* ---------- 以下字段来自外部查询 ------------*/
+
+    @Transient
+    private String error;
+
     public Long getId() {
         return this.id;
     }
@@ -155,5 +160,13 @@ public class Code {
 
     public void setContestId(final Long contestId) {
         this.contestId = contestId;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }

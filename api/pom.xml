@@ -20,6 +20,13 @@
         <version>2.0.2.RELEASE</version>
     </parent>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/net.dongliu/requests -->
+        <dependency>
+            <groupId>net.dongliu</groupId>
+            <artifactId>requests</artifactId>
+            <version>4.18.2</version>
+        </dependency>
+
         <!-- swagger2 -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
