@@ -5,11 +5,16 @@ import os
 import subprocess
 import base64
 
+my_dir = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
+my_dir2 = '~/WYUOnlineJudge/judge/'
+
 config = {
     # 工作目录（用于存放各个用户提交的代码）
-    'work_dir': '~/WYUOnlineJudge/judge/work_dir',
+    # 'work_dir': my_dir2 + 'work_dir',
+    'work_dir': my_dir + 'work_dir',
     # 答案目录
-    'answer_dir': '~/WYUOnlineJudge/judge/answer_dir',
+    # 'answer_dir': my_dir2 + 'answer_dir',
+    'answer_dir': my_dir + 'answer_dir',
 }
 
 
@@ -42,7 +47,7 @@ class QJudge:
         self.problem = problem
         self.result_list = []
         # 设置用户临时目录
-        self.user_dir_path = os.path.join(config['work_dir'], self.problem['user_id'])
+        self.user_dir_path = os.path.join(config['work_dir'], str(self.problem['userId']))
         self.user_program_path = None
         # 设置err错误文件，存放用户程序出现的错误
         self.user_err_file_path = os.path.join(self.user_dir_path, 'err')
@@ -63,7 +68,7 @@ class QJudge:
         }
         self.user_program_path = os.path.join(self.user_dir_path, language_file_map[self.problem['language']])
         with open(self.user_program_path, 'wb') as f:
-            code = base64.b64decode(self.problem['base64_code'])
+            code = base64.b64decode(self.problem['code'])
             f.write(code)
 
     """
@@ -152,14 +157,14 @@ class QJudge:
 
     def run(self):
         if not self._compile():
-            self.result_list.append(ResultBean(status=self.RESULT_STATUS[8]))
+            self.result_list.append(ResultBean(status=self.RESULT_STATUS[8]).to_json())
             return self.result_list
         # 依次运行测试用例
-        for i in range(1, self.problem['test_nums'] + 1):
+        for i in range(1, self.problem['nums'] + 1):
             # 标准答案输入
-            answer_in_path = os.path.join(config['answer_dir'], str(self.problem['id']), str(i) + '.in')
+            answer_in_path = os.path.join(config['answer_dir'], str(self.problem['problemId']), str(i) + '.in')
             # 标准答案输出
-            answer_out_path = os.path.join(config['answer_dir'], str(self.problem['id']), str(i) + '.out')
+            answer_out_path = os.path.join(config['answer_dir'], str(self.problem['problemId']), str(i) + '.out')
             # 可能题目的测试用例不够
             if os.path.isfile(answer_in_path) and os.path.isfile(answer_out_path):
                 rst = self._run_one(answer_in_path, answer_out_path)
@@ -169,11 +174,11 @@ class QJudge:
                         result_bean = ResultBean(status=status, error=f.read())
                 else:
                     result_bean = ResultBean(status=status,
-                                             time_used=rst['real_time'],
-                                             memory_used=rst['memory'])
-                self.result_list.append(result_bean)
+                                             timeUsed=rst['real_time'],
+                                             memoryUsed=rst['memory'])
+                self.result_list.append(result_bean.to_json())
             else:
-                print('题目Id：{}，没有测试用例{}.in'.format(self.problem['id'], i))
+                print('题目Id：{}，没有测试用例{}.in'.format(self.problem['problemId'], i))
                 break
         return self.result_list
 
@@ -189,15 +194,15 @@ class QJudge:
 class ProblemBean:
     def __init__(self, **kwargs):
         # 题目Id，对于比赛题目=比赛Id_题目Id
-        self.id = kwargs.get('problem_id')
+        self.problemId = kwargs.get('problemId')
         # 用户Id
-        self.user_id = kwargs.get('user_id')
+        self.userId = kwargs.get('userId')
         # 代码语言
         self.language = kwargs.get('language')
         # Base64压缩的代码
-        self.base64_code = kwargs.get('base64_code')
+        self.code = kwargs.get('code')
         # 测试用例个数
-        self.test_nums = kwargs.get('test_nums', 1)
+        self.nums = kwargs.get('nums', 1)
 
     def __getitem__(self, key):
         return self.__dict__[key]
@@ -213,9 +218,9 @@ class ResultBean:
         # 出现错误时的信息
         self.error = kwargs.get('error')
         # 消耗时间 MS
-        self.time_used = kwargs.get('time_used', 'N/A')
+        self.timeUsed = kwargs.get('timeUsed', 'N/A')
         # 消耗内存 KB
-        self.memory_used = kwargs.get('memory_used', 'N/A')
+        self.memoryUsed = kwargs.get('memoryUsed', 'N/A')
 
     def __getitem__(self, key):
         return self.__dict__[key]
