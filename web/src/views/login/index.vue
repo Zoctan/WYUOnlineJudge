@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form class="card-box login-form"
+    <el-form class="card-box login-form ruleForm"
              autoComplete="on"
              :model="loginForm"
              :rules="loginRules"
@@ -16,7 +16,8 @@
                   autoComplete="on"
                   v-model="loginForm.usernameOrEmail"
                   placeholder="请输入用户名或邮箱"
-                  @keyup.enter.native="handleLogin" />
+                  @keyup.enter.native="handleLogin" 
+                  auto-complete="off"/>
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
@@ -26,7 +27,8 @@
                   autoComplete="on"
                   v-model="loginForm.password"
                   placeholder="请输入密码"
-                  @keyup.enter.native="handleLogin" />
+                  @keyup.enter.native="handleLogin" 
+                  auto-complete="off"/>
         <span class="show-pwd" @click="showPwd">
           <svg-icon icon-class="eye" />
         </span>
@@ -124,15 +126,16 @@
     .el-input {
       display: inline-block;
       height: 47px;
-      width: 85%;
+      width: 70%;
       input {
-        background: transparent;
+        // background: transparent;
         border: 0;
         -webkit-appearance: none;
         border-radius: 0;
         padding: 12px 5px 12px 15px;
         height: 47px;
         &:-webkit-autofill {
+          background-color: #eee;
           -webkit-box-shadow: 0 0 0\ 1000px $bg inset !important;
           -webkit-text-fill-color: #fff !important;
         }
@@ -143,6 +146,7 @@
       background: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       color: #454545;
+      margin-bottom: 20px;
     }
   }
   .el-form{
@@ -165,7 +169,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      width: 420px;
+      width: 400px;
       padding: 35px 35px 15px 35px;
       margin: 70px auto;
     }
@@ -183,7 +187,7 @@
       padding: 6px 5px 6px 15px;
       color: $dark_gray;
       vertical-align: middle;
-      width: 30px;
+      width: 40px;
       display: inline-block;
       &_login {
         font-size: 20px;
@@ -209,4 +213,5 @@
       user-select: none;
     }
   }
+  
 </style>

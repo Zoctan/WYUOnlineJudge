@@ -78,7 +78,7 @@
       </el-col>
 
       <el-col :span="5">
-        <el-card class="box-card record"
+        <el-card class="box-card record hidden-change"
                  v-model="record"
                  v-loading.body="loading">
           <div slot="header" class="card-clearfix">
@@ -327,5 +327,8 @@
 
   element.style {
     height: 200px;
+  }
+  .hidden-change{
+    overflow: visible;
   }
 </style>

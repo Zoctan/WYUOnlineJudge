@@ -42,6 +42,17 @@ export const constantRouterMap = [
     }]
   },
   {
+    path: '/love',
+    component: Layout,
+    redirect: 'noRedirect',
+    hidden: true,
+    children: [{
+      path: 'index',
+      name: '收藏',
+      component: _import('love/index')
+    }]
+  },
+  {
     path: '/user',
     component: Layout,
     redirect: 'noRedirect',
@@ -103,6 +114,23 @@ export const asyncRouterMap = [
       name: '比赛详情',
       component: _import('contest/detail'),
       meta: { permission: ['contest:detail'] }
+    }]
+  },
+  {
+    path: '/common',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: 'note/:id',
+      name: '笔记详情',
+      component: _import('common/detail'),
+      meta: { permission: ['common:detail'] }
+    },
+    {
+      path: 'detail/:id',
+      name: '详情',
+      component: _import('common/detail'),
+      meta: { permission: ['common:detail'] }
     }]
   },
   {

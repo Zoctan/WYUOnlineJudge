@@ -4,7 +4,9 @@
       <el-carousel-item v-for="item in imageList"
                         :key="item.image"
                         :loading="loadingImage">
-        <img class="img" :src="item.image" style="width:100%;">
+        <router-link :to="{name: '详情',path:'/detail', params: {id: item.id}}">
+          <img class="img" :src="item.image" style="width:100%;">
+        </router-link>
         <!-- <span class="title">{{ item }}</span> -->
       </el-carousel-item>
     </el-carousel>
@@ -32,7 +34,7 @@
               </template>
             </el-table-column>
             <el-table-column label="开始时间"
-                             width="280">
+                             width="230">
               <template slot-scope="scope">
                 {{ unix2CurrentTime(scope.row.startTime) }}
               </template>
@@ -47,11 +49,14 @@
         <div class="title"
              :loading="loadingNote">最新笔记</div>
         <el-card class="box-card">
-          <div class="link" v-for="note in noteList">
-            <router-link v-if="hasPermission('problem:detail')" :to="{name: '详情', params: {id: note.id}}">
-              <span class="hover">{{ note.title }}</span>
-            </router-link>
-            <span class="hover" v-else @click="noLoginTip">{{ note.title }}</span>
+          <div class="link" v-for="note in noteList"> 
+            <div class="hover" v-if="hasPermission('problem:detail')">
+              <router-link :to="{name: '笔记详情',path:'/note', params: {id: note.id}}">
+                <span>{{ note.title }}</span>
+              </router-link>
+            </div>
+            <div class="hover" v-else @click="noLoginTip">{{ note.title }}</div>
+            <div class="author" >hhhhh{{ note.author }}</div>
           </div>
         </el-card>
       </el-col>
@@ -161,10 +166,29 @@
     margin-left: 30px;
   }
   .link {
+    width: 100%;
+    display: flex;
     color: blue;
     padding: 10px 0;
+    .hover{
+      flex: 5;
+      display: inline;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     a:hover {
       text-decoration: underline;
+    }
+    .author{
+      flex: 1;
+      display: inline;
+      text-align: right;
+      font-size: 15px;
+      color: #707070;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 </style>
