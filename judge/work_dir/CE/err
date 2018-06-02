@@ -1,0 +1,4 @@
+Solution.cpp:3:1: error: ‘sad’ does not name a type; did you mean ‘std’?
+ sad int main(int argc, char *argv[]) {
+ ^~~
+ std
