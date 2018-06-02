@@ -144,17 +144,5 @@ export const asyncRouterMap = [
       name: '反馈',
       component: _import('feedback/index')
     }]
-  },
-  {
-    path: '/chatroom',
-    component: Layout,
-    redirect: 'noRedirect',
-    icon: 'chat',
-    meta: { permission: ['problem:detail'] },
-    children: [{
-      path: 'index',
-      name: '聊天室',
-      component: _import('chatroom/index')
-    }]
   }
 ]
