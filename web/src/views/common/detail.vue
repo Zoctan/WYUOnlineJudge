@@ -88,7 +88,7 @@ export default {
   color: rgb(119, 119, 119);
 }
 .user{
-  padding-right: 20px;
+  padding-left: 20px;
   font-size: 13px;
   color: rgb(119, 119, 119);
 }
