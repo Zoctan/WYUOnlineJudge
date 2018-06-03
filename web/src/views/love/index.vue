@@ -1,8 +1,9 @@
 <template>
   <div class="app-container">
-    <div class="title">我收藏的题目</div>
-    <el-card class="box-card">
-          <!-- <el-row>
+    <div class="title">我的收藏</div>
+    <el-tabs type="border-card">
+  <el-tab-pane label="题目">
+    <!-- <el-row>
             <el-col :span="21">
               <el-button @click="doSearch" icon="el-icon-search" circle size="small"/>
               <el-input v-model="searchData" placeholder="搜索题目" style="width:200px"/>
@@ -73,7 +74,12 @@
             :total="total"
             :page-sizes="[10, 20, 40, 100]"
             layout="total, sizes, prev, pager, next, jumper"/> -->
-        </el-card>
+  </el-tab-pane>
+  <el-tab-pane label="文章">
+    
+  </el-tab-pane>
+</el-tabs>
+          
   </div>
 </template>
 <script>

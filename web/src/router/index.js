@@ -121,13 +121,7 @@ export const asyncRouterMap = [
     component: Layout,
     hidden: true,
     children: [{
-      path: 'note/:id',
-      name: '笔记详情',
-      component: _import('common/detail'),
-      meta: { permission: ['common:detail'] }
-    },
-    {
-      path: 'detail/:id',
+      path: ':type/:id',
       name: '详情',
       component: _import('common/detail'),
       meta: { permission: ['common:detail'] }
@@ -143,18 +137,6 @@ export const asyncRouterMap = [
       path: 'index',
       name: '反馈',
       component: _import('feedback/index')
-    }]
-  },
-  {
-    path: '/chatroom',
-    component: Layout,
-    redirect: 'noRedirect',
-    icon: 'chat',
-    meta: { permission: ['problem:detail'] },
-    children: [{
-      path: 'index',
-      name: '聊天室',
-      component: _import('chatroom/index')
     }]
   }
 ]

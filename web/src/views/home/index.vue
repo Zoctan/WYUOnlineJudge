@@ -4,7 +4,7 @@
       <el-carousel-item v-for="item in imageList"
                         :key="item.image"
                         :loading="loadingImage">
-        <router-link :to="{name: '详情',path:'/detail', params: {id: item.id}}">
+        <router-link :to="{name: '详情',path:'/common', params: {id: item.id,type:'Carousel'}}">
           <img class="img" :src="item.image" style="width:100%;">
         </router-link>
         <!-- <span class="title">{{ item }}</span> -->
@@ -51,12 +51,12 @@
         <el-card class="box-card">
           <div class="link" v-for="note in noteList"> 
             <div class="hover" v-if="hasPermission('problem:detail')">
-              <router-link :to="{name: '笔记详情',path:'/note', params: {id: note.id}}">
+              <router-link :to="{name: '详情',path:'/common', params: {id: note.id,type:'note'}}">
                 <span>{{ note.title }}</span>
               </router-link>
             </div>
             <div class="hover" v-else @click="noLoginTip">{{ note.title }}</div>
-            <div class="author" >hhhhh{{ note.author }}</div>
+            <div class="author" >{{ note.username }}</div>
           </div>
         </el-card>
       </el-col>

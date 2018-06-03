@@ -10,7 +10,7 @@
                        :value="item.name" />
           </el-select>
         </el-col>
-        <el-col :span="4">
+        <el-col class="right" :span="4">
           <el-dropdown trigger="click" @command="setTheme">
             <el-button>
               <svg-icon icon-class="editor_theme" /> 主题 <i class="el-icon-arrow-down el-icon--right"></i>
@@ -150,5 +150,8 @@
   }
   .code-editor >>> .CodeMirror-scroll {
     min-height: 300px;
+  }
+  .right{
+    text-align: right;
   }
 </style>

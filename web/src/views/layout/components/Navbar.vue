@@ -1,7 +1,6 @@
 <template>
-  <el-menu class="navbar" mode="horizontal">
-    <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened" />
-    <breadcrumb class="breadcrumb-container" />
+  <el-menu class="navbar" mode="horizontal" :default-active="activeIndex">
+      <sidebar-item :routes="permissionRouters"/>    
     <div class="right">
       <el-tooltip effect="dark" content="全屏" placement="bottom">
         <screenfull class="screenfull right-menu-item" />
@@ -40,16 +39,20 @@
   import Hamburger from '@/components/Hamburger'
   import Screenfull from '@/components/Screenfull'
   import Breadcrumb from '@/components/Breadcrumb'
+  import SidebarItem from './SidebarItem'
+  
 
   export default {
     components: {
       Breadcrumb,
       Hamburger,
-      Screenfull
+      Screenfull,
+      SidebarItem
     },
     data() {
       return {
-        time: null
+        time: null,
+        activeIndex:'/home'
       }
     },
     computed: {
@@ -57,6 +60,7 @@
         'token',
         'username',
         'sidebar',
+        'permissionRouters',
         'avatar'
       ])
     },
@@ -70,6 +74,10 @@
             location.reload() // 为了重新实例化vue-router对象 避免bug
           })
         })
+      },
+      ListenactiveIndex(e){
+        console.log(e)
+        this.activeIndex = e
       }
     }
   }
@@ -77,9 +85,10 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   .navbar {
-    height: 50px;
-    line-height: 50px;
+    height: 57px;
+    line-height: 57px;
     border-radius: 0 !important;
+    background-color: #409EFF;
     .hamburger-container {
       line-height: 58px;
       height: 50px;
@@ -100,6 +109,7 @@
         margin: 0 8px;
       }
       .screenfull {
+        color: #fff;
         height: 20px;
       }
       .user-container {
@@ -115,14 +125,19 @@
             border-radius: 10px;
           }
           .el-icon-caret-bottom {
+            color: #fff;
             position: absolute;
             right: -20px;
-            top: 20px;
+            top: 18px;
             font-size: 12px;
           }
         }
       }
     }
+  }
+  .menu-wrapper{
+    display: inline-block;
+    margin-left: 50px;
   }
 </style>
 

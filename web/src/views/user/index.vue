@@ -54,13 +54,13 @@
           </el-col>
         </el-row>
         <el-form-item>
-          <el-row :gutter="18">
-            <el-col :span="6">
+          <el-row :gutter="15">
+            <el-col :span="5">
               <el-button type="success"
                          :loading="btnLoading"
                          @click="regainUserInfo">重新获取信息</el-button>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="5">
               <el-button v-if="!revise" type="primary"
                          :loading="btnLoading"
                          @click="changeRevise">修改信息</el-button>
@@ -68,7 +68,7 @@
                          :loading="btnLoading"
                          @click="updateInfo">确认修改</el-button>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="5">
               <el-button type="danger"
                          @click="showUpdatePassword">修改密码</el-button>
             </el-col>
@@ -304,5 +304,8 @@
 }
 .el-form > div{
   margin: auto;
+}
+.el-button{
+  text-align: left;
 }
 </style>

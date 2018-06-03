@@ -6,7 +6,7 @@
       <el-row>
         <el-col :span="20"><span class="title">{{ problem.id + '.' + problem.title }}</span></el-col>
 
-        <el-col :span="4">
+        <el-col class="right" :span="4">
           <el-dropdown trigger="click" size="mini" split-button
                        :hide-on-click="false"
                        @click="dialogFormVisible = true"
@@ -369,5 +369,11 @@
     .code-button {
       padding: 10px 0;
     }
+  }
+  .el-main{
+    padding-left: 0;
+  }
+  .right{
+    text-align: right;
   }
 </style>
