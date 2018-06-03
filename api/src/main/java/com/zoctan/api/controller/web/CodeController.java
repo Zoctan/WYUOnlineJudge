@@ -6,6 +6,8 @@ import com.zoctan.api.core.response.Result;
 import com.zoctan.api.core.response.ResultGenerator;
 import com.zoctan.api.model.Code;
 import com.zoctan.api.service.CodeService;
+import net.dongliu.requests.Requests;
+import net.dongliu.requests.json.TypeInfer;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zoctan
@@ -25,19 +28,15 @@ public class CodeController {
     private CodeService codeService;
 
     @PostMapping
-    public Result runOrSubmit(@RequestParam("status") final boolean status, @RequestBody final Code code) {
-        System.out.println(status);
-        System.out.println(code.getCode());
-        try {
-            final String code2 = new String(Base64Utils.decodeFromString(code.getCode()), "utf-8");
-            System.out.println(code2);
-        } catch (final UnsupportedEncodingException ignored) {
-        }
-        System.out.println(code.getLanguage());
-        System.out.println(code.getProblemId());
-        System.out.println(code.getUserId());
+    public Result runOrSubmit(@RequestParam("run") final boolean run, @RequestBody final Code code) {
+        List<Code> codeList = Requests
+                .post("http://localhost:20000/run")
+                .jsonBody(code)
+                .send().readToJson(new TypeInfer<List<Code>>() {
+                });
+
         //this.codeService.save(code);
-        return ResultGenerator.genOkResult();
+        return ResultGenerator.genOkResult(codeList);
     }
 
     @DeleteMapping("/{id}")

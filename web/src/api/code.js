@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function run(code) {
   return request({
-    url: '/code?status=false',
+    url: '/code?run=true',
     method: 'post',
     data: code
   })
@@ -10,7 +10,7 @@ export function run(code) {
 
 export function submit(code) {
   return request({
-    url: '/code?status=true',
+    url: '/code?run=false',
     method: 'post',
     data: code
   })

@@ -51,13 +51,13 @@ public class Code {
      * 消耗时间
      */
     @Column(name = "time_used")
-    private Float timeUsed;
+    private String timeUsed;
 
     /**
      * 消耗内存
      */
     @Column(name = "memory_used")
-    private Float memoryUsed;
+    private String memoryUsed;
 
     /**
      * 提交时间
@@ -76,6 +76,11 @@ public class Code {
      */
     @Transient
     private Long userId;
+
+    /* ---------- 以下字段来自外部查询 ------------*/
+
+    @Transient
+    private String error;
 
     public Long getId() {
         return this.id;
@@ -109,19 +114,19 @@ public class Code {
         this.language = language;
     }
 
-    public Float getTimeUsed() {
+    public String getTimeUsed() {
         return this.timeUsed;
     }
 
-    public void setTimeUsed(final Float timeUsed) {
+    public void setTimeUsed(final String timeUsed) {
         this.timeUsed = timeUsed;
     }
 
-    public Float getMemoryUsed() {
+    public String getMemoryUsed() {
         return this.memoryUsed;
     }
 
-    public void setMemoryUsed(final Float memoryUsed) {
+    public void setMemoryUsed(final String memoryUsed) {
         this.memoryUsed = memoryUsed;
     }
 
@@ -155,5 +160,13 @@ public class Code {
 
     public void setContestId(final Long contestId) {
         this.contestId = contestId;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }

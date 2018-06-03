@@ -20,6 +20,13 @@
         <version>2.0.2.RELEASE</version>
     </parent>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/net.dongliu/requests -->
+        <dependency>
+            <groupId>net.dongliu</groupId>
+            <artifactId>requests</artifactId>
+            <version>4.18.2</version>
+        </dependency>
+
         <!-- swagger2 -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -82,12 +89,6 @@
             <artifactId>spring-boot-starter-jetty</artifactId>
             <!-- 部署时 -->
             <scope>provided</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-cache -->

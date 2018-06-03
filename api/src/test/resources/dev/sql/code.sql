@@ -29,8 +29,8 @@ CREATE TABLE `code` (
   `code` text NOT NULL COMMENT 'Base64压缩代码',
   `status` tinyint(1) DEFAULT NULL COMMENT '通过状态',
   `language` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '语言',
-  `time_used` float NOT NULL COMMENT '消耗时间',
-  `memory_used` float NOT NULL COMMENT '消耗内存',
+  `time_used` varchar(64) NOT NULL COMMENT '消耗时间',
+  `memory_used` varchar(64) NOT NULL COMMENT '消耗内存',
   `submit_time` datetime DEFAULT NULL COMMENT '提交时间',
   PRIMARY KEY (`id`),
   CONSTRAINT `code_fk_1` FOREIGN KEY (`contest_id`) REFERENCES `contest` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -44,13 +44,13 @@ CREATE TABLE `code` (
 
 LOCK TABLES `code` WRITE;
 /*!40000 ALTER TABLE `code` DISABLE KEYS */;
-INSERT INTO `code` VALUES (1,-1, 1,'dGVzdDE=', 0, 'Java', 130, 22640, '2018-01-02 12:33:54');
-INSERT INTO `code` VALUES (2,-1, 2,'dGVzdDI=', 1, 'Python', 45, 172856, '2018-02-01 10:54:11');
-INSERT INTO `code` VALUES (3,-1, 3,'dGVzdDM=', 2, 'C++', 3, 1725, '2018-03-06 01:28:42');
-INSERT INTO `code` VALUES (4,-1, 3,'dGVzdDQ=', 1, 'C', 2, 1992, '2018-04-08 13:14:21');
-INSERT INTO `code` VALUES (5,-1, 3,'dGVzdDU=', 0, 'Java', 2, 1992, '2018-05-08 13:14:21');
-INSERT INTO `code` VALUES (6, 4, 1,'dGVzdDY=', 0, 'C', 2, 1992, '2018-04-08 13:14:21');
-INSERT INTO `code` VALUES (7, 4, 3,'dGVzdDc=', 2, 'Java', 2, 1992, '2018-05-08 13:14:21');
+INSERT INTO `code` VALUES (1,-1, 1,'dGVzdDE=', 0, 'Java', '130', '22640', '2018-01-02 12:33:54');
+INSERT INTO `code` VALUES (2,-1, 2,'dGVzdDI=', 1, 'Python', '45', '172856', '2018-02-01 10:54:11');
+INSERT INTO `code` VALUES (3,-1, 3,'dGVzdDM=', 2, 'C++', '3', '1725', '2018-03-06 01:28:42');
+INSERT INTO `code` VALUES (4,-1, 3,'dGVzdDQ=', 1, 'C', '2', '1992', '2018-04-08 13:14:21');
+INSERT INTO `code` VALUES (5,-1, 3,'dGVzdDU=', 0, 'Java', '2', '1992', '2018-05-08 13:14:21');
+INSERT INTO `code` VALUES (6, 4, 1,'dGVzdDY=', 0, 'C', '2', '1992', '2018-04-08 13:14:21');
+INSERT INTO `code` VALUES (7, 4, 3,'dGVzdDc=', 2, 'Java', '2', '1992', '2018-05-08 13:14:21');
 /*!40000 ALTER TABLE `code` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
