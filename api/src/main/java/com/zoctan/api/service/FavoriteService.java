@@ -19,18 +19,26 @@ public interface FavoriteService extends Service<Favorite> {
     void save(Favorite favorite);
 
     /**
-     * 获取用户收藏夹
+     * 按分类获取用户收藏夹
      *
      * @param username 用户名
      * @return 用户收藏夹
      */
-    List<Favorite> findUserFavoriteByUsername(String username);
+    List<Favorite> findUserFavoriteByUsernameAndClassification(String username, Short classification);
 
     /**
-     * 获取用户收藏夹，包含具体收藏内容
+     * 获取用户题目收藏夹
      *
      * @param username 用户名
      * @return 用户收藏夹
      */
-    List<Favorite> findUserDetailFavoriteByUsername(String username);
+    List<Favorite> findUserFavoriteProblemByUsername(String username);
+
+    /**
+     * 获取用户笔记收藏夹
+     *
+     * @param username 用户名
+     * @return 用户收藏夹
+     */
+    List<Favorite> findUserFavoriteNoteByUsername(String username);
 }

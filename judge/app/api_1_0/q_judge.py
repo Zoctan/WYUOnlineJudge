@@ -5,16 +5,14 @@ import os
 import subprocess
 import base64
 
-my_dir = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
-my_dir2 = '~/WYUOnlineJudge/judge/'
+my_dir2 = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
+my_dir = '~/WYUOnlineJudge/judge/'
 
 config = {
     # 工作目录（用于存放各个用户提交的代码）
-    # 'work_dir': my_dir2 + 'work_dir',
     'work_dir': my_dir + 'work_dir',
     # 答案目录
-    # 'answer_dir': my_dir2 + 'answer_dir',
-    'answer_dir': my_dir + 'answer_dir',
+    'answer_dir': my_dir + 'answer_dir'
 }
 
 
@@ -31,7 +29,7 @@ class QJudge:
         7: 'Presentation Error',
         8: 'Compile Error',
         -1: 'Wrong Answer',
-        - 2: 'Error Fork Failed',
+        -2: 'Error Fork Failed',
         -3: 'Error Pthread Failed',
         -4: 'Error Wait Failed',
         -5: 'Error Root Required',
@@ -157,7 +155,7 @@ class QJudge:
 
     def run(self):
         if not self._compile():
-            self.result_list.append(ResultBean(status=self.RESULT_STATUS[8]).to_json())
+            self.result_list.append(ResultBean(problem=self.problem, status=8).to_json())
             return self.result_list
         # 依次运行测试用例
         for i in range(1, self.problem['nums'] + 1):
@@ -168,12 +166,12 @@ class QJudge:
             # 可能题目的测试用例不够
             if os.path.isfile(answer_in_path) and os.path.isfile(answer_out_path):
                 rst = self._run_one(answer_in_path, answer_out_path)
-                status = self.RESULT_STATUS[rst['result']]
-                if status != 'Accepted':
+                if rst['result'] != 0 or rst['result'] != 100:
                     with open(self.user_err_file_path) as f:
-                        result_bean = ResultBean(status=status, error=f.read())
+                        result_bean = ResultBean(problem=self.problem, status=rst['result'], error=f.read())
                 else:
-                    result_bean = ResultBean(status=status,
+                    result_bean = ResultBean(problem=self.problem,
+                                             status=rst['result'],
                                              timeUsed=rst['real_time'],
                                              memoryUsed=rst['memory'])
                 self.result_list.append(result_bean.to_json())
@@ -212,7 +210,7 @@ class ProblemBean:
 
 
 class ResultBean:
-    def __init__(self, **kwargs):
+    def __init__(self, problem, **kwargs):
         # 和答案对比的结果
         self.status = kwargs.get('status')
         # 出现错误时的信息
@@ -221,6 +219,10 @@ class ResultBean:
         self.timeUsed = kwargs.get('timeUsed', 'N/A')
         # 消耗内存 KB
         self.memoryUsed = kwargs.get('memoryUsed', 'N/A')
+
+        self.problemId = problem['problemId']
+        self.userId = problem['userId']
+        self.language = problem['language']
 
     def __getitem__(self, key):
         return self.__dict__[key]

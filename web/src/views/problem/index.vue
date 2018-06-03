@@ -93,7 +93,7 @@
               已解决
             </el-col>
             <el-col :span="8">
-              <el-tag type="info" size="mini">{{ record.solved + '/' + total }}</el-tag>
+              <el-tag type="info" size="mini">{{ record.solved + '/' + record.total }}</el-tag>
             </el-col>
           </el-row>
 
@@ -179,6 +179,7 @@
         },
         btnLoading: false, // 按钮等待动画
         record: {
+          total: 0,
           solved: 0,
           easy: 0,
           medium: 0,
@@ -299,7 +300,7 @@
         if (total) {
           dataArr = [
             { name: `已解决/${this.record.solved}`, value: this.record.solved },
-            { name: `总量/${this.total}`, value: this.total }
+            { name: `总量/${this.record.total}`, value: this.record.total }
           ]
         } else {
           dataArr = [

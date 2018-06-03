@@ -41,6 +41,7 @@ LOCK TABLES `user_favorite` WRITE;
 INSERT INTO `user_favorite` VALUES (1, 1);
 INSERT INTO `user_favorite` VALUES (2, 2);
 INSERT INTO `user_favorite` VALUES (2, 3);
+INSERT INTO `user_favorite` VALUES (2, 4);
 /*!40000 ALTER TABLE `user_favorite` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

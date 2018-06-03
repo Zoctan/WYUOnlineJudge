@@ -1,39 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zoctan.api.mapper.FavoriteMapper">
-  <resultMap id="FavoriteMap" type="com.zoctan.api.model.Favorite">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="is_private" jdbcType="BIT" property="isPrivate" />
-  </resultMap>
+    <resultMap id="FavoriteMap" type="com.zoctan.api.model.Favorite">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="is_private" jdbcType="BIT" property="isPrivate"/>
+        <result column="classification" jdbcType="BIT" property="classification"/>
+    </resultMap>
 
-  <resultMap id="FavoriteProblemMap" type="com.zoctan.api.model.Favorite" extends="FavoriteMap">
-    <!-- 一收藏夹对应多题目 -->
-    <collection property="problemIdList" ofType="Long">
-      <result column="problem_id" jdbcType="BIGINT" property="problemId" />
-    </collection>
-  </resultMap>
+    <resultMap id="FavoriteProblemMap" type="com.zoctan.api.model.Favorite" extends="FavoriteMap">
+        <!-- 一收藏夹对应多题目 -->
+        <collection property="problemList" ofType="Object">
+            <result column="problem_id" jdbcType="BIGINT" property="problemId"/>
+            <result column="problem_title" jdbcType="VARCHAR" property="problemTitle"/>
+        </collection>
+    </resultMap>
 
-  <select id="findUserFavoriteByUsername" resultMap="FavoriteMap">
-    SELECT
-    f.*
-    FROM `user` u
-    LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
-    LEFT JOIN `favorite` f ON f.id = uf.favorite_id
-    WHERE u.username = #{username}
-  </select>
+    <resultMap id="FavoriteNoteMap" type="com.zoctan.api.model.Favorite" extends="FavoriteMap">
+        <!-- 一收藏夹对应多笔记 -->
+        <collection property="noteList" ofType="Object">
+            <result column="note_id" jdbcType="BIGINT" property="noteId"/>
+            <result column="note_title" jdbcType="VARCHAR" property="noteTitle"/>
+        </collection>
+    </resultMap>
 
-  <select id="findUserDetailFavoriteByUsername" resultMap="FavoriteProblemMap">
-    SELECT
-    f.id,
-    f.title,
-    f.is_private,
-    ifnull(fp.problem_id, -1) AS problem_id
-    FROM `user` u
-    LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
-    LEFT JOIN `favorite` f ON f.id = uf.favorite_id
-    LEFT JOIN `favorite_problem` fp ON uf.favorite_id = fp.favorite_id
-    WHERE u.username = #{username}
-  </select>
+    <select id="findUserFavoriteByUsernameAndClassification" resultMap="FavoriteMap">
+        SELECT f.*
+        FROM `user` u
+        LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
+        LEFT JOIN `favorite` f ON f.id = uf.favorite_id
+        WHERE u.username = #{username} AND f.classification = #{classification}
+    </select>
+
+    <select id="findUserFavoriteProblemByUsername" resultMap="FavoriteProblemMap">
+        SELECT
+            f.*,
+            ifnull(fp.problem_id, -1) AS problem_id,
+            ifnull(p.title, NULL) AS problem_title
+        FROM `user` u
+        LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
+        LEFT JOIN `favorite` f ON f.id = uf.favorite_id
+        LEFT JOIN `favorite_problem` fp ON uf.favorite_id = fp.favorite_id
+        LEFT JOIN `problem` p ON fp.problem_id = p.id
+        WHERE u.username = #{username} AND f.classification = 1
+    </select>
+
+    <select id="findUserFavoriteNoteByUsername" resultMap="FavoriteNoteMap">
+        SELECT
+            f.*,
+            ifnull(fn.note_id, -1) AS note_id,
+            ifnull(n.title, NULL) AS note_title
+        FROM `user` u
+        LEFT JOIN `user_favorite` uf ON u.id = uf.user_id
+        LEFT JOIN `favorite` f ON f.id = uf.favorite_id
+        LEFT JOIN `favorite_note` fn ON uf.favorite_id = fn.favorite_id
+        LEFT JOIN `note` n ON fn.note_id = n.id
+        WHERE u.username = #{username} AND f.classification = 2
+    </select>
 
 </mapper>

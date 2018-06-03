@@ -17,8 +17,8 @@
   }
 </script>
 <style lang="scss" scoped>
-.app-main{
-  margin: auto;
-  max-width: 1200px;
-}
+  .app-main {
+    margin: auto;
+    max-width: 1200px;
+  }
 </style>

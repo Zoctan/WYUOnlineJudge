@@ -40,17 +40,29 @@ public class FavoriteController {
         return ResultGenerator.genOkResult();
     }
 
-    @GetMapping
-    public Result listUserFavorite(@RequestParam(defaultValue = "0") final Integer page,
-                                   @RequestParam(defaultValue = "0") final Integer size,
-                                   final Principal user) {
+    @GetMapping("/problem")
+    public Result listUserFavoriteProblem(@RequestParam(defaultValue = "0") final Integer page,
+                                          @RequestParam(defaultValue = "0") final Integer size,
+                                          final Principal user) {
         PageHelper.startPage(page, size);
         // mybatis 一对多关联查询 + pagehelper 分页
         // pagehelper分页对最先的查询语句 limit 导致查询的页数错误
         // 暂时办法 先查询用户的收藏夹
         //fixme
-        this.favoriteService.findUserFavoriteByUsername(user.getName());
-        final List<Favorite> list = this.favoriteService.findUserDetailFavoriteByUsername(user.getName());
+        this.favoriteService.findUserFavoriteByUsernameAndClassification(user.getName(), Short.valueOf("1"));
+        final List<Favorite> list = this.favoriteService.findUserFavoriteProblemByUsername(user.getName());
+        final PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genOkResult(pageInfo);
+    }
+
+    @GetMapping("/note")
+    public Result listUserFavoriteNote(@RequestParam(defaultValue = "0") final Integer page,
+                                       @RequestParam(defaultValue = "0") final Integer size,
+                                       final Principal user) {
+        PageHelper.startPage(page, size);
+        //fixme
+        this.favoriteService.findUserFavoriteByUsernameAndClassification(user.getName(), Short.valueOf("2"));
+        final List<Favorite> list = this.favoriteService.findUserFavoriteNoteByUsername(user.getName());
         final PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

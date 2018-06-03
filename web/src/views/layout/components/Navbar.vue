@@ -1,9 +1,9 @@
 <template>
   <el-menu class="navbar" mode="horizontal" :default-active="activeIndex">
-      <sidebar-item :routes="permissionRouters"/>    
+    <sidebar :routes="permissionRouters"/>
     <div class="right">
       <el-tooltip effect="dark" content="全屏" placement="bottom">
-        <screenfull class="screenfull right-menu-item" />
+        <screenfull class="screenfull right-menu-item"/>
       </el-tooltip>
 
       <el-dropdown class="user-container right-menu-item" trigger="click">
@@ -24,7 +24,7 @@
           </el-dropdown-item>
 
           <router-link class="inlineBlock" v-else to="/login/index">
-            <el-dropdown-item divided >
+            <el-dropdown-item divided>
               <span style="display:block;">登录</span>
             </el-dropdown-item>
           </router-link>
@@ -39,20 +39,19 @@
   import Hamburger from '@/components/Hamburger'
   import Screenfull from '@/components/Screenfull'
   import Breadcrumb from '@/components/Breadcrumb'
-  import SidebarItem from './SidebarItem'
-  
+  import Sidebar from './Sidebar'
 
   export default {
     components: {
       Breadcrumb,
       Hamburger,
       Screenfull,
-      SidebarItem
+      Sidebar
     },
     data() {
       return {
         time: null,
-        activeIndex:'/home'
+        activeIndex: '/home'
       }
     },
     computed: {
@@ -75,7 +74,7 @@
           })
         })
       },
-      ListenactiveIndex(e){
+      ListenactiveIndex(e) {
         console.log(e)
         this.activeIndex = e
       }
@@ -101,7 +100,7 @@
     .right {
       float: right;
       height: 100%;
-      &:focus{
+      &:focus {
         outline: none;
       }
       .right-menu-item {
@@ -135,7 +134,8 @@
       }
     }
   }
-  .menu-wrapper{
+
+  .menu-wrapper {
     display: inline-block;
     margin-left: 50px;
   }

@@ -36,12 +36,17 @@ public class FavoriteServiceImpl extends AbstractService<Favorite> implements Fa
     }
 
     @Override
-    public List<Favorite> findUserFavoriteByUsername(final String username) {
-        return this.favoriteMapper.findUserFavoriteByUsername(username);
+    public List<Favorite> findUserFavoriteByUsernameAndClassification(final String username, final Short classification) {
+        return this.favoriteMapper.findUserFavoriteByUsernameAndClassification(username, classification);
     }
 
     @Override
-    public List<Favorite> findUserDetailFavoriteByUsername(final String username) {
-        return this.favoriteMapper.findUserDetailFavoriteByUsername(username);
+    public List<Favorite> findUserFavoriteProblemByUsername(final String username) {
+        return this.favoriteMapper.findUserFavoriteProblemByUsername(username);
+    }
+
+    @Override
+    public List<Favorite> findUserFavoriteNoteByUsername(final String username) {
+        return this.favoriteMapper.findUserFavoriteNoteByUsername(username);
     }
 }

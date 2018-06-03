@@ -19,7 +19,8 @@
     <el-row>
       <el-col :span="14">
         <div class="title"
-             :loading="loadingContest">热门比赛</div>
+             :loading="loadingContest">热门比赛
+        </div>
         <el-card class="box-card">
           <el-table
             :data="contestList"
@@ -47,16 +48,17 @@
 
       <el-col :span="9" class="right">
         <div class="title"
-             :loading="loadingNote">最新笔记</div>
+             :loading="loadingNote">最新笔记
+        </div>
         <el-card class="box-card">
-          <div class="link" v-for="note in noteList"> 
+          <div class="link" v-for="note in noteList">
             <div class="hover" v-if="hasPermission('problem:detail')">
-              <router-link :to="{name: '详情',path:'/common', params: {id: note.id,type:'note'}}">
+              <router-link :to="{name: '详情',path:'/common', params: {id: note.id, type:'note'}}">
                 <span>{{ note.title }}</span>
               </router-link>
             </div>
             <div class="hover" v-else @click="noLoginTip">{{ note.title }}</div>
-            <div class="author" >{{ note.username }}</div>
+            <div class="author">{{ note.username }}</div>
           </div>
         </el-card>
       </el-col>
@@ -71,7 +73,7 @@
   import { list as listNote } from '@/api/note'
   import { listHot as listHotContest } from '@/api/contest'
   import { list as listCarousel } from '@/api/carousel'
-  import { noLoginTip } from "@/utils/Tip"
+  import { noLoginTip } from '@/utils/Tip'
 
   export default {
     name: 'home',
@@ -165,28 +167,29 @@
   .right {
     margin-left: 30px;
   }
+
   .link {
     width: 100%;
     display: flex;
     color: blue;
     padding: 10px 0;
-    .hover{
+    .hover {
       flex: 5;
       display: inline;
-      overflow:hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
     a:hover {
       text-decoration: underline;
     }
-    .author{
+    .author {
       flex: 1;
       display: inline;
       text-align: right;
       font-size: 15px;
       color: #707070;
-      overflow:hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }

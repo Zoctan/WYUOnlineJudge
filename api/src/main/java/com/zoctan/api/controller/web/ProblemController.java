@@ -56,6 +56,7 @@ public class ProblemController {
     @GetMapping("/record")
     public Result listRecord(final Principal user) {
         final List<Problem> problems = this.problemService.findAll();
+        Integer total = problems.size();
         Long solved = 0L;
         Long easy = 0L;
         Long medium = 0L;
@@ -63,7 +64,7 @@ public class ProblemController {
         for (final Problem problem : problems) {
             final List<Code> codes = this.codeService.findAllUserProblemSubmitCode(-1L, problem.getId(), user.getName());
             for (final Code code : codes) {
-                if (code.getStatus() == 0) {
+                if (code.getStatus() == 100) {
                     solved++;
                     switch (problem.getLevel()) {
                         case 1:
@@ -82,7 +83,8 @@ public class ProblemController {
                 }
             }
         }
-        final Map<String, Long> map = new HashMap<>(4);
+        final Map<String, Object> map = new HashMap<>(5);
+        map.put("total", total);
         map.put("solved", solved);
         map.put("easy", easy);
         map.put("medium", medium);

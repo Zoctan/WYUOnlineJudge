@@ -1,8 +1,16 @@
 import request from '@/utils/request'
 
-export function list(params) {
+export function listProblem(params) {
   return request({
-    url: '/favorite',
+    url: '/favorite/problem',
+    method: 'get',
+    params
+  })
+}
+
+export function listNote(params) {
+  return request({
+    url: '/favorite/note',
     method: 'get',
     params
   })

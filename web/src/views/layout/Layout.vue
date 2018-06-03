@@ -1,9 +1,8 @@
 <template>
   <div class="app-wrapper" :class="{ hideSidebar:!sidebar.opened }">
-    <!-- <sidebar class="sidebar-container" /> -->
     <div class="main-container">
-      <navbar />
-      <app-main />
+      <navbar/>
+      <app-main/>
     </div>
   </div>
 </template>
@@ -29,6 +28,7 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "src/styles/mixin.scss";
+
   .app-wrapper {
     @include clearfix;
     position: relative;

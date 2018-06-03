@@ -3,12 +3,12 @@
     <el-card class="box-card">
       <el-row>
         <el-col :span="21">
-          <el-button @click="doSearch" icon="el-icon-search" circle size="small" />
-          <el-input v-model="searchData" placeholder="搜索比赛" style="width:200px" />
-          <el-button v-if="searchData !== null" @click="noSearch" icon="el-icon-close" circle size="small" />
+          <el-button @click="doSearch" icon="el-icon-search" circle size="small"/>
+          <el-input v-model="searchData" placeholder="搜索比赛" style="width:200px"/>
+          <el-button v-if="searchData !== null" @click="noSearch" icon="el-icon-close" circle size="small"/>
         </el-col>
         <el-col :span="3">
-          <Clock ref="clock" />
+          <Clock ref="clock"/>
         </el-col>
       </el-row>
       <el-table tooltip-effect="dark"
@@ -23,12 +23,12 @@
         </el-table-column>
         <el-table-column show-overflow-tooltip
                          label="比赛">
-        <template slot-scope="scope">
-          <router-link v-if="hasPermission('contest:detail')" :to="{name: '比赛详情', params: {id: scope.row.id}}">
-            <span class="hover">{{ scope.row.title }}</span>
-          </router-link>
-          <span class="hover" v-else @click="noLoginTip">{{ scope.row.title }}</span>
-        </template>
+          <template slot-scope="scope">
+            <router-link v-if="hasPermission('contest:detail')" :to="{name: '比赛详情', params: {id: scope.row.id}}">
+              <span class="hover">{{ scope.row.title }}</span>
+            </router-link>
+            <span class="hover" v-else @click="noLoginTip">{{ scope.row.title }}</span>
+          </template>
         </el-table-column>
         <el-table-column label="时间"
                          align="center"
@@ -39,7 +39,6 @@
           </template>
         </el-table-column>
         <el-table-column label="时长"
-                         sortable
                          align="center"
                          width="120">
           <template slot-scope="scope">
@@ -47,7 +46,6 @@
           </template>
         </el-table-column>
         <el-table-column label="人数"
-                         sortable
                          align="center"
                          width="120">
           <template slot-scope="scope">

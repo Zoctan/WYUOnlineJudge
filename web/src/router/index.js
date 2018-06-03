@@ -42,14 +42,14 @@ export const constantRouterMap = [
     }]
   },
   {
-    path: '/love',
+    path: '/favorite',
     component: Layout,
     redirect: 'noRedirect',
     hidden: true,
     children: [{
       path: 'index',
       name: '收藏',
-      component: _import('love/index')
+      component: _import('favorite/index')
     }]
   },
   {
@@ -67,7 +67,7 @@ export const constantRouterMap = [
     path: '/problem',
     component: Layout,
     redirect: 'noRedirect',
-    icon: 'problem',
+    icon: 'list',
     children: [{
       path: 'index',
       name: '题目',

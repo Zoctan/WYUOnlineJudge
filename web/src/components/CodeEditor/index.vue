@@ -7,16 +7,19 @@
             <el-option v-for="item in language"
                        :key="item.name"
                        :label="item.name"
-                       :value="item.name" />
+                       :value="item.name"/>
           </el-select>
         </el-col>
-        <el-col class="right" :span="4">
+        <el-col :span="4" style="text-align: right;">
           <el-dropdown trigger="click" @command="setTheme">
             <el-button>
-              <svg-icon icon-class="editor_theme" /> 主题 <i class="el-icon-arrow-down el-icon--right"></i>
+              <svg-icon icon-class="editor_theme"/>
+              主题 <i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="item in theme" :disabled="codeMirror.theme !== undefined && item === codeMirror.theme" v-text="item" :command="item" :key="item" />
+              <el-dropdown-item v-for="item in theme"
+                                :disabled="codeMirror.theme !== undefined && item === codeMirror.theme" v-text="item"
+                                :command="item" :key="item"/>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
@@ -60,16 +63,26 @@
     data() {
       return {
         codeEditor: false,
+        /*
         language: [ // codemirror/mode/meta.js
           { name: 'C', mime: 'text/x-csrc', mode: 'clike' },
           { name: 'C++', mime: 'text/x-c++src', mode: 'clike' },
           { name: 'C#', mime: 'text/x-csharp', mode: 'clike' },
           { name: 'Java', mime: 'text/x-java', mode: 'clike' },
-          { name: 'JavaScript', mimes: ['text/javascript', 'text/ecmascript', 'application/javascript', 'application/x-javascript', 'application/ecmascript'], mode: 'javascript' },
+          {
+            name: 'JavaScript',
+            mimes: ['text/javascript', 'text/ecmascript', 'application/javascript', 'application/x-javascript', 'application/ecmascript'],
+            mode: 'javascript'
+          },
           { name: 'PHP', mimes: ['text/x-php', 'application/x-httpd-php', 'application/x-httpd-php-open'], mode: 'php' },
           { name: 'Python3', mime: 'text/x-python', mode: 'python' },
           { name: 'Ruby', mime: 'text/x-ruby', mode: 'ruby' },
           { name: 'Go', mime: 'text/x-go', mode: 'go' }
+        ],
+        */
+        language: [ // codemirror/mode/meta.js
+          { name: 'C', mime: 'text/x-csrc', mode: 'clike' },
+          { name: 'C++', mime: 'text/x-c++src', mode: 'clike' }
         ],
         languageSelected: 'C',
         theme: ['eclipse', 'material', 'ambiance']
@@ -120,7 +133,7 @@
         // 设置语言
         // todo: no for
         this.language.filter(i => i.name === language).map(i => {
-          //console.info(i.name)
+          // console.info(i.name)
           this.$store.dispatch('SetLanguage', i)
           this.codeEditor.setOption('mode', i.mimes ? i.mimes[0] : i.mime)
         })
@@ -139,19 +152,19 @@
     height: 100%;
     position: relative;
   }
+
   .code-editor >>> .editor-option {
     margin: 12px auto;
   }
+
   .code-editor >>> .CodeMirror {
     height: auto;
     min-height: 300px;
     border: 1px solid gainsboro;
     font-size: 15px;
   }
+
   .code-editor >>> .CodeMirror-scroll {
     min-height: 300px;
-  }
-  .right{
-    text-align: right;
   }
 </style>

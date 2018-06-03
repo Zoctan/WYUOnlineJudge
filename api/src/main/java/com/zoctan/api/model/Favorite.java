@@ -28,12 +28,23 @@ public class Favorite {
      */
     private Boolean isPrivate;
 
+    /**
+     * 分类：1题目 | 2笔记 | ……
+     */
+    private Short classification;
+
     /* ---------- 以下字段来自联表查询 ------------*/
     /**
-     * 收藏夹下的题目Id
+     * 收藏夹下的题目
      */
     @Transient
-    private List<Long> problemIdList;
+    private List<Object> problemList;
+
+    /**
+     * 收藏夹下的笔记
+     */
+    @Transient
+    private List<Object> noteList;
 
     /**
      * 用户Id
@@ -65,19 +76,35 @@ public class Favorite {
         this.isPrivate = aPrivate;
     }
 
-    public List<Long> getProblemIdList() {
-        return this.problemIdList;
-    }
-
-    public void setProblemIdList(final List<Long> problemIdList) {
-        this.problemIdList = problemIdList;
-    }
-
     public Long getUserId() {
         return this.userId;
     }
 
     public void setUserId(final Long userId) {
         this.userId = userId;
+    }
+
+    public Short getClassification() {
+        return this.classification;
+    }
+
+    public void setClassification(final Short classification) {
+        this.classification = classification;
+    }
+
+    public List<Object> getProblemList() {
+        return problemList;
+    }
+
+    public void setProblemList(List<Object> problemList) {
+        this.problemList = problemList;
+    }
+
+    public List<Object> getNoteList() {
+        return noteList;
+    }
+
+    public void setNoteList(List<Object> noteList) {
+        this.noteList = noteList;
     }
 }

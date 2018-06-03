@@ -61,7 +61,7 @@ public class ContestProblemController {
                     List<Code> codes = this.codeService.findAllUserProblemSubmitCode(id, contestProblem.getId(), user.getName());
                     boolean flag = false;
                     for (Code code : codes) {
-                        if (code.getStatus() == 0) {
+                        if (code.getStatus() == 100) {
                             flag = true;
                             break;
                         }

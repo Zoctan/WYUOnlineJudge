@@ -4,7 +4,7 @@
          :data="problem"
          :loading="loading">
       <el-row>
-        <el-col :span="20"><span class="title">{{ problem.id + '.' + problem.title }}</span></el-col>
+        <el-col :span="20"><span class="title">{{ problem.title }}</span></el-col>
 
         <el-col class="right" :span="4">
           <el-dropdown trigger="click" size="mini" split-button
@@ -111,7 +111,7 @@
                     执行代码
                   </el-button>
                 </el-col>
-                <el-col :span="4">
+                <el-col :span="4" style="text-align: right;">
                   <el-button round type="primary"
                              :loading="btnLoading"
                              @click.native.prevent="handleRunOrSubmit(true)">
@@ -122,6 +122,28 @@
               </el-row>
             </div>
           </div>
+
+          <el-dialog title="代码状态" width="35%" center
+                     :visible.sync="dialogCodeVisible">
+            <el-table :data="codeList" height="250">
+              <el-table-column prop="id" label="#" align="center" width="30"/>
+              <el-table-column prop="status" label="状态" align="center">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.status !== 100" style="color: red">
+                    {{ statusMap(scope.row.status) }}
+                  </span>
+                  <span v-else style="color: green">
+                    {{ statusMap(scope.row.status) }}
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="memoryUsed" label="消耗内存" align="center"/>
+              <el-table-column prop="timeUsed" label="消耗时间" align="center"/>
+            </el-table>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="dialogCodeVisible = false">确定</el-button>
+            </div>
+          </el-dialog>
         </el-tab-pane>
 
         <el-tab-pane>
@@ -187,7 +209,7 @@
   import { Base64 } from 'js-base64'
   import { run as runCode, submit as submitCode, listSubmitCode } from '@/api/code'
   import {
-    list as listUserFavorite,
+    listProblem as listUserFavoriteProblem,
     add as addFavorite,
     addProblem as addProblem2Favorite,
     removeProblem as removeProblemFromFavorite
@@ -200,7 +222,7 @@
     components: { CodeEditor },
     created() {
       this.getProblemDetail()
-      this.listUserFavorite()
+      this.listUserFavoriteProblem()
     },
     data() {
       return {
@@ -232,8 +254,11 @@
         newFavorite: { // 新收藏夹
           title: null,
           userId: null,
-          isPrivate: true
-        }
+          isPrivate: true,
+          classification: 1 // １是题目，２是文章
+        },
+        dialogCodeVisible: false, // 代码状态对话框
+        codeList: []
       }
     },
     computed: {
@@ -244,8 +269,8 @@
     },
     methods: {
       unix2CurrentTime,
-      listUserFavorite() {
-        listUserFavorite().then(response => {
+      listUserFavoriteProblem() {
+        listUserFavoriteProblem().then(response => {
           this.favoriteList = response.data.list
           this.totalFavorite = response.data.total
           this.setFavoriteSwitch()
@@ -253,7 +278,7 @@
       },
       setFavoriteSwitch() {
         this.favoriteList.forEach(favorite => {
-          this.favoriteSwitch[favorite.id] = favorite.problemIdList.indexOf(this.problem.id) !== -1
+          this.favoriteSwitch[favorite.id] = favorite.problemList.indexOf(this.problem.id) !== -1
         })
         // this.favoriteSwitch.forEach((x, index) => console.info(index + '->' + x))
       },
@@ -306,6 +331,31 @@
           this.listLoading = false
         })
       },
+      statusMap(code_status) {
+        const status = new Map()
+        status.set(100, 'Accepted')
+        status.set(0, 'Run Successfully')
+        status.set(1, 'CPU Time Limit Exceeded')
+        status.set(2, 'Real Time Limit Exceeded')
+        status.set(3, 'Memory Limit Exceeded')
+        status.set(4, 'Runtime Error')
+        status.set(5, 'System Error')
+        status.set(6, 'Output Limit')
+        status.set(7, 'Presentation Error')
+        status.set(8, 'Compile Error')
+        status.set(-1, 'Wrong Answer')
+        status.set(-2, 'Error Fork Failed')
+        status.set(-3, 'Error Pthread Failed')
+        status.set(-4, 'Error Wait Failed')
+        status.set(-5, 'Error Root Required')
+        status.set(-6, 'Error Load Seccomp Failed')
+        status.set(-7, 'Error SetRLimit Failed')
+        status.set(-8, 'Error Dup2 Failed')
+        status.set(-9, 'Error Set Uid Failed')
+        status.set(-10, 'Error Execute Failed')
+        status.set(-11, 'Error SPJ')
+        return status.get(code_status)
+      },
       handleRunOrSubmit(status) {
         this.btnLoading = true
         const codeForm = {
@@ -316,13 +366,21 @@
           language: this.codeMirrorLanguage.name
         }
         if (!status) {
-          runCode(codeForm).then(() => {
+          runCode(codeForm).then(response => {
             this.Tip.defaultSuccess('运行成功')
+            this.codeList = response.data
+            this.dialogCodeVisible = true
+            this.btnLoading = false
+          }).catch(() => {
             this.btnLoading = false
           })
         } else {
-          submitCode(codeForm).then(() => {
+          submitCode(codeForm).then(response => {
             this.Tip.defaultSuccess('提交成功')
+            this.codeList = response.data
+            this.dialogCodeVisible = true
+            this.btnLoading = false
+          }).catch(() => {
             this.btnLoading = false
           })
         }
@@ -370,10 +428,12 @@
       padding: 10px 0;
     }
   }
-  .el-main{
+
+  .el-main {
     padding-left: 0;
   }
-  .right{
+
+  .right {
     text-align: right;
   }
 </style>

@@ -7,8 +7,8 @@ from flask import jsonify
 from . import api
 from .q_judge import QJudge, ProblemBean
 
-my_dir = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
-my_dir2 = '~/WYUOnlineJudge/judge/'
+my_dir2 = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
+my_dir = '~/WYUOnlineJudge/judge/'
 
 
 @api.route('/test', methods=['GET'])
