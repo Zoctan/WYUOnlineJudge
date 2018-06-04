@@ -76,7 +76,7 @@ public class ContestController {
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
         final List<Contest> list = this.contestService.findAll();
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 
@@ -85,7 +85,7 @@ public class ContestController {
                           @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
         final List<Contest> list = this.contestService.findHot();
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 }

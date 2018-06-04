@@ -68,7 +68,7 @@ public class ContestProblemController {
                     }
                     contestProblem.setCurrentUserSubmitStatus(flag);
                 }).collect(toList());
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 }

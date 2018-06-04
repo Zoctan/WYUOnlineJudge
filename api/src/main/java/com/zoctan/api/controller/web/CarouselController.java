@@ -50,7 +50,7 @@ public class CarouselController {
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
         final List<Carousel> list = this.carouselService.findNewest();
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 }

@@ -51,7 +51,7 @@ public class FavoriteController {
         //fixme
         this.favoriteService.findUserFavoriteByUsernameAndClassification(user.getName(), Short.valueOf("1"));
         final List<Favorite> list = this.favoriteService.findUserFavoriteProblemByUsername(user.getName());
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 
@@ -63,7 +63,7 @@ public class FavoriteController {
         //fixme
         this.favoriteService.findUserFavoriteByUsernameAndClassification(user.getName(), Short.valueOf("2"));
         final List<Favorite> list = this.favoriteService.findUserFavoriteNoteByUsername(user.getName());
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 }

@@ -58,7 +58,7 @@ public class CodeController {
                                  final Principal user) {
         PageHelper.startPage(page, size);
         final List<Code> list = this.codeService.findAllUserProblemSubmitCode(-1L, problemId, user.getName());
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 
@@ -67,7 +67,7 @@ public class CodeController {
                        @RequestParam(defaultValue = "0") final Integer size) {
         PageHelper.startPage(page, size);
         final List<Code> list = this.codeService.findAll();
-        final PageInfo pageInfo = new PageInfo(list);
+        final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }
 }
