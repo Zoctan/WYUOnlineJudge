@@ -17,7 +17,7 @@
                           prop="content">
               <markdown-editor id="contentEditor"
                                ref="contentEditor"
-                               v-model="feedback.content"
+                               v-model="markdownContent"
                                :height="300"></markdown-editor>
             </el-form-item>
             <div class="button">
@@ -92,7 +92,8 @@
         feedback: {
           email: null,
           content: null
-        }
+        },
+        markdownContent: null
       }
     },
     methods: {
@@ -114,7 +115,7 @@
             this.btnLoading = true
             import('showdown').then(showdown => {
               const converter = new showdown.Converter()
-              this.feedback.content = converter.makeHtml(this.this.feedback.content)
+              this.feedback.content = converter.makeHtml(this.markdownContent)
               feedback(this.feedback).then(() => {
                 this.Tip.success('反馈成功')
                 this.btnLoading = false
