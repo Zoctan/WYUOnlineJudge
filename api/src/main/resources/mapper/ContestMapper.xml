@@ -28,8 +28,9 @@
             c.after_show,
             c.password,
             (SELECT COUNT(*)
-             FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
-        FROM `contest` c
+             FROM user_contest uc
+             WHERE c.id = uc.contest_id) AS join_count
+        FROM contest c
     </select>
 
     <select id="findHot" resultMap="ContestWithJoinCountMap">
@@ -39,8 +40,9 @@
                   c.title,
                   c.start_time,
                   (SELECT COUNT(*)
-                   FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
-              FROM `contest` c) c
+                   FROM user_contest uc
+                   WHERE c.id = uc.contest_id) AS join_count
+              FROM contest c) c
         WHERE c.join_count != 0
         ORDER BY c.join_count DESC
     </select>
@@ -49,8 +51,9 @@
         SELECT
             c.*,
             (SELECT COUNT(*)
-             FROM `user_contest` uc WHERE c.id = uc.contest_id) AS join_count
-        FROM `contest` c
+             FROM user_contest uc
+             WHERE c.id = uc.contest_id) AS join_count
+        FROM contest c
         WHERE c.id = #{contestId}
     </select>
 

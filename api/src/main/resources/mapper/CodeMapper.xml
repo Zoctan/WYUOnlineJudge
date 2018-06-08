@@ -17,23 +17,19 @@
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
     </resultMap>
 
-    <select id="findAllUserProblemSubmitCode" resultMap="UserProblemCodeMap">
+    <select id="findSubmitCodeByUsername" parameterType="java.util.Map" resultMap="UserProblemCodeMap">
         SELECT
-            c.*,
-            u.id AS user_id
-        FROM `code` c
-        LEFT JOIN `user_code` uc ON uc.code_id = c.id
-        LEFT JOIN ` user ` u ON u.id = uc.user_id
-        WHERE c.contest_id = #{contestId} AND c.problem_id = #{problemId} AND u.username = #{username}
-    </select>
-
-    <select id="findAllUserSubmitCode" resultMap="UserProblemCodeMap">
-        SELECT
-            c.*,
-            u.id AS user_id
-        FROM `code` c
-        LEFT JOIN `user_code` uc ON uc.code_id = c.id
-        LEFT JOIN ` user ` u ON u.id = uc.user_id
-        WHERE c.contest_id = #{contestId} AND u.username = #{username}
+        c.*,
+        u.id AS user_id
+        FROM code c
+        LEFT JOIN user_code uc ON c.id = uc.code_id
+        LEFT JOIN `user` u ON uc.user_id = u.id
+        WHERE u.username = #{username}
+        <if test="problemId != null">
+            AND c.problem_id = #{problemId}
+        </if>
+        <if test="problemId != null">
+            AND c.contest_id = #{contestId}
+        </if>
     </select>
 </mapper>

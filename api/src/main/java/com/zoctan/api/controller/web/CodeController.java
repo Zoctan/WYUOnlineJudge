@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +58,11 @@ public class CodeController {
                                  @RequestParam(defaultValue = "0") final Integer size,
                                  final Principal user) {
         PageHelper.startPage(page, size);
-        final List<Code> list = this.codeService.findAllUserProblemSubmitCode(-1L, problemId, user.getName());
+        Map<String, Object> map = new HashMap<>();
+        map.put("contestId", -1L);
+        map.put("problemId", problemId);
+        map.put("username", user.getName());
+        final List<Code> list = this.codeService.findSubmitCodeByUsername(map);
         final PageInfo pageInfo = new PageInfo<>(list);
         return ResultGenerator.genOkResult(pageInfo);
     }

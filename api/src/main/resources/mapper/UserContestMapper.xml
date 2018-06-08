@@ -8,7 +8,7 @@
 
     <select id="findBy" resultMap="UserContestMap">
         SELECT uc.*
-        FROM `user_contest` uc
+        FROM user_contest uc
         LEFT JOIN `user` u ON u.username = #{username}
         WHERE uc.user_id = u.id
         <if test="contestId != null">
@@ -18,7 +18,7 @@
 
     <delete id="deleteByUsernameAndContestId">
         DELETE uc
-        FROM `user_contest` uc
+        FROM user_contest uc
         LEFT JOIN `user` u ON u.username = #{username}
         WHERE uc.user_id = u.id AND uc.contest_id = #{contestId}
     </delete>

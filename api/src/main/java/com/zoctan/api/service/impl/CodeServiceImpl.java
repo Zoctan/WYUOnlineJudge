@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zoctan
@@ -21,12 +22,7 @@ public class CodeServiceImpl extends AbstractService<Code> implements CodeServic
     private CodeMapper codeMapper;
 
     @Override
-    public List<Code> findAllUserProblemSubmitCode(final Long contestId, final Long problemId, final String username) {
-        return this.codeMapper.findAllUserProblemSubmitCode(contestId, problemId, username);
-    }
-
-    @Override
-    public List<Code> findAllUserSubmitCode(final Long contestId, final String username) {
-        return this.codeMapper.findAllUserSubmitCode(contestId, username);
+    public List<Code> findSubmitCodeByUsername(Map<String, Object> map) {
+        return codeMapper.findSubmitCodeByUsername(map);
     }
 }

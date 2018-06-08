@@ -2,16 +2,18 @@ package com.zoctan.api;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import com.zoctan.api.core.ProjectConstant;
-import tk.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
+
+import static com.zoctan.api.core.ProjectConstant.MAPPER_PACKAGE;
 
 /**
  * @author Zoctan
@@ -21,7 +23,7 @@ import java.util.TimeZone;
 @SpringBootApplication
 @EnableCaching
 @EnableTransactionManagement
-@MapperScan(basePackages = ProjectConstant.MAPPER_PACKAGE)
+@MapperScan(basePackages = MAPPER_PACKAGE)
 public class Application extends SpringBootServletInitializer {
 
     @Override

@@ -13,7 +13,9 @@ import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
@@ -58,7 +60,11 @@ public class ContestProblemController {
         final List<ContestProblem> list = this.contestProblemService.findByCondition(condition).stream()
                 .peek(contestProblem -> {
                     // from user submit code -> select current problem accept
-                    List<Code> codes = this.codeService.findAllUserProblemSubmitCode(id, contestProblem.getId(), user.getName());
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("contestId", id);
+                    map.put("problemId", contestProblem.getId());
+                    map.put("username", user.getName());
+                    List<Code> codes = this.codeService.findSubmitCodeByUsername(map);
                     boolean flag = false;
                     for (Code code : codes) {
                         if (code.getStatus() == 100) {

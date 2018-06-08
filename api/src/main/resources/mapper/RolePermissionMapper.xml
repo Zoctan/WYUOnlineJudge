@@ -7,8 +7,8 @@
     </resultMap>
 
     <insert id="saveRolePermission">
-        insert into `role_permission` (role_id, permission_id)
-        values
+        INSERT INTO role_permission (role_id, permission_id)
+        VALUES
         <foreach collection="permissionIdList" item="item" index="index" separator=",">
             (#{roleId}, #{item})
         </foreach>

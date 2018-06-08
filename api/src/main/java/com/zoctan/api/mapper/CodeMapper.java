@@ -5,6 +5,7 @@ import com.zoctan.api.model.Code;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * CodeMapper
@@ -17,20 +18,9 @@ public interface CodeMapper extends MyMapper<Code> {
     /**
      * 找到用户提交题目的所有代码
      *
-     * @param contestId 比赛Id
-     * @param problemId 题目Id
-     * @param username  用户名
+     * @param map 含参数的map
      * @return java.util.List<com.zoctan.api.model.Code>
      */
-    List<Code> findAllUserProblemSubmitCode(@Param("contestId") Long contestId, @Param("problemId") Long problemId, @Param("username") String username);
+    List<Code> findSubmitCodeByUsername(Map<String, Object> map);
 
-
-    /**
-     * 找到用户提交的所有代码
-     *
-     * @param contestId 比赛Id
-     * @param username  用户名
-     * @return java.util.List<com.zoctan.api.model.Code>
-     */
-    List<Code> findAllUserSubmitCode(@Param("contestId") Long contestId, @Param("username") String username);
 }

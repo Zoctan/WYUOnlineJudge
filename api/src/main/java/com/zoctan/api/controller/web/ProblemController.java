@@ -62,7 +62,11 @@ public class ProblemController {
         Long medium = 0L;
         Long hard = 0L;
         for (final Problem problem : problems) {
-            final List<Code> codes = this.codeService.findAllUserProblemSubmitCode(-1L, problem.getId(), user.getName());
+            Map<String, Object> map = new HashMap<>();
+            map.put("contestId", -1L);
+            map.put("problemId", problem.getId());
+            map.put("username", user.getName());
+            final List<Code> codes = this.codeService.findSubmitCodeByUsername(map);
             for (final Code code : codes) {
                 if (code.getStatus() == 100) {
                     solved++;
