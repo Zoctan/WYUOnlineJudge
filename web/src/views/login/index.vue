@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container background-img">
     <el-form class="card-box login-form ruleForm"
              autoComplete="on"
              :model="loginForm"
@@ -122,7 +122,7 @@
   $light_gray:#eee;
 
   /* reset element-ui css */
-  .login-container {
+  .login-container {    
     .el-input {
       display: inline-block;
       height: 47px;
@@ -155,6 +155,10 @@
   .el-form > div{
     margin: auto;
   }
+  .background-img{
+    background: transparent url(./background2.jpg) 0 -250px no-repeat;
+    background-size:100%;
+  }
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -162,9 +166,11 @@
   $light_gray:#eee;
 
   .login-container {
+    z-index: 9999;
     position: fixed;
     height: 100%;
     width: 85%;
+    box-shadow:10px 10px 10px #2d3a4b;    
     .login-form {
       position: absolute;
       left: 0;
