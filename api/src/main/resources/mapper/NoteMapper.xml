@@ -19,7 +19,7 @@
             n.title,
             n.create_time,
             u.username
-        FROM note n
+        FROM `note` n
             LEFT JOIN `user` u ON u.id = n.user_id
         ORDER BY n.create_time DESC
     </select>
@@ -28,7 +28,7 @@
         SELECT
             n.*,
             u.username
-        FROM note n
+        FROM `note` n
             LEFT JOIN `user` u ON u.id = n.user_id
         WHERE n.id = #{noteId}
     </select>

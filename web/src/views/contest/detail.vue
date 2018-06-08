@@ -130,7 +130,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { detail as getContestDetail, join as joinContest, out as outContest, validatePassword as validateContextPassword, contestProblem as getContestProblem } from '@/api/contest'
+  import { detail as getContestDetail, join as joinContest, out as outContest, validatePassword as validateContestPassword, contestProblem as getContestProblem } from '@/api/contest'
   import { unix2CurrentTime, unixDifference, nowDifference } from '@/utils'
   import { Base64 } from 'js-base64'
   import { submit as submitCode } from '@/api/code'
@@ -147,8 +147,8 @@
           callback(new Error('密码不能为空'))
           return
         }
-        this.validateContestPassword(value).then(isValidate => {
-          if (!isValidate) {
+        this.validateContestPassword(value).then(validate => {
+          if (!validate) {
             this.btnDisabled = true
             callback(new Error('密码错误'))
           } else {
@@ -200,7 +200,7 @@
       unixDifference,
       validateContestPassword(password) {
         this.passwordForm.password = password
-        return validateContextPassword(this.passwordForm).then(response => response.data)
+        return validateContestPassword(this.passwordForm).then(response => response.data)
       },
       setCountDown() {
         setInterval(() => { this.countDown = nowDifference(this.contest.endTime) }, 1000)

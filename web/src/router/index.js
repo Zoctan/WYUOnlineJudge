@@ -42,17 +42,6 @@ export const constantRouterMap = [
     }]
   },
   {
-    path: '/favorite',
-    component: Layout,
-    redirect: 'noRedirect',
-    hidden: true,
-    children: [{
-      path: 'index',
-      name: '收藏',
-      component: _import('favorite/index')
-    }]
-  },
-  {
     path: '/user',
     component: Layout,
     redirect: 'noRedirect',

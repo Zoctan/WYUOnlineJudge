@@ -2,6 +2,7 @@ package com.zoctan.api.service;
 
 import com.zoctan.api.core.service.Service;
 import com.zoctan.api.model.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
@@ -23,7 +24,12 @@ public interface UserService extends Service<User> {
 
     User findDetailByUsername(String username) throws UsernameNotFoundException;
 
-    void updateLoginTime(String username);
+    /**
+     * 更新用户登录时间
+     *
+     * @param username 用户名
+     */
+    void updateLastLoginTimeByUsername( String username);
 
     boolean verifyPassword(String rawPassword, String encodedPassword);
 }

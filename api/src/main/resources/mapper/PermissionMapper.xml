@@ -21,11 +21,11 @@
             p.resource,
             p.id,
             p.handle
-        FROM permission p
+        FROM `permission` p
     </select>
 
     <select id="findAllCode" resultType="String">
         SELECT p.code
-        FROM permission p
+        FROM `permission` p
     </select>
 </mapper>

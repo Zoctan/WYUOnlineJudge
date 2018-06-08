@@ -144,7 +144,7 @@ public class UserController {
             return ResultGenerator.genFailedResult("password error");
         }
         // 更新登录时间
-        this.userService.updateLoginTime(user.getUsername());
+        this.userService.updateLastLoginTimeByUsername(user.getUsername());
         return this.getToken(user);
     }
 

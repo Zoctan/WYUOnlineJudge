@@ -16,7 +16,7 @@
                   autoComplete="on"
                   v-model="loginForm.usernameOrEmail"
                   placeholder="请输入用户名或邮箱"
-                  @keyup.enter.native="handleLogin" 
+                  @keyup.enter.native="handleLogin"
                   auto-complete="off"/>
       </el-form-item>
       <el-form-item prop="password">
@@ -27,7 +27,7 @@
                   autoComplete="on"
                   v-model="loginForm.password"
                   placeholder="请输入密码"
-                  @keyup.enter.native="handleLogin" 
+                  @keyup.enter.native="handleLogin"
                   auto-complete="off"/>
         <span class="show-pwd" @click="showPwd">
           <svg-icon icon-class="eye" />
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import { isValidateEmail } from '@/utils/validate'
+  import { validateEmail } from '@/utils/validate'
 
   export default {
     name: 'login',
@@ -85,7 +85,7 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             const user = {}
-            if (isValidateEmail(this.loginForm.usernameOrEmail)) {
+            if (validateEmail(this.loginForm.usernameOrEmail)) {
               user.email = this.loginForm.usernameOrEmail
             } else {
               user.username = this.loginForm.usernameOrEmail
@@ -122,7 +122,7 @@
   $light_gray:#eee;
 
   /* reset element-ui css */
-  .login-container {    
+  .login-container {
     .el-input {
       display: inline-block;
       height: 47px;
@@ -170,7 +170,7 @@
     position: fixed;
     height: 100%;
     width: 85%;
-    box-shadow:10px 10px 10px #2d3a4b;    
+    box-shadow:10px 10px 10px #2d3a4b;
     .login-form {
       position: absolute;
       left: 0;
@@ -219,5 +219,5 @@
       user-select: none;
     }
   }
-  
+
 </style>

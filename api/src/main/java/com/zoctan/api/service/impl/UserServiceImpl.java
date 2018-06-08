@@ -9,6 +9,7 @@ import com.zoctan.api.model.User;
 import com.zoctan.api.model.UserRole;
 import com.zoctan.api.service.UserService;
 import com.zoctan.api.util.DateUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +54,6 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
                 //log.info("before password : {}", user.getPassword().trim());
                 user.setPassword(this.passwordEncoder.encode(user.getPassword().trim()));
                 //log.info("after password : {}", user.getPassword());
-                user.setRegisterTime(DateUtil.getNowTimestamp());
                 this.userMapper.insertSelective(user);
                 //log.info("User<{}> id : {}", user.getUsername(), user.getId());
                 // 如果没有指定角色Id，以默认普通用户roleId保存
@@ -113,12 +114,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     }
 
     @Override
-    public void updateLoginTime(final String username) {
-        final Condition condition = new Condition(User.class);
-        condition.createCriteria()
-                .andCondition("username = ", username);
-        final User user = new User();
-        user.setLastLoginTime(DateUtil.getNowTimestamp());
-        this.userMapper.updateByConditionSelective(user, condition);
+    public void updateLastLoginTimeByUsername(String username) {
+        userMapper.updateLastLoginTimeByUsername(username);
     }
 }

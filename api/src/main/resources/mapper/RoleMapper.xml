@@ -24,8 +24,8 @@
             p.id       AS permission_id,
             p.resource AS permission_resource,
             p.handle   AS permission_handle
-        FROM role r
-            LEFT JOIN role_permission rp ON r.id = rp.role_id
-            LEFT JOIN permission p ON rp.permission_id = p.id
+        FROM `role` r
+            LEFT JOIN `role_permission` rp ON r.id = rp.role_id
+            LEFT JOIN `permission` p ON rp.permission_id = p.id
     </select>
 </mapper>

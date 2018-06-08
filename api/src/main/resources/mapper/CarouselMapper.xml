@@ -21,7 +21,7 @@
             c.title,
             c.create_time,
             u.username
-        FROM carousel c
+        FROM `carousel` c
             LEFT JOIN `user` u ON u.id = c.user_id
         ORDER BY c.create_time DESC
     </select>
@@ -30,7 +30,7 @@
         SELECT
             c.*,
             u.username
-        FROM carousel c
+        FROM `carousel` c
             LEFT JOIN `user` u ON u.id = c.user_id
         WHERE c.id = #{carouselId}
     </select>

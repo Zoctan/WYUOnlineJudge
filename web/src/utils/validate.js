@@ -3,7 +3,7 @@
  * @param url
  * @returns {boolean}
  */
-export function isValidateURL(url) {
+export function validateURL(url) {
   const reg = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
   return reg.test(url)
 }
@@ -13,7 +13,7 @@ export function isValidateURL(url) {
  * @param str
  * @returns {boolean}
  */
-export function isValidateLowerCase(str) {
+export function validateLowerCase(str) {
   const reg = /^[a-z]+$/
   return reg.test(str)
 }
@@ -23,7 +23,7 @@ export function isValidateLowerCase(str) {
  * @param str
  * @returns {boolean}
  */
-export function isValidateUpperCase(str) {
+export function validateUpperCase(str) {
   const reg = /^[A-Z]+$/
   return reg.test(str)
 }
@@ -33,7 +33,7 @@ export function isValidateUpperCase(str) {
  * @param str
  * @returns {boolean}
  */
-export function isValidateAlphabets(str) {
+export function validateAlphabets(str) {
   const reg = /^[A-Za-z]+$/
   return reg.test(str)
 }
@@ -43,7 +43,7 @@ export function isValidateAlphabets(str) {
  * @param email
  * @returns {boolean}
  */
-export function isValidateEmail(email) {
+export function validateEmail(email) {
   const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return reg.test(email)
 }
@@ -53,12 +53,12 @@ export function isValidateEmail(email) {
  * @param roleName
  * @returns {boolean}
  */
-export function isValidateRoleName(roleName) {
+export function validateRoleName(roleName) {
   const reg = /^ROLE_[A-Z]+$/
   return reg.test(roleName)
 }
 
-export function isValidateString(string) {
+export function validateString(string) {
   const reg = {
     basic: / /, // vb中的简单空白字符过滤
     classic: /\s/, // 传统的js空白字符过滤

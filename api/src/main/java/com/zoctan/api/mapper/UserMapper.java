@@ -2,6 +2,7 @@ package com.zoctan.api.mapper;
 
 import com.zoctan.api.core.mapper.MyMapper;
 import com.zoctan.api.model.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +26,11 @@ public interface UserMapper extends MyMapper<User> {
      * @return 用户
      */
     User findDetailBy(Map<String, Object> param);
+
+    /**
+     * 更新用户登录时间
+     *
+     * @param username 用户名
+     */
+    void updateLastLoginTimeByUsername(@Param("username") String username);
 }

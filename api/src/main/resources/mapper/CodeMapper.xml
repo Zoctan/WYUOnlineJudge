@@ -21,8 +21,8 @@
         SELECT
         c.*,
         u.id AS user_id
-        FROM code c
-        LEFT JOIN user_code uc ON c.id = uc.code_id
+        FROM `code` c
+        LEFT JOIN `user_code` uc ON c.id = uc.code_id
         LEFT JOIN `user` u ON uc.user_id = u.id
         WHERE u.username = #{username}
         <if test="problemId != null">
