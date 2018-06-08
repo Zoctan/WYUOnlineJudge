@@ -4,9 +4,12 @@
       <el-carousel-item v-for="item in imageList"
                         :key="item.image"
                         :loading="loadingImage">
-        <router-link :to="{name: '详情',path:'/common', params: {id: item.id,type:'Carousel'}}">
+        <router-link v-if="hasPermission('contest:detail')" :to="{name: '详情',path:'/common', params: {id: item.id,type:'Carousel'}}">
           <img class="img" :src="item.image" style="width:100%;">
         </router-link>
+        <span class="hover" v-else @click="noLoginTip">
+          <img class="img" :src="item.image" style="width:100%;">
+        </span>
         <!-- <span class="title">{{ item }}</span> -->
       </el-carousel-item>
     </el-carousel>

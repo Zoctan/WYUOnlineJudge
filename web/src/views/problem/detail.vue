@@ -74,12 +74,12 @@
           <span slot="label"><svg-icon icon-class="documentation"/> 题目描述</span>
 
           <el-container>
-            <el-main width="80%">
+            <el-main width="79%">
               <div class="html-description" v-html="problem.description" v-if="problem.description"></div>
             </el-main>
-            <el-aside width="20%">
+            <el-aside width="23%">
               <el-row type="flex" class="card-row" justify="space-between">
-                <el-col :span="20"><span>题目难度：</span></el-col>
+                <el-col :span="17"><span>题目难度：</span></el-col>
                 <el-col :span="4">
                   <el-tag v-if="problem.level === 1" type="success" size="mini">简单</el-tag>
                   <el-tag v-else-if="problem.level === 2" type="warning" size="mini">中等</el-tag>
@@ -88,12 +88,12 @@
               </el-row>
 
               <el-row type="flex" class="card-row" justify="space-between">
-                <el-col :span="20"><span>提交次数：</span></el-col>
+                <el-col :span="17"><span>提交次数：</span></el-col>
                 <el-col :span="4"><span>{{ problem.submitted }}</span></el-col>
               </el-row>
 
               <el-row type="flex" class="card-row" justify="space-between">
-                <el-col :span="20"><span>通过次数：</span></el-col>
+                <el-col :span="17"><span>通过次数：</span></el-col>
                 <el-col :span="4"><span>{{ problem.accepted }}</span></el-col>
               </el-row>
             </el-aside>
@@ -431,6 +431,8 @@
 
   .el-main {
     padding-left: 0;
+    border-right: 1px solid rgba($color: #ccc, $alpha: 0.7);
+    margin-right: 10px;
   }
 
   .right {
