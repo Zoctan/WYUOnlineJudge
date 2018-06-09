@@ -13,7 +13,7 @@ def run_program():
         userId=request.json.get('userId'),
         language=request.json.get('language'),
         code=request.json.get('code'),
-        nums=request.json.get('nums')
+        nums=request.json.get('nums', 1)
     )
 
     result_list = QJudge(problem).run()
