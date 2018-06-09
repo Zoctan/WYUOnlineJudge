@@ -6,7 +6,7 @@ import subprocess
 import base64
 
 my_dir2 = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
-my_dir = '~/WYUOnlineJudge/judge/'
+my_dir = '/root/WYUOnlineJudge/judge/'
 
 config = {
     # 工作目录（用于存放各个用户提交的代码）
