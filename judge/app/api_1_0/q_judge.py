@@ -5,8 +5,8 @@ import os
 import subprocess
 import base64
 
-my_dir = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
-my_dir2 = '~/WYUOnlineJudge/judge/'
+my_dir2 = '/run/media/zoc/Data/github/WYUOnlineJudge/judge/'
+my_dir = '~/WYUOnlineJudge/judge/'
 
 config = {
     # 工作目录（用于存放各个用户提交的代码）
