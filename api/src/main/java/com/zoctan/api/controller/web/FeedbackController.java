@@ -18,12 +18,9 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/feedback")
 public class FeedbackController {
-    @Resource
-    private EmailUtil emailUtil;
-
     @PostMapping
     public Result email(@RequestBody final Feedback feedback) {
-        return this.emailUtil.sendHtmlMail(feedback)
+        return EmailUtil.sendDefaultHtmlEmail(feedback)
                 ? ResultGenerator.genOkResult()
                 : ResultGenerator.genFailedResult("邮件发送失败");
     }
