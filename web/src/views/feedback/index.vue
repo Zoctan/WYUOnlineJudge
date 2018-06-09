@@ -87,13 +87,13 @@
         },
         feedbackRules: {
           email: [{ required: true, trigger: 'blur', validator: validateEmail }],
-          content: [{ required: true, trigger: 'blur', validator: validateContent }]
+          markdownContent: [{ required: true, trigger: 'blur', validator: validateContent }]
         },
         feedback: {
           email: null,
-          content: null
-        },
-        markdownContent: null
+          content: null,
+          markdownContent: null
+        }
       }
     },
     methods: {
@@ -109,7 +109,7 @@
       sendFeedback() {
         this.$refs.feedback.validate(valid => {
           if (valid) {
-            if (this.feedback.content === null) {
+            if (this.markdownContent === null) {
               this.Tip.error('反馈内容为空')
             }
             this.btnLoading = true

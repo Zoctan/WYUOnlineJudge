@@ -81,11 +81,7 @@ public class ExceptionResolver {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
     public Result globalException(final HttpServletRequest request, final Throwable e) {
-        final Integer status = (Integer) request.getAttribute("javax.servlet.error.status_code");
         log.error(e.getMessage());
-        if (status == null) {
-            return ResultGenerator.genInternalServerErrorResult(request.getRequestURI());
-        }
-        return ResultGenerator.genFailedResult(e.getMessage());
+        return ResultGenerator.genInternalServerErrorResult(request.getRequestURI() + " => " + e.getMessage());
     }
 }
