@@ -229,3 +229,14 @@ class ResultBean:
 
     def to_json(self):
         return self.__dict__
+
+
+if __name__ == '__main__':
+    with open(my_dir + '/answer_dir/1/1.c', 'rb') as f:
+        base64_code = base64.b64encode(f.read())
+        result_list = QJudge(ProblemBean(problemId=1,
+                                         userId=1,
+                                         language='C',
+                                         code=base64_code,
+                                         nums=1)).run()
+        print(result_list)
