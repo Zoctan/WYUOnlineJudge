@@ -117,7 +117,7 @@ class QJudge:
                           env=[],
                           log_path="judger.log",
                           # can be None
-                          seccomp_rule_name="general",
+                          seccomp_rule_name="c_cpp",
                           uid=0,
                           gid=0)
         print(rst)
@@ -168,7 +168,11 @@ class QJudge:
                 rst = self._run_one(answer_in_path, answer_out_path)
                 if rst['result'] != 0 or rst['result'] != 100:
                     with open(self.user_err_file_path) as f:
-                        result_bean = ResultBean(problem=self.problem, status=rst['result'], error=f.read())
+                        result_bean = ResultBean(problem=self.problem,
+                                                 status=rst['result'],
+                                                 error=f.read(),
+                                                 timeUsed=rst['real_time'],
+                                                 memoryUsed=rst['memory'])
                 else:
                     result_bean = ResultBean(problem=self.problem,
                                              status=rst['result'],
