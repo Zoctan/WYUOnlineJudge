@@ -137,8 +137,16 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column prop="memoryUsed" label="消耗内存" align="center"/>
-              <el-table-column prop="timeUsed" label="消耗时间" align="center"/>
+              <el-table-column prop="memoryUsed" label="消耗内存" align="center">
+                <template slot-scope="scope">
+                  {{ scope.row.memoryUsed + ' b' }}
+                </template>
+              </el-table-column>
+              <el-table-column prop="timeUsed" label="消耗时间" align="center">
+                <template slot-scope="scope">
+                  {{ scope.row.timeUsed + ' ms' }}
+                </template>
+              </el-table-column>
             </el-table>
             <div slot="footer" class="dialog-footer">
               <el-button @click="dialogCodeVisible = false">确定</el-button>
@@ -205,21 +213,21 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import { Base64 } from 'js-base64'
-  import { run as runCode, submit as submitCode, listSubmitCode } from '@/api/code'
+  import {mapGetters} from 'vuex'
+  import {Base64} from 'js-base64'
+  import {run as runCode, submit as submitCode, listSubmitCode} from '@/api/code'
   import {
     listProblem as listUserFavoriteProblem,
     add as addFavorite,
     addProblem as addProblem2Favorite,
     removeProblem as removeProblemFromFavorite
   } from '@/api/favorite'
-  import { detail as getProblemDetail } from '@/api/problem'
-  import { unix2CurrentTime } from '@/utils'
+  import {detail as getProblemDetail} from '@/api/problem'
+  import {unix2CurrentTime} from '@/utils'
   import CodeEditor from '@/components/CodeEditor'
 
   export default {
-    components: { CodeEditor },
+    components: {CodeEditor},
     created() {
       this.getProblemDetail()
       this.listUserFavoriteProblem()
@@ -250,7 +258,7 @@
         totalFavorite: 0, // 用户收藏夹数
         favoriteSwitch: [], // 各个收藏夹是否收藏了该题目
         switchDisabled: false, // 其他收藏夹收藏时，禁止切换
-        isPrivateOptions: [{ label: '私有', value: true }, { label: '公开', value: false }], // 新收藏夹是否对外公开
+        isPrivateOptions: [{label: '私有', value: true}, {label: '公开', value: false}], // 新收藏夹是否对外公开
         newFavorite: { // 新收藏夹
           title: null,
           userId: null,
