@@ -129,13 +129,14 @@
 </script>
 <style lang="scss" scoped>
   .title {
-    text-align: center;
+    text-align: left;
     font-size: 25px;
     font-weight: 600;
     padding-bottom: 10px;
   }
 
   .tips {
+    text-indent:28px;
     font-size: 14px;
     padding-bottom: 20px;
     color: #707070;

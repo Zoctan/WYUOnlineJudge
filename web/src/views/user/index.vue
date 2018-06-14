@@ -389,6 +389,8 @@
   }
 
   .el-button {
+    display: block;
     text-align: left;
+    margin: 5px auto;
   }
 </style>
