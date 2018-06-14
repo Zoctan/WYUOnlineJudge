@@ -11,6 +11,7 @@ const getters = {
   resume: state => state.user.resume,
   roleName: state => state.user.roleName,
   permissionCodeList: state => state.user.permissionCodeList,
+  showlogin: state => state.user.showlogin,
 
   codeMirrorLanguage: state => state.codeMirror.language,
   codeMirrorTheme: state => state.codeMirror.theme,

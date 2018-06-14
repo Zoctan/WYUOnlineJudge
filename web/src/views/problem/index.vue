@@ -186,7 +186,8 @@
           hard: 0
         },
         opinionData: [],
-        show: false
+        show: false,
+        loading:true
       }
     },
     computed: {
@@ -300,7 +301,7 @@
         if (total) {
           dataArr = [
             { name: `已解决/${this.record.solved}`, value: this.record.solved },
-            { name: `总量/${this.record.total}`, value: this.record.total }
+            { name: `总量/${total}`, value: total }
           ]
         } else {
           dataArr = [
@@ -308,6 +309,7 @@
             { name: '总量/499', value: 499 }
           ]
         }
+        console.log
         return dataArr
       }
     }

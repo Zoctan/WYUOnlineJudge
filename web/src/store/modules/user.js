@@ -12,7 +12,8 @@ const user = {
     registerTime: 0,
     resume: null,
     roleName: null,
-    permissionCodeList: []
+    permissionCodeList: [],
+    showlogin: false
   },
 
   mutations: {
@@ -41,6 +42,9 @@ const user = {
       state.resume = null
       state.roleName = null
       state.permissionCodeList = []
+    },
+    change_showLogin: (state, showlogin) => {
+      state.showlogin = showlogin
     }
   },
 

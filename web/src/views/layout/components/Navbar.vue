@@ -20,11 +20,11 @@
             <span @click="logout" style="display:block;">登出</span>
           </el-dropdown-item>
 
-          <router-link class="inlineBlock" v-else to="/login/index">
-            <el-dropdown-item divided>
-              <span style="display:block;">登录</span>
+          <!-- <router-link class="inlineBlock" v-else to="/login/index"> -->
+            <el-dropdown-item v-else divided>
+              <span @click="loginWindow" style="display:block;">登录</span>
             </el-dropdown-item>
-          </router-link>
+          <!-- </router-link> -->
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -43,12 +43,12 @@
       Breadcrumb,
       Hamburger,
       Screenfull,
-      Sidebar
+      Sidebar,
     },
     data() {
       return {
         time: null,
-        activeIndex: '/home'
+        activeIndex: this.$route.path
       }
     },
     computed: {
@@ -57,7 +57,8 @@
         'username',
         'sidebar',
         'permissionRouters',
-        'avatar'
+        'avatar',
+        'showlogin'
       ])
     },
     methods: {
@@ -74,6 +75,9 @@
       ListenactiveIndex(e) {
         console.log(e)
         this.activeIndex = e
+      },
+      loginWindow(){
+        this.$store.commit('change_showLogin',true)
       }
     }
   }

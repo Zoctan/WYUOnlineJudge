@@ -34,3 +34,13 @@
   position: absolute;
 }
 
+// fade
+
+.login-fade-enter-active, 
+.login-fade-leave-active {
+  transition: opacity .5s;
+}
+.login-fade-enter, 
+.login-fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

@@ -17,7 +17,7 @@
                           prop="content">
               <markdown-editor id="contentEditor"
                                ref="contentEditor"
-                               v-model="markdownContent"
+                               v-model="feedback.markdownContent"
                                :height="300"></markdown-editor>
             </el-form-item>
             <div class="button">
